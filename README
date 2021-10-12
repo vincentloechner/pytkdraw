@@ -1,0 +1,51 @@
+------------------------------------------------------------------------------
+CONTENT
+
+This repository contains a Python3 module named graph, that was developed as
+an easy to use graphical library for Python3 beginners or for people who just
+wish to draw simple graphical objects in a window. It is synchronous, which
+means that you don't have to handle asynchronous calls to predefined functions
+to react to the interface events. It provides a basic "fenetre" class, that
+opens a simple tkinter window containing a canvas. The single function waiting
+for an event to occur is wait_event(), and there are various drawing functions.
+
+------------------------------------------------------------------------------
+USAGE
+
+- install tkinter for pyhton3
+  ('sudo apt install python3-tk' on most linux distributions)
+- install graph.py
+
+- Try the following code:
+```
+import graph
+
+g = graph.fenetre((10, 10))
+for i in range(10):
+    for j in range(10):
+        if (i+j) % 2 == 0:
+            g.draw_tile((i, j))
+
+while g.wait_event()[0] != "END":
+    pass
+
+g.close()
+```
+Run with python3.
+
+------------------------------------------------------------------------------
+HISTORY
+
+This module was first written in 2018, when Vincent was in charge of the
+"algorithms & programming" course based on python3, in the first year of
+Strasbourg University Bachelor degree in Computer Science.
+
+Since then various version have been given to some 400 students entering this
+diploma each year.
+
+------------------------------------------------------------------------------
+COPYRIGHT
+
+Copyright 2018-2021, Vincent Loechner.
+Distributed under the WTFPL license, version 2 (http://www.wtfpl.net/)
+Basically, you can do what you want with this code, it's free.
