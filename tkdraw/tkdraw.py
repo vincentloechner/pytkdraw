@@ -1,7 +1,5 @@
 """Basic draw graphical user interface (GUI) based on tkinter, synchroneous.
 
-Version 0.1e
-
 Test this module using `python -m tkdraw`
 The online documentation is available under python3:
 ```
