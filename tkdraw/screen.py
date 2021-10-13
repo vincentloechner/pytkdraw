@@ -590,7 +590,7 @@ class screen(tk.Canvas):
 ###########################################################################
 # Test program: 8x8 board, click to place/remove black/white pieces       #
 ###########################################################################
-def main():
+if __name__ == "__main__":
     # open the window containing a board
     SIZE = 8
     PIXEL_SIZE = 100
