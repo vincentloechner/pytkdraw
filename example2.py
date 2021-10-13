@@ -1,5 +1,5 @@
 """Basic example usage of the tkdraw module, pixels version."""
-import tkdraw
+from tkdraw import screen
 
 # 1 = green, 2 = lightgreen
 image = [
