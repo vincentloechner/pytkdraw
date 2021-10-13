@@ -36,7 +36,7 @@ def ouvre_fenetre(hauteur, largeur):
     global fengra
     assert fengra is None, "ERREUR : la fonction ouvre_fenetre() a été appelée\
  plus d'une fois dans votre programme!"
-    fengra = tkd.screen((hauteur, largeur), 1, axes=False)
+    fengra = tkd.screen((hauteur, largeur), 1, grid=False)
 
 
 def plot(ligne, colonne, couleur="black"):
@@ -59,7 +59,7 @@ def plot(ligne, colonne, couleur="black"):
     - 0 <= colonne < largeur
     """
     assert fengra, "ERREUR : la fonction ouvre_fenetre() n'a pas été appelée !"
-    fengra.draw_tile((ligne, colonne), couleur=couleur, refresh=False)
+    fengra.draw_tile((ligne, colonne), color=couleur, refresh=False)
 
 
 def refresh():
