@@ -1,7 +1,7 @@
 # A basic draw GUI for Python3 based on tkinter, synchroneous.
 
 [](---------------------------------------------------------------------------)
-## CONTENT
+## CONTENT
 
 This repository contains a Python3 module that was developed as an easy to use
 tkdrawical library for Python3 beginners or for people who just wish to draw
