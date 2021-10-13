@@ -1,0 +1,20 @@
+
+HOWTO build and update the package on pypi from the git tree:
+
+1. build the archives from the main repository:
+python3 -m build
+
+2. upload them to pypi test repo:
+python3 -m twine upload --repository testpypi dist/*
+
+3. test it in a python3 virtual environment:
+# create a virtual venv:
+python3 -m venv ./python_venv_testing
+# jump to the venv:
+source ./python_venv_testing/bin/activate
+# install the module here:
+python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps tkdraw_VincentLoechner
+# test it
+python3
+>>> import tkdraw
+>>> from tkdraw import tkdraw
