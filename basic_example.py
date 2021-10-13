@@ -1,10 +1,10 @@
-"""Basic example usage of the graph module, board version."""
-import graph
+"""Basic example usage of the tkdraw module, board version."""
+import tkdraw
 
 SIZE=20
 # open a window containing a SIZExSIZE board, each tile is 50 pixels wide,
 # with a black grid separating the tiles
-g = graph.fenetre((SIZE, SIZE), 50, grid=True)
+g = tkdraw.screen((SIZE, SIZE), 50, grid=True)
 
 # draw checkered tiles in it
 for i in range(SIZE):

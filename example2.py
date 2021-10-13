@@ -1,5 +1,5 @@
-"""Basic example usage of the graph module, pixels version."""
-import graph
+"""Basic example usage of the tkdraw module, pixels version."""
+import tkdraw
 
 # 1 = green, 2 = lightgreen
 image = [
@@ -13,8 +13,8 @@ ENLARGE = 50
 
 VSIZE=ENLARGE*len(image)
 HSIZE=ENLARGE*len(image[0])
-# open a window of VSIZExHSIZE pixels
-g = graph.fenetre((VSIZE, HSIZE), 1, grid=False)
+# open a window of VSIZExHSIZE pixels (1-pixel sized tiles, no grid)
+g = screen.screen((VSIZE, HSIZE), 1, grid=False)
 
 # draw the enlarged image
 for y in range(VSIZE):

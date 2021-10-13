@@ -1,28 +1,28 @@
-"""Graphical interface based on tkinter, synchroneous.
+"""Basic draw graphical user interface (GUI) based on tkinter, synchroneous.
 
 Version 0.1d
 
-Test this module using `python -m graph.py`
-
-The main class "fenetre" and its methods are described below.
+Test this module using `python -m tkdraw`
 The online documentation is available under python3:
 ```
 $ python3
->>> import graph
->>> help(graph)
+>>> import tkdraw
+>>> help(tkdraw)
 or
->>> help(graph.fenetre.FUNC_NAME)
+>>> help(tkdraw.screen.FUNC_NAME)
 ```
 
 Copyright 2018-2021, Vincent Loechner.
 Distributed under the WTFPL license, version 2 (http://www.wtfpl.net/)
+
+GIT source: https://github.com/vincentloechner/pytkdraw.git
 """
 
 import tkinter as tk
 import queue
 
 
-class fenetre(tk.Canvas):
+class screen(tk.Canvas):
     """Main class for a window containing a board (2D grid).
 
     _Parameters_
@@ -45,7 +45,7 @@ class fenetre(tk.Canvas):
 
         Create a tkinter root object and a canvas (from which we inherit).
         Redirects all events to the appropriate functions.
-        Arguments are described in the "fenetre" main class.
+        Arguments are described in the "screen" main class.
         """
         # some private methods below, to react to asynchronous events:
 
@@ -528,7 +528,7 @@ class fenetre(tk.Canvas):
           ("key", letter)
           where letter is a string containing a description of the key.
           If you're looking for a specific key, just give a try to the demo:
-          `python3 -m graph` will print all occuring events in the console
+          `python3 -m tkdraw` will print all occuring events in the console
         - if the user closes the window, return the couple
           ("END", None)
         - if the delay expires (when given), the special value
@@ -596,8 +596,8 @@ if __name__ == "__main__":
     # open the window containing a board
     SIZE = 8
     PIXEL_SIZE = 100
-    # use graph.fenetre() if you include this as a module with 'import graph'
-    g = fenetre((SIZE, SIZE), PIXEL_SIZE)
+    # use tkdraw.screen() if you include this as a module with 'import tkdraw'
+    g = screen((SIZE, SIZE), PIXEL_SIZE)
 
     # checkered tiles:
     for i in range(SIZE):
