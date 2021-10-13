@@ -1,6 +1,6 @@
 """Basic draw graphical user interface (GUI) based on tkinter, synchroneous.
 
-Version 0.1d
+Version 0.1e
 
 Test this module using `python -m tkdraw`
 The online documentation is available under python3:
@@ -13,7 +13,7 @@ or
 ```
 
 Copyright 2018-2021, Vincent Loechner.
-Distributed under the WTFPL license, version 2 (http://www.wtfpl.net/)
+Distributed under the MIT license (see LICENSE)
 
 GIT source: https://github.com/vincentloechner/pytkdraw.git
 """
