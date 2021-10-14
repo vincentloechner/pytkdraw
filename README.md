@@ -29,7 +29,9 @@ immediate result. Check the demo:
 - if you don't have it yet, install tkinter for python3
   (`sudo apt install python3-tk` on most linux distributions)
 - install tkdraw
-  **TODO**: explain howto
+```
+python3 -m pip install tkdraw
+```
 
 - Try the following code:
 ```py
