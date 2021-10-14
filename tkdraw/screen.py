@@ -5,7 +5,7 @@ The online documentation is available under python3:
 ```
 $ python3
 >>> import tkdraw.screen as tdk
->>> help(tkd.screen)
+>>> help(tkd.open)
 or
 >>> help(tkd.FUNC_NAME)
 ```
@@ -20,7 +20,7 @@ import tkinter as tk
 import queue
 
 
-class screen(tk.Canvas):
+class open(tk.Canvas):
     """Main class for a window containing a board (2D grid).
 
     _Parameters_
@@ -43,7 +43,7 @@ class screen(tk.Canvas):
 
         Create a tkinter root object and a canvas (from which we inherit).
         Redirects all events to the appropriate functions.
-        Arguments are described in the "screen" main class.
+        Arguments are described in the "open" main class.
         """
         # some private methods below, to react to asynchronous events:
 
@@ -594,8 +594,9 @@ if __name__ == "__main__":
     # open the window containing a board
     SIZE = 8
     PIXEL_SIZE = 100
-    # use tkdraw.screen() if you include this as a module with 'import tkdraw'
-    g = screen((SIZE, SIZE), PIXEL_SIZE)
+    # use tkdraw.screen.open() if you include this as a module with
+    # 'import tkdraw.screen'
+    g = open((SIZE, SIZE), PIXEL_SIZE)
 
     # checkered tiles:
     for i in range(SIZE):

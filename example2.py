@@ -1,4 +1,4 @@
-"""Example usage of the tkdraw module, pixels version."""
+"""Example usage of the tkdraw screen module, pixels version."""
 from tkdraw import screen
 
 # 1 = green, 2 = lightgreen
@@ -14,7 +14,7 @@ ENLARGE = 50
 HEIGHT=ENLARGE*len(image)
 WIDTH=ENLARGE*len(image[0])
 # open a window of HEIGHTxWIDTH pixels (1-pixel sized tiles, no grid)
-g = screen.screen((HEIGHT, WIDTH), 1, grid=False)
+g = screen.open((HEIGHT, WIDTH), 1, grid=False)
 
 # draw the enlarged image
 for y in range(HEIGHT):

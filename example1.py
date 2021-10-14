@@ -1,4 +1,4 @@
-"""Example usage of the tkdraw module, board version."""
+"""Example usage of the tkdraw screen module, board version."""
 import tkdraw.screen
 
 HEIGHT = 10
@@ -7,7 +7,7 @@ TILE_SIZE = 100
 
 # open a window containing a HEIGHTxWIDTH board,
 # each tile is TILE_SIZE pixels wide,
-g = tkdraw.screen.screen((HEIGHT, WIDTH), TILE_SIZE)
+g = tkdraw.screen.open((HEIGHT, WIDTH), TILE_SIZE)
 
 # draw checkered tiles in it
 for i in range(HEIGHT):
