@@ -1,4 +1,4 @@
-"""Basic example usage of the tkdraw module, pixels version."""
+"""Example usage of the tkdraw module, pixels version."""
 from tkdraw import screen
 
 # 1 = green, 2 = lightgreen
@@ -11,14 +11,14 @@ image = [
 ]
 ENLARGE = 50
 
-VSIZE=ENLARGE*len(image)
-HSIZE=ENLARGE*len(image[0])
-# open a window of VSIZExHSIZE pixels (1-pixel sized tiles, no grid)
-g = screen.screen((VSIZE, HSIZE), 1, grid=False)
+HEIGHT=ENLARGE*len(image)
+WIDTH=ENLARGE*len(image[0])
+# open a window of HEIGHTxWIDTH pixels (1-pixel sized tiles, no grid)
+g = screen.screen((HEIGHT, WIDTH), 1, grid=False)
 
 # draw the enlarged image
-for y in range(VSIZE):
-    for x in range(HSIZE):
+for y in range(HEIGHT):
+    for x in range(WIDTH):
         l, c = y//ENLARGE, x//ENLARGE
         if image[l][c] == 1:
             g.draw_tile((y, x), "green", refresh=False)
