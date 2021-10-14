@@ -1,101 +1,110 @@
-"""Interface graphique basée sur tkinter, non événementielle.
+"""Basic interface to the tkdraw.screen module
 
-Ce module fournit quatre fonctions élémentaires décrites ci-dessous, pour :
-- ouvrir une fenêtre,
-- afficher un pixel dans la fenêtre,
-- rafraichir la fenêtre,
-- attendre sa fermeture.
+This module provides four elementary functions to:
+- open a window
+- plot a pixel at a given position in the window
+- refresh the window (at any step of your program)
+- wait for the user to close the window
 
-Si une précondition de ces fonctions n'est pas vérifiée, le programme
-s'arrête brutalement avec une erreur de type "AssertionError"
+Python3 will fail with an "AssertionError" if any precondition of those
+functions is not met.
 
 Copyright 2019-2020, Vincent Loechner <loechner@unistra.fr>
-Distribué sous licence MIT
-"""
+Distributed under the MIT license (see LICENSE)
 
-# import tkinter as tk
-# import queue
+Source: https://github.com/vincentloechner/pytkdraw.git
+"""
 import tkdraw.screen as tkd
 
 
-"""fengra (global): objet de la version simplifiée de cette bibliothèque."""
-fengra = None
+"""window (global): main window of this simplified version."""
+window = None
 
 
-def ouvre_fenetre(hauteur, largeur):
-    """Ouvre une fenêtre graphique.
+def open(height, width):
+    """Open a window of the given height, width.
 
-    Paramètres :
-    - hauteur, largeur (entiers) : taille de la fenêtre en pixels
-    Préconditions :
-    - la fenêtre ne peut être ouverte qu'une seule fois, mais si vous la
-    fermez (avec attend_fenetre() dans votre programme), vous pouvez en
-    rouvrir une nouvelle
+    _Parameters_
+    - height, width (int) : size of the window (in pixels)
+
+    _Preconditions_
+    - this function can be called only once, but if you wait() for the user to
+      close a previously opened window you can open a new one.
     """
-    # initialise la variable globale fengra utilisée dans les autres fonctions
-    global fengra
-    assert fengra is None, "ERREUR : la fonction ouvre_fenetre() a été appelée\
- plus d'une fois dans votre programme!"
-    fengra = tkd.screen((hauteur, largeur), 1, grid=False)
+    global window
+    assert window is None, "ERROR : function open() was called twice\
+ in your program!"
+    window = tkd.screen((height, width), 1, grid=False)
 
 
-def plot(ligne, colonne, couleur="black"):
-    """Affiche un pixel en position (ligne, colonne).
+def plot(line, column, color="black"):
+    """Plot a pixel at position (line, column).
 
-    Remarque : l'affichage n'est vraiment effectué à l'écran qu'après appel
-    de la fonction refresh().
-    Paramètres :
-    - ligne, colonne (entiers): position du pixel à afficher dans la fenêtre
-    - couleur (paramètre optionnel, chaîne de caractères) : une couleur
-      tkinter. La couleur par défaut est le noir.
-      Cet argument est une chaîne de caractère représentant une couleur valide
-      de la bibliothèque tkinter. Voir par exemple :
-      http://www.science.smith.edu/dftwiki/index.php/Color_Charts_for_TKinter
-      On peut aussi spécifier un code RGB, par exemple "#FF0000" -> rouge.
-    Préconditions :
-    - la fenêtre doit avoir été ouverte précédemment : la fonction
-      ouvre_fenetre(hauteur, largeur) doit avoir été appelée
-    - 0 <= ligne < hauteur
-    - 0 <= colonne < largeur
+    Usage notice : the effective rendering of this pixel will only be done once
+    you call refresh() or wait().
+
+    _Parameters_
+    - line, column (int): position of the pixel to plot
+      (0, 0) is the top-left position.
+    Optional:
+    - color (str): a color (default value: "black").
+      This string shall contain a tkinter-compatible color string -
+      for a list of predefined color names see for example:
+      https://www.wikipython.com/tkinter-ttk-tix/summary-information/colors/
+      You can also specify an RGB-style color such as "#FF0000" for red.
+
+    _Preconditions_
+    - the window must have been opened with a call to open(height, width)
+    - 0 <= line < height
+    - 0 <= column < width
     """
-    assert fengra, "ERREUR : la fonction ouvre_fenetre() n'a pas été appelée !"
-    fengra.draw_tile((ligne, colonne), color=couleur, refresh=False)
+    assert window, "ERROR: trying to plot in a non-existing window!"
+    window.draw_tile((line, column), color=color, refresh=False)
 
 
 def refresh():
-    """Rafraîchit la fenêtre graphique.
+    """Refresh the window.
 
-    Tous les plot() appelés précédemment sont affichés à l'écran.
-    Précondition :
-    - la fenêtre doit avoir été ouverte précédemment : la fonction
-      ouvre_fenetre() doit avoir été appelée
+    All plots that you did before this call will be displayed for real in the
+    window.
+
+    _Parameters_
+    None
+
+    _Preconditions_
+    - the window must have been opened
     """
-    assert fengra, "ERREUR : la fonction ouvre_fenetre() n'a pas été appelée !"
-    fengra.refresh()
+    assert window, "ERROR: trying to refresh a non existing window!"
+    window.refresh()
 
 
-def attend_fenetre():
-    """Attend que l'utilisateur ferme la fenêtre graphique.
+def wait():
+    """Wait for the user to close the window.
 
-    L'utilisateur peut quitter en fermant la fenêtre grâce au bouton de son
-    environnement graphique, ou en appuyant la touche 'esc' ou 'q'.
-    Remarque : si vous n'appelez pas cette fonction avant la fin de votre
-    programme, la fenêtre se ferme automatiquement lorsqu'il s'arrête.
-    Précondition :
-    - la fenêtre doit avoir été ouverte précédemment : la fonction
-      ouvre_fenetre() doit avoir été appelée
+    This function is blocking, it will return once the user has (1) closed the
+    window using the mouse, or (2) hit the 'escape' or 'q' key.
+
+    Usage notice: you have to call this function before the end of your
+    program, or you won't be able to see the content of the window. If you
+    don't call this function, the window will just disapear when the program
+    exits.
+
+    _Parameters_
+    None
+
+    _Preconditions_
+    - the window must have been opened
     """
-    global fengra
+    global window
 
-    assert fengra, "ERREUR : la fonction ouvre_fenetre() n'a pas été appelée !"
-    fengra.refresh()
+    assert window, "ERROR: trying to close a non existing window!"
+    window.refresh()
     while True:
-        p = fengra.wait_event()
+        p = window.wait_event()
         if p[0] == "END":
-            # si l'utilisateur ferme la fenêtre je quitte
             break
         if p[0] == "key" and (p[1] == "Escape" or p[1] == "q"):
-            # si l'utilisateur appuie la touche <esc> ou <q> idem
             break
-    fengra.close()
-    fengra = None
+        # ignore all other events
+    window.close()
+    window = None
