@@ -1,11 +1,12 @@
-# A basic draw GUI for Python3 based on tkinter, synchroneous.
+# A basic draw GUI for Python3.
 
 [](---------------------------------------------------------------------------)
 ## CONTENT
 
-This repository contains two Python3 modules that were developed as easy to use
+This python3 package contains two modules that were developed as easy to use
 graphical libraries for Python3 beginners or for people who just wish to draw
-simple graphical objects in a window.
+simple graphical objects in a window. They are based on tkinter but they are
+synchronous.
 
 The main module is tkdraw.screen. It is synchronous, which means that you don't
 have to handle asynchronous calls to predefined functions to react to the
