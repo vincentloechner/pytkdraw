@@ -34,7 +34,7 @@ def open(height, width):
     global window
     assert window is None, "ERROR : function open() was called twice\
  in your program!"
-    window = tkd.screen((height, width), 1, grid=False)
+    window = tkd.open((height, width), 1, grid=False)
 
 
 def plot(line, column, color="black"):
@@ -108,3 +108,15 @@ def wait():
         # ignore all other events
     window.close()
     window = None
+
+
+############################### test module ##################################
+if __name__ == "__main__":
+    HEIGHT = 300
+    WIDTH = 400
+    open(HEIGHT, WIDTH)
+    for i in range(HEIGHT):
+        for j in range(WIDTH):
+            plot(i, j, color=["black", "red", "white", "green"][((i+j)//15)%4])
+        refresh()
+    wait()
