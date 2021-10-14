@@ -77,4 +77,5 @@ Since then it was used by some 400 students applying to this diploma each year.
 ## COPYRIGHT
 
 Copyright 2018-2021, Vincent Loechner.
+
 Distributed under the MIT license.
