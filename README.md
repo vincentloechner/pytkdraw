@@ -3,14 +3,24 @@
 [](---------------------------------------------------------------------------)
 ## CONTENT
 
-This repository contains a Python3 module that was developed as an easy to use
-graphical library for Python3 beginners or for people who just wish to draw
-simple graphical objects in a window. It is synchronous, which means that you
-don't have to handle asynchronous calls to predefined functions to react to
-the interface events. It provides a basic `screen` class, that opens a simple
-tkinter window containing a canvas where you can draw boards or pixels. The
-single function waiting for an event to occur is `wait_event()`, and there are
-various drawing functions.
+This repository contains two Python3 modules that were developed as easy to use
+graphical libraries for Python3 beginners or for people who just wish to draw
+simple graphical objects in a window.
+
+The main module is tkdraw.screen. It is synchronous, which means that you don't
+have to handle asynchronous calls to predefined functions to react to the
+interface events. It provides a basic class, that opens a simple tkinter window
+containing a canvas where you can draw boards or pixels. There is a single
+function waiting for an event to occur and there are various drawing functions.
+It is also very convenient to draw rectangular boards and simple pieces (as
+colored circles). Check the examples or run the demo:
+`python3 -m tkdraw.screen`.
+
+The tkdraw.basic module provides four elementary functions: to open a window,
+plot a pixel, refresh the window, and wait for the user to close it. It can be
+used by complete python beginners to learn how to write loops, and get a visual
+immediate result. Check the demo:
+`python3 -m tkdraw.basic`
 
 [](---------------------------------------------------------------------------)
 ## USAGE
@@ -29,6 +39,8 @@ for i in range(10):
     for j in range(10):
         if (i+j) % 2 == 0:
             g.draw_tile((i, j))
+
+g.draw_piece(1, 5)
 
 while g.wait_event()[0] != "END":
     pass
