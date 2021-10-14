@@ -22,9 +22,9 @@ various drawing functions.
 
 - Try the following code:
 ```py
-import tkdraw
+import tkdraw.screen
 
-g = tkdraw.screen((10, 10))
+g = tkdraw.screen.screen((10, 10))
 for i in range(10):
     for j in range(10):
         if (i+j) % 2 == 0:
