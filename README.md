@@ -26,9 +26,10 @@ immediate result. Check the demo:
 [](---------------------------------------------------------------------------)
 ## USAGE
 
-- if you don't have it yet, install tkinter for python3
+- If you don't have it yet, install tkinter for python3
   (`sudo apt install python3-tk` on most linux distributions)
-- install tkdraw
+
+- Install tkdraw using pip:
 ```
 python3 -m pip install tkdraw
 ```
@@ -55,17 +56,16 @@ Run with python3.
 [](---------------------------------------------------------------------------)
 ## HISTORY
 
-This module was first written in 2018, when Vincent was in charge of the
-*Algorithms & Programming* course based on python3, in the first year of
+The `screen` module was first written in 2018, when Vincent was in charge of
+the *Algorithms & Programming* course based on python3, in the first year of
 Strasbourg University Bachelor degree in Computer Science. It's original
-name was `graph.py`.
+name was `graph.py`. The simplified `basic` module was written in 2019, for
+complete python3 beginners to feel more comfortable with basic function calls.
 
-Since then various version have been given to some 400 students applying to
-this diploma each year.
+Since then it was used by some 400 students applying to this diploma each year.
 
 [](---------------------------------------------------------------------------)
 ## COPYRIGHT
 
 Copyright 2018-2021, Vincent Loechner.
-
 Distributed under the MIT license.
