@@ -11,8 +11,8 @@ image = [
 ]
 ENLARGE = 50
 
-HEIGHT=ENLARGE*len(image)
-WIDTH=ENLARGE*len(image[0])
+HEIGHT = ENLARGE*len(image)
+WIDTH = ENLARGE*len(image[0])
 # open a window of HEIGHTxWIDTH pixels (1-pixel sized tiles, no grid)
 g = screen.open((HEIGHT, WIDTH), 1, grid=False)
 

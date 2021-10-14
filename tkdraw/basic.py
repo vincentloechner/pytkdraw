@@ -1,4 +1,4 @@
-"""Basic interface to the tkdraw.screen module
+"""Basic interface to the tkdraw.screen module.
 
 This module provides four elementary functions to:
 - open a window
@@ -110,13 +110,16 @@ def wait():
     window = None
 
 
-############################### test module ##################################
+##############################################################################
+# test module
+##############################################################################
 if __name__ == "__main__":
     HEIGHT = 300
     WIDTH = 400
     open(HEIGHT, WIDTH)
     for i in range(HEIGHT):
         for j in range(WIDTH):
-            plot(i, j, color=["black", "red", "white", "green"][((i+j)//15)%4])
+            plot(i, j,
+                 color=["black", "red", "white", "green"][((i+j)//15) % 4])
         refresh()
     wait()

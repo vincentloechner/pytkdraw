@@ -2,7 +2,7 @@
 import tkdraw.screen
 
 HEIGHT = 10
-WIDTH  = 15
+WIDTH = 15
 TILE_SIZE = 100
 
 # open a window containing a HEIGHTxWIDTH board,

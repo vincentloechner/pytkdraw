@@ -564,7 +564,7 @@ class open(tk.Canvas):
             ####################
 
     def mouse_position(self):
-        """Return the mouse position (pixel-wise)
+        """Return the mouse position (pixel-wise).
 
         Usage notice: if a coordinate is negative or greater than the window
         size, the mouse is out of the window.
@@ -607,11 +607,11 @@ if __name__ == "__main__":
 
     # welcome message
     msg = g.draw_text((PIXEL_SIZE//2, PIXEL_SIZE+PIXEL_SIZE//2),
-                          "Hello!\nclick here ->")
+                      "Hello!\nclick here ->")
 
     # main loop: wait for user clicks and draw pieces.
     # tab = 2D grid containing the graphical object IDs
-    # if you click again on a piece it will be deleted and the same player plays
+    # if you click again on a piece it will be deleted, same player plays
     tab = [[None]*SIZE for i in range(SIZE)]
     player = 1  # white player starts, black = -1.
     while True:
@@ -644,7 +644,7 @@ if __name__ == "__main__":
         g.rm(msg)
         # and put a new one
         msg = g.draw_text((PIXEL_SIZE//2, PIXEL_SIZE+PIXEL_SIZE//2),
-                              [0, "white player", "black player"][player])
+                          [0, "white player", "black player"][player])
 
     # at the end, close the window properly
     g.close()

@@ -1,3 +1,4 @@
+"""Example usage, same as in the README."""
 import tkdraw.screen
 
 # open a window containing a 8x8 board,
