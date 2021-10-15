@@ -28,3 +28,12 @@ python3
 >>> import tkdraw
 >>> from tkdraw import screen
 >>> help(screen.open)
+
+------------------------------------------------------------------------------
+HOWTO move to development mode:
+
+1. build the project from the main repository:
+python3 -m build
+
+2. move to dev mode using the setup.py script:
+./setup.py develop
