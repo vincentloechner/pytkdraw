@@ -84,6 +84,7 @@ class open(tk.Canvas):
         self.pixels = pixels
         self.root = None
         self.after_id = None
+        self.gap = 0
 
         self.eventq = queue.Queue()
 
@@ -198,7 +199,7 @@ class open(tk.Canvas):
         """
         assert self.root, "ERROR: window closed!"
         # erase everything for a start
-        self.erase()
+        self.delete(tk.ALL)
         # gap is used by draw_tile to fill the inside of a tile (including
         # borders, or not
         if grid:
@@ -234,6 +235,9 @@ class open(tk.Canvas):
         """
         assert self.root, "ERROR: window closed!"
         self.delete(tk.ALL)
+        # redraw the grid if it was there:
+        if self.gap == 1:
+            self.draw_grid()
 
     ###########################################################################
     # INTERMEDIATE LEVEL INTERFACE                                            #
