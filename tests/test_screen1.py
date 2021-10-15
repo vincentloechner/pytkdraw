@@ -22,14 +22,24 @@ for i in range(HEIGHT):
     for j in range(WIDTH):
         if (i+j) % 2 == 0:
             g.draw_tile((i, j), "grey")
+
 g.message("""This is a message box.
 You should see a checkered board in the window.
 Just click anywhere to continue.
 """)
 
+for i in range(HEIGHT):
+    for j in range(WIDTH):
+        if grid[i][j] is not None:
+            g.draw_piece((i, j), grid[i][j])
+
+g.message("""You should see a board containing colored pieces in the window.
+<click>
+""")
+
 g_objects = g.draw_grid(grid)
 
-g.message("""You should see a board containing colored tiles in the window.
+g.message("""And now the same one, without the checkered tiles in background.
 <click>
 """)
 
@@ -45,11 +55,18 @@ for o in g_objects:
     g.rm(o)
 g.rm(t_object)
 
+
+t_object = g.draw_text((TILE_SIZE*(HEIGHT+1)//2, TILE_SIZE*WIDTH//2),
+    "please hit the space key\n<waiting>")
+while g.wait_event() != ("key", "space"):
+    pass
+g.rm(t_object)
+
 g.draw_text((TILE_SIZE*(HEIGHT+1)//2, TILE_SIZE*WIDTH//2),
-    "close the window to quit")
+    "Thank you!\nClose the window or hit <escape> to quit")
 
 # wait for the user to close the window
-while g.wait_event()[0] != "END":
+while g.wait_event() not in [("END", None), ("key", "Escape")]:
     pass
 
 g.close()
