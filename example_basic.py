@@ -1,7 +1,7 @@
 import tkdraw.basic as graph
 
-HEIGHT = 300
-WIDTH = 400
+HEIGHT = 400
+WIDTH = 600
 
 graph.open(HEIGHT, WIDTH)
 
