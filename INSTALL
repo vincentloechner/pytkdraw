@@ -37,3 +37,6 @@ python3 -m build
 
 2. move to dev mode using the setup.py script:
 ./setup.py develop
+
+3. to quit development mode:
+./setup.py develop --uninstall
