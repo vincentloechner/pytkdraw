@@ -9,7 +9,7 @@ This module provides four elementary functions to:
 Python3 will fail with an "AssertionError" if any precondition of those
 functions is not met.
 
-Copyright 2019-2020, Vincent Loechner <loechner@unistra.fr>
+Copyright 2019-2021, Vincent Loechner <loechner@unistra.fr>
 Distributed under the MIT license (see LICENSE)
 
 Source: https://github.com/vincentloechner/pytkdraw.git
