@@ -116,7 +116,7 @@ class open(tk.Canvas):
         self.root.protocol("WM_DELETE_WINDOW", async_end)
 
         # prints the original state
-        self.print_grid(grid=grid)
+        self.draw_grid(grid=grid)
 
     def __enter__(self):
         """internal: With -as: statement compatibility."""
@@ -184,7 +184,7 @@ class open(tk.Canvas):
     DEFAULT_COLOR = ["black", "white", "red", "green", "blue",
                      "yellow", "cyan", "magenta", "orange", "darkgrey"]
 
-    def print_grid(
+    def draw_grid(
         self, matrix=None, grid=True
     ):
         """Print a complete grid of pieces, using the 10 default colors.
