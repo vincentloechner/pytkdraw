@@ -84,26 +84,26 @@ class open(tk.Canvas):
         self.pixels = pixels
         self.root = None
         self.after_id = None
-        self.gap = 0
+        self.gap = int(grid)  # 1 more pixel if grid is True
 
         self.eventq = queue.Queue()
 
         self.root = tk.Tk()
-        self.root.grid()
-        # you can create other frames here if you want to
+        # you can create other widgets here if you want to
         # self.frame = tk.Frame(root)
 
         # creates THE canvas:
         tk.Canvas.__init__(
                 self,
                 self.root,
-                height=self.size[0]*self.pixels,
-                width=self.size[1]*self.pixels,
+                height=self.size[0]*self.pixels+self.gap,
+                width=self.size[1]*self.pixels+self.gap,
                 background="#ddd",
                 takefocus=True,
                 borderwidth=0,
                 highlightthickness=1)
-        self.grid(row=0, column=0)
+        self.pack()
+        # self.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
         self.focus_set()
 
         # binds the click function to the click event
@@ -116,8 +116,9 @@ class open(tk.Canvas):
         # ensure that async_end is called if the window is killed
         self.root.protocol("WM_DELETE_WINDOW", async_end)
 
-        # prints the original state
-        self.draw_grid(grid=grid)
+        # draw the original state
+        if grid:
+            self.draw_grid()
 
     def __enter__(self):
         """internal: With -as: statement compatibility."""
@@ -162,7 +163,8 @@ class open(tk.Canvas):
                 )
         # mouse click:
         m.bind("<Button-1>", c)
-        m.grid(row=0, column=0)
+        # m.grid(row=0, column=0)
+        m.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
         while True:
             s = self.wait_event()
             if s[0] == "END":
@@ -203,17 +205,15 @@ class open(tk.Canvas):
         # gap is used by draw_tile to fill the inside of a tile (including
         # borders, or not
         if grid:
-            self.gap = 1
-            for i in range(self.size[0]):
+            for i in range(self.size[0]+self.gap):
                 self.create_line(1, i*self.pixels+1,
                                  self.size[1]*self.pixels+1, i*self.pixels+1,
                                  width=1)
-            for i in range(self.size[1]):
+            for i in range(self.size[1]+self.gap):
                 self.create_line(i*self.pixels+1, 1,
-                                 i*self.pixels+1, self.size[0]*self.pixels+1,
+                                 i*self.pixels+1,
+                                 self.size[0]*self.pixels+1+self.gap,
                                  width=1)
-        else:
-            self.gap = 0
         # draw the pieces
         o = []
         if matrix is not None:
