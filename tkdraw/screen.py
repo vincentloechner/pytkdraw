@@ -1,19 +1,19 @@
 """Basic draw graphical user interface (GUI) based on tkinter, synchroneous.
 
-Test this module using `python -m tkdraw.screen`
+Test this module using `python3 -m tkdraw.screen`
+
 The online documentation is available under python3:
 ```
 $ python3
->>> import tkdraw.screen as tdk
+>>> import tkdraw.screen as tkd
 >>> help(tkd.open)
 or
->>> help(tkd.FUNC_NAME)
+>>> help(tkd.open.FUNC_NAME)
 ```
 
 Copyright 2018-2021, Vincent Loechner.
 Distributed under the MIT license (see LICENSE)
-
-GIT source: https://github.com/vincentloechner/pytkdraw.git
+https://github.com/vincentloechner/pytkdraw.git
 """
 
 import tkinter as tk

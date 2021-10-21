@@ -9,10 +9,11 @@ This module provides four elementary functions to:
 Python3 will fail with an "AssertionError" if any precondition of those
 functions is not met.
 
+Test this module using `python3 -m tkdraw.basic`
+
 Copyright 2019-2021, Vincent Loechner <loechner@unistra.fr>
 Distributed under the MIT license (see LICENSE)
-
-Source: https://github.com/vincentloechner/pytkdraw.git
+https://github.com/vincentloechner/pytkdraw.git
 """
 import tkdraw.screen as tkd
 
