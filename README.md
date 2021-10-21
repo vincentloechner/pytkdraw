@@ -27,6 +27,8 @@ The documentation is available online in python3:
 ```
 >>> import tkdraw.basic
 >>> help(tkdraw.basic)
+```
+```
 >>> import tkdraw.screen
 >>> help(tkdraw.screen)
 ```
