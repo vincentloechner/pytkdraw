@@ -23,20 +23,28 @@ import queue
 class open(tk.Canvas):
     """Main class for a window containing a board (2D grid).
 
-    _Parameters_
-    Optional creation parameters:
-    - size ((int, int)): a couple (height, width) specifying the size of the
-                         grid (default: (8, 8))
-    - pixels (int): number of pixels of a square (default: 100)
-    - grid (bool): if True, prints a one-pixel large grid : horizontal and
-                   vertical lines separating the squares (default: True)
+    Typical usage example:
+    ```
+    g = open()
+    g.message("hello")
+    g.wait_event()
+    ```
 
     To open a window containing just an array of pixels, set the pixels
     parameter to 1 and grid to False.
 
-    This class inherits from tkinter's canvas class, you can directly call the
-    canvas methods to perform advanced drawings in this canvas (expert mode).
-    You may refer to the documentation of tkinter describing the Canvas widget.
+    Args:
+        size: a couple of int (height, width) specifying the size of the grid
+            (default: (8, 8))
+        pixels (int): number of pixels of a square (default: 100)
+        grid (bool): if True, prints a one-pixel large grid : horizontal and
+            vertical lines separating the squares (default: True)
+
+    Returns:
+        The window object. This class inherits from tkinter's canvas class, you
+            can directly call the canvas methods to perform advanced drawings
+            in this canvas (expert mode). You may refer to the documentation of
+            tkinter describing the Canvas widget.
     """
 
     def __init__(
@@ -51,7 +59,7 @@ class open(tk.Canvas):
         # some private methods below, to react to asynchronous events:
 
         # private: the user clicked on a square
-        def click(evenement):
+        def _click(evenement):
             # min to handle user clicking on the last pixel:
             i = min((evenement.y-1)//self.pixels, self.size[0]-1)
             j = min((evenement.x-1)//self.pixels, self.size[1]-1)
@@ -61,14 +69,14 @@ class open(tk.Canvas):
             self.root.quit()
 
         # private: the user hit a key
-        def key(evenement):
+        def _key(evenement):
             # put the event in the queue
             self.eventq.put(("key", evenement.keysym))
             # and leave the mainloop
             self.root.quit()
 
         # private: the user closed the window
-        def async_end():
+        def _async_end():
             # put the END event in the queue
             self.eventq.put(("END", None))
             # and close
@@ -76,8 +84,8 @@ class open(tk.Canvas):
 
         # private: regularily check if some events are pending in the queue
         # and wake up
-        def checke():
-            self.after_id = self.root.after(1000, checke)
+        def _checke():
+            self.after_id = self.root.after(1000, _checke)
             # stop mainloop
             self.root.quit()
 
@@ -110,14 +118,14 @@ class open(tk.Canvas):
         self.focus_set()
 
         # binds the click function to the click event
-        self.bind("<Button-1>", click)
+        self.bind("<Button-1>", _click)
         # binds the key function to the keypress event
-        self.bind("<Any-KeyPress>", key)
+        self.bind("<Any-KeyPress>", _key)
 
         # checke will be called once per second
-        self.after_id = self.root.after(1000, checke)
+        self.after_id = self.root.after(1000, _checke)
         # ensure that async_end is called if the window is killed
-        self.root.protocol("WM_DELETE_WINDOW", async_end)
+        self.root.protocol("WM_DELETE_WINDOW", _async_end)
 
         # draw the original state
         if grid:
@@ -138,8 +146,8 @@ class open(tk.Canvas):
     def close(self):
         """Close this window.
 
-        _Parameters_
-        None
+        Args:
+            None
 
         _Return_value_
         None
@@ -154,15 +162,15 @@ class open(tk.Canvas):
     def message(self, message):
         """Display a message in a box and wait for the user to click somewhere.
 
-        _Parameters_
-        - message (str): the string to print
+        Args:
+            message (str): the string to print
 
         _Return_value_
         - (boolean) True if the user just clicked on the box,
           False if the user killed the window.
         """
         # private: the user clicked in the box
-        def c(event):
+        def _c(event):
             self.eventq.put("ok")
             self.root.quit()
 
@@ -173,7 +181,7 @@ class open(tk.Canvas):
                 relief=tk.RAISED, borderwidth=5,
                 )
         # mouse click:
-        m.bind("<Button-1>", c)
+        m.bind("<Button-1>", _c)
         # m.grid(row=0, column=0)
         m.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
         while True:
@@ -203,11 +211,11 @@ class open(tk.Canvas):
     ):
         """Print a complete grid of pieces, using the 10 default colors.
 
-        _Parameters_
-        - matrix (list of list): the players pieces matrix, of the specified
-            size. If matrix is None (default), just ignores it.
-        - grid (boolean): if True (default) draws a horizontal+vertical grid
-            to separate the tiles.
+        Args:
+            matrix (list of list): the players pieces matrix, of the specified
+                size. If matrix is None (default), just ignores it.
+            grid (boolean): if True (default) draws a horizontal+vertical grid
+                to separate the tiles.
 
         _Return_value_
         - a list of the graphical objects that were created (grid excluded).
@@ -246,8 +254,8 @@ class open(tk.Canvas):
 
         All graphical objects that were created are deleted.
 
-        _Parameters_
-        None
+        Args:
+            None
 
         _Return_value_
         None
@@ -272,15 +280,13 @@ class open(tk.Canvas):
         Usage notice: don't use this function if your tiles are too small, you
         won't see the piece.
 
-        _Parameters_
-        - p ((int, int)): grid position (line, column)
-        Optional:
-        - player (int): player number (default: 0)
-          player is used only if color is NOT given.
-        OR
-        - color (str): fill color of the piece. If a color is given, player
-          is ignored.
-        - refresh (bool): refresh the window after drawing (default: True)
+        Args:
+            p: a couple of int specifying the grid position (line, column)
+            player (int, optional): player number (default: 0)
+                player is used only if color is NOT given.
+            color (str, optional): fill color of the piece. If a color is
+                given, player is ignored.
+            refresh (bool): refresh the window after drawing (default: True)
 
         _Return_value_
         - the ID of the graphical object that was created (int).
@@ -311,11 +317,11 @@ class open(tk.Canvas):
     ):
         """Move a piece (obj ID) in grid position pos (couple).
 
-        _Parameters_
-        - obj (int): a previously created piece ID
-        - pos ((int, int)): new grid position (line, column)
-        Optional:
-        - refresh (bool): refresh the window after drawing (default: True)
+        Args:
+            obj (int): a previously created piece ID
+            pos: a couple of int, new grid position (line, column)
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
 
         _Return_value_
         None
@@ -343,7 +349,8 @@ class open(tk.Canvas):
     ):
         """Fill the inside of a tile in position p=(line, column) with a color.
 
-        _Parameters_
+        Args:
+
         - p ((int, int)): grid position (line, column)
         Optional:
         - color (str): color of the tile (default: "black")
@@ -372,7 +379,8 @@ class open(tk.Canvas):
     ):
         """Move a colored tile to another grid position.
 
-        _Parameters_
+        Args:
+
         - obj (int): a previously created tile ID
         - pos ((int, int)): new position in the grid (line, column)
         Optional:
@@ -404,7 +412,8 @@ class open(tk.Canvas):
     ):
         """Draw a line between x1=(l1,c1) and x2=(l2,c2) (excluded).
 
-        _Parameters_
+        Args:
+
         - x1, x2 (two couples (int, int)): pixel-wise positions (line, column)
           of the two points. (0,0) = top-left position.
         Optional:
@@ -428,7 +437,8 @@ class open(tk.Canvas):
     ):
         """Draw a circle in the bounding box of x1=(l1,c1) and x2 (excluded).
 
-        _Parameters_
+        Args:
+
         - x1, x2 (two couples (int, int)): pixel-wise positions (line, column)
           of the two points. (0,0) = top-left position.
         Optional:
@@ -454,7 +464,8 @@ class open(tk.Canvas):
     ):
         """Draw a text centered at a given position=(l1,c1).
 
-        _Parameters_
+        Args:
+
         - position (couple (int,int)): pixel-wise position (line, column).
           (0,0) = top-left position.
         - text (str): text to print
@@ -481,7 +492,8 @@ class open(tk.Canvas):
     ):
         """Send a graphical object (ID) to background.
 
-        _Parameters_
+        Args:
+
         - obj (int): object ID returned by an object creation method
         Optional:
         - before (int): the object behind which to hide (default: 1 = all)
@@ -517,7 +529,8 @@ class open(tk.Canvas):
     ):
         """Delete a graphical object (ID).
 
-        _Parameters_
+        Args:
+
         - obj (int): object ID returned by an object creation method
         Optional:
         - refresh (bool): refresh the window after drawing (default: True)
@@ -538,7 +551,8 @@ class open(tk.Canvas):
 
         The tracked events are only keypress and mouse click (left button).
 
-        _Parameters_
+        Args:
+
         Optional:
         - delay (int): waiting time in ms (default: wait forever)
 
