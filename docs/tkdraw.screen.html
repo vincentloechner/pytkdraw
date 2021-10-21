@@ -8,7 +8,7 @@
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="tkdraw.html"><font color="#ffffff">tkdraw</font></a>.screen</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/loechner/Library/Python/3.7/lib/python/site-packages/tkdraw/screen.py">/Users/loechner/Library/Python/3.7/lib/python/site-packages/tkdraw/screen.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/nfs/loechner/svn/pytkdraw/tkdraw/screen.py">/home/nfs/loechner/svn/pytkdraw/tkdraw/screen.py</a></font></td></tr></table>
     <p><tt>Basic&nbsp;draw&nbsp;graphical&nbsp;user&nbsp;interface&nbsp;(GUI)&nbsp;based&nbsp;on&nbsp;tkinter,&nbsp;synchroneous.<br>
 &nbsp;<br>
 Test&nbsp;this&nbsp;module&nbsp;using&nbsp;`python&nbsp;-m&nbsp;tkdraw.screen`<br>
@@ -24,7 +24,7 @@ or<br>
 Copyright&nbsp;2018-2021,&nbsp;Vincent&nbsp;Loechner.<br>
 Distributed&nbsp;under&nbsp;the&nbsp;MIT&nbsp;license&nbsp;(see&nbsp;LICENSE)<br>
 &nbsp;<br>
-GIT&nbsp;source:&nbsp;https://github.com/vincentloechner/pytkdraw.git</tt></p>
+GIT&nbsp;source:&nbsp;<a href="https://github.com/vincentloechner/pytkdraw.git">https://github.com/vincentloechner/pytkdraw.git</a></tt></p>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#aa55cc">
@@ -68,6 +68,9 @@ Optional&nbsp;creation&nbsp;parameters:<br>
 -&nbsp;grid&nbsp;(bool):&nbsp;if&nbsp;True,&nbsp;prints&nbsp;a&nbsp;one-pixel&nbsp;large&nbsp;grid&nbsp;:&nbsp;horizontal&nbsp;and<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vertical&nbsp;lines&nbsp;separating&nbsp;the&nbsp;squares&nbsp;(default:&nbsp;True)<br>
 &nbsp;<br>
+To&nbsp;<a href="#open">open</a>&nbsp;a&nbsp;window&nbsp;containing&nbsp;just&nbsp;an&nbsp;array&nbsp;of&nbsp;pixels,&nbsp;set&nbsp;the&nbsp;pixels<br>
+parameter&nbsp;to&nbsp;1&nbsp;and&nbsp;grid&nbsp;to&nbsp;False.<br>
+&nbsp;<br>
 This&nbsp;class&nbsp;inherits&nbsp;from&nbsp;tkinter's&nbsp;canvas&nbsp;class,&nbsp;you&nbsp;can&nbsp;directly&nbsp;call&nbsp;the<br>
 canvas&nbsp;methods&nbsp;to&nbsp;perform&nbsp;advanced&nbsp;drawings&nbsp;in&nbsp;this&nbsp;canvas&nbsp;(expert&nbsp;mode).<br>
 You&nbsp;may&nbsp;refer&nbsp;to&nbsp;the&nbsp;documentation&nbsp;of&nbsp;tkinter&nbsp;describing&nbsp;the&nbsp;<a href="tkinter.html#Canvas">Canvas</a>&nbsp;widget.<br>&nbsp;</tt></td></tr>
@@ -87,11 +90,11 @@ You&nbsp;may&nbsp;refer&nbsp;to&nbsp;the&nbsp;documentation&nbsp;of&nbsp;tkinter
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="open-__del__"><strong>__del__</strong></a>(self)</dt><dd><tt>internal:&nbsp;if&nbsp;the&nbsp;object&nbsp;is&nbsp;freeed&nbsp;from&nbsp;Python.</tt></dd></dl>
+<dl><dt><a name="open-__del__"><strong>__del__</strong></a>(self)</dt><dd><tt>Internal:&nbsp;if&nbsp;the&nbsp;object&nbsp;is&nbsp;freeed&nbsp;by&nbsp;python&nbsp;for&nbsp;some&nbsp;reason.</tt></dd></dl>
 
-<dl><dt><a name="open-__enter__"><strong>__enter__</strong></a>(self)</dt><dd><tt>internal:&nbsp;With&nbsp;-as:&nbsp;statement&nbsp;compatibility.</tt></dd></dl>
+<dl><dt><a name="open-__enter__"><strong>__enter__</strong></a>(self)</dt><dd><tt>Internal:&nbsp;With&nbsp;-as:&nbsp;statement&nbsp;compatibility.</tt></dd></dl>
 
-<dl><dt><a name="open-__exit__"><strong>__exit__</strong></a>(self, exc_type, exc_value, traceback)</dt><dd><tt>internal:&nbsp;With&nbsp;-as:&nbsp;statement&nbsp;compatibility.</tt></dd></dl>
+<dl><dt><a name="open-__exit__"><strong>__exit__</strong></a>(self, exc_type, exc_value, traceback)</dt><dd><tt>Internal:&nbsp;With&nbsp;-as:&nbsp;statement&nbsp;compatibility.</tt></dd></dl>
 
 <dl><dt><a name="open-__init__"><strong>__init__</strong></a>(self, size=(8, 8), pixels=100, grid=True)</dt><dd><tt>Initialize&nbsp;the&nbsp;window&nbsp;instance.<br>
 &nbsp;<br>
@@ -108,9 +111,15 @@ Optional:<br>
 -&nbsp;refresh&nbsp;(bool):&nbsp;refresh&nbsp;the&nbsp;window&nbsp;after&nbsp;drawing&nbsp;(default:&nbsp;True)<br>
 &nbsp;<br>
 _Return_value_<br>
--&nbsp;None</tt></dd></dl>
+None</tt></dd></dl>
 
-<dl><dt><a name="open-close"><strong>close</strong></a>(self)</dt><dd><tt>Close&nbsp;this&nbsp;window.</tt></dd></dl>
+<dl><dt><a name="open-close"><strong>close</strong></a>(self)</dt><dd><tt>Close&nbsp;this&nbsp;window.<br>
+&nbsp;<br>
+_Parameters_<br>
+None<br>
+&nbsp;<br>
+_Return_value_<br>
+None</tt></dd></dl>
 
 <dl><dt><a name="open-draw_circle"><strong>draw_circle</strong></a>(self, x1, x2, color='black', border=1, refresh=True)</dt><dd><tt>Draw&nbsp;a&nbsp;circle&nbsp;in&nbsp;the&nbsp;bounding&nbsp;box&nbsp;of&nbsp;x1=(l1,c1)&nbsp;and&nbsp;x2&nbsp;(excluded).<br>
 &nbsp;<br>
@@ -130,8 +139,10 @@ _Return_value_<br>
 <dl><dt><a name="open-draw_grid"><strong>draw_grid</strong></a>(self, matrix=None, grid=True)</dt><dd><tt>Print&nbsp;a&nbsp;complete&nbsp;grid&nbsp;of&nbsp;pieces,&nbsp;using&nbsp;the&nbsp;10&nbsp;default&nbsp;colors.<br>
 &nbsp;<br>
 _Parameters_<br>
-If&nbsp;matrix&nbsp;is&nbsp;None&nbsp;(default),&nbsp;just&nbsp;prints&nbsp;the&nbsp;grid<br>
-If&nbsp;grid&nbsp;is&nbsp;True&nbsp;(default)&nbsp;prints&nbsp;the&nbsp;horizontal+vertical&nbsp;grid<br>
+-&nbsp;matrix&nbsp;(list&nbsp;of&nbsp;list):&nbsp;the&nbsp;players&nbsp;pieces&nbsp;matrix,&nbsp;of&nbsp;the&nbsp;specified<br>
+&nbsp;&nbsp;&nbsp;&nbsp;size.&nbsp;If&nbsp;matrix&nbsp;is&nbsp;None&nbsp;(default),&nbsp;just&nbsp;ignores&nbsp;it.<br>
+-&nbsp;grid&nbsp;(boolean):&nbsp;if&nbsp;True&nbsp;(default)&nbsp;draws&nbsp;a&nbsp;horizontal+vertical&nbsp;grid<br>
+&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;separate&nbsp;the&nbsp;tiles.<br>
 &nbsp;<br>
 _Return_value_<br>
 -&nbsp;a&nbsp;list&nbsp;of&nbsp;the&nbsp;graphical&nbsp;objects&nbsp;that&nbsp;were&nbsp;created&nbsp;(grid&nbsp;excluded).</tt></dd></dl>
@@ -197,10 +208,17 @@ _Return_value_<br>
 
 <dl><dt><a name="open-erase"><strong>erase</strong></a>(self)</dt><dd><tt>Erase&nbsp;everything&nbsp;from&nbsp;the&nbsp;window.<br>
 &nbsp;<br>
-All&nbsp;graphical&nbsp;objects&nbsp;that&nbsp;were&nbsp;created&nbsp;are&nbsp;deleted.</tt></dd></dl>
-
-<dl><dt><a name="open-message"><strong>message</strong></a>(self, message)</dt><dd><tt>Print&nbsp;a&nbsp;message&nbsp;in&nbsp;a&nbsp;box&nbsp;and&nbsp;wait&nbsp;for&nbsp;the&nbsp;user&nbsp;to&nbsp;click&nbsp;somewhere.<br>
+All&nbsp;graphical&nbsp;objects&nbsp;that&nbsp;were&nbsp;created&nbsp;are&nbsp;deleted.<br>
 &nbsp;<br>
+_Parameters_<br>
+None<br>
+&nbsp;<br>
+_Return_value_<br>
+None</tt></dd></dl>
+
+<dl><dt><a name="open-message"><strong>message</strong></a>(self, message)</dt><dd><tt>Display&nbsp;a&nbsp;message&nbsp;in&nbsp;a&nbsp;box&nbsp;and&nbsp;wait&nbsp;for&nbsp;the&nbsp;user&nbsp;to&nbsp;click&nbsp;somewhere.<br>
+&nbsp;<br>
+_Parameters_<br>
 -&nbsp;message&nbsp;(str):&nbsp;the&nbsp;string&nbsp;to&nbsp;print<br>
 &nbsp;<br>
 _Return_value_<br>
@@ -225,7 +243,7 @@ Optional:<br>
 -&nbsp;refresh&nbsp;(bool):&nbsp;refresh&nbsp;the&nbsp;window&nbsp;after&nbsp;drawing&nbsp;(default:&nbsp;True)<br>
 &nbsp;<br>
 _Return_value_<br>
--&nbsp;None</tt></dd></dl>
+None</tt></dd></dl>
 
 <dl><dt><a name="open-move_tile"><strong>move_tile</strong></a>(self, obj, pos, refresh=True)</dt><dd><tt>Move&nbsp;a&nbsp;colored&nbsp;tile&nbsp;to&nbsp;another&nbsp;grid&nbsp;position.<br>
 &nbsp;<br>
@@ -236,7 +254,7 @@ Optional:<br>
 -&nbsp;refresh&nbsp;(bool):&nbsp;refresh&nbsp;the&nbsp;window&nbsp;after&nbsp;drawing&nbsp;(default:&nbsp;True)<br>
 &nbsp;<br>
 _Return_value_<br>
--&nbsp;None</tt></dd></dl>
+None</tt></dd></dl>
 
 <dl><dt><a name="open-refresh"><strong>refresh</strong></a>(self)</dt><dd><tt>Refresh&nbsp;all&nbsp;objects&nbsp;previously&nbsp;drawn&nbsp;in&nbsp;the&nbsp;window.<br>
 &nbsp;<br>
@@ -246,7 +264,7 @@ functions,&nbsp;and&nbsp;then&nbsp;refresh&nbsp;only&nbsp;once&nbsp;using&nbsp;t
 Good&nbsp;for&nbsp;speed,&nbsp;especially&nbsp;if&nbsp;you&nbsp;draw&nbsp;many&nbsp;things.<br>
 &nbsp;<br>
 _Return_value_<br>
--&nbsp;None</tt></dd></dl>
+None</tt></dd></dl>
 
 <dl><dt><a name="open-rm"><strong>rm</strong></a>(self, obj, refresh=True)</dt><dd><tt>Delete&nbsp;a&nbsp;graphical&nbsp;object&nbsp;(ID).<br>
 &nbsp;<br>
@@ -256,11 +274,12 @@ Optional:<br>
 -&nbsp;refresh&nbsp;(bool):&nbsp;refresh&nbsp;the&nbsp;window&nbsp;after&nbsp;drawing&nbsp;(default:&nbsp;True)<br>
 &nbsp;<br>
 _Return_value_<br>
--&nbsp;None</tt></dd></dl>
+None</tt></dd></dl>
 
 <dl><dt><a name="open-wait_event"><strong>wait_event</strong></a>(self, delay=None)</dt><dd><tt>Wait&nbsp;for&nbsp;the&nbsp;user&nbsp;to&nbsp;interact&nbsp;with&nbsp;the&nbsp;window.<br>
 &nbsp;<br>
 The&nbsp;tracked&nbsp;events&nbsp;are&nbsp;only&nbsp;keypress&nbsp;and&nbsp;mouse&nbsp;click&nbsp;(left&nbsp;button).<br>
+&nbsp;<br>
 _Parameters_<br>
 Optional:<br>
 -&nbsp;delay&nbsp;(int):&nbsp;waiting&nbsp;time&nbsp;in&nbsp;ms&nbsp;(default:&nbsp;wait&nbsp;forever)<br>
@@ -378,11 +397,7 @@ be&nbsp;TAGORID&nbsp;POS&nbsp;TEXT.</tt></dd></dl>
 
 <dl><dt><a name="open-itemcget"><strong>itemcget</strong></a>(self, tagOrId, option)</dt><dd><tt>Return&nbsp;the&nbsp;resource&nbsp;value&nbsp;for&nbsp;an&nbsp;OPTION&nbsp;for&nbsp;item&nbsp;TAGORID.</tt></dd></dl>
 
-<dl><dt><a name="open-itemconfig"><strong>itemconfig</strong></a> = itemconfigure(self, tagOrId, cnf=None, **kw)</dt><dd><tt>Configure&nbsp;resources&nbsp;of&nbsp;an&nbsp;item&nbsp;TAGORID.<br>
-&nbsp;<br>
-The&nbsp;values&nbsp;for&nbsp;resources&nbsp;are&nbsp;specified&nbsp;as&nbsp;keyword<br>
-arguments.&nbsp;To&nbsp;get&nbsp;an&nbsp;overview&nbsp;about<br>
-the&nbsp;allowed&nbsp;keyword&nbsp;arguments&nbsp;call&nbsp;the&nbsp;method&nbsp;without&nbsp;arguments.</tt></dd></dl>
+<dl><dt><a name="open-itemconfig"><strong>itemconfig</strong></a> = <a href="#open-itemconfigure">itemconfigure</a>(self, tagOrId, cnf=None, **kw)</dt></dl>
 
 <dl><dt><a name="open-itemconfigure"><strong>itemconfigure</strong></a>(self, tagOrId, cnf=None, **kw)</dt><dd><tt>Configure&nbsp;resources&nbsp;of&nbsp;an&nbsp;item&nbsp;TAGORID.<br>
 &nbsp;<br>
@@ -390,13 +405,18 @@ The&nbsp;values&nbsp;for&nbsp;resources&nbsp;are&nbsp;specified&nbsp;as&nbsp;key
 arguments.&nbsp;To&nbsp;get&nbsp;an&nbsp;overview&nbsp;about<br>
 the&nbsp;allowed&nbsp;keyword&nbsp;arguments&nbsp;call&nbsp;the&nbsp;method&nbsp;without&nbsp;arguments.</tt></dd></dl>
 
-<dl><dt><a name="open-lift"><strong>lift</strong></a> = tag_raise(self, *args)</dt><dd><tt>Raise&nbsp;an&nbsp;item&nbsp;TAGORID&nbsp;given&nbsp;in&nbsp;ARGS<br>
-(optional&nbsp;above&nbsp;another&nbsp;item).</tt></dd></dl>
+<dl><dt><a name="open-lift"><strong>lift</strong></a> = <a href="#open-tag_raise">tag_raise</a>(self, *args)</dt></dl>
 
-<dl><dt><a name="open-lower"><strong>lower</strong></a> = tag_lower(self, *args)</dt><dd><tt>Lower&nbsp;an&nbsp;item&nbsp;TAGORID&nbsp;given&nbsp;in&nbsp;ARGS<br>
-(optional&nbsp;below&nbsp;another&nbsp;item).</tt></dd></dl>
+<dl><dt><a name="open-lower"><strong>lower</strong></a> = <a href="#open-tag_lower">tag_lower</a>(self, *args)</dt></dl>
 
 <dl><dt><a name="open-move"><strong>move</strong></a>(self, *args)</dt><dd><tt>Move&nbsp;an&nbsp;item&nbsp;TAGORID&nbsp;given&nbsp;in&nbsp;ARGS.</tt></dd></dl>
+
+<dl><dt><a name="open-moveto"><strong>moveto</strong></a>(self, tagOrId, x='', y='')</dt><dd><tt>Move&nbsp;the&nbsp;items&nbsp;given&nbsp;by&nbsp;TAGORID&nbsp;in&nbsp;the&nbsp;canvas&nbsp;coordinate<br>
+space&nbsp;so&nbsp;that&nbsp;the&nbsp;first&nbsp;coordinate&nbsp;pair&nbsp;of&nbsp;the&nbsp;bottommost<br>
+item&nbsp;with&nbsp;tag&nbsp;TAGORID&nbsp;is&nbsp;located&nbsp;at&nbsp;position&nbsp;(X,Y).<br>
+X&nbsp;and&nbsp;Y&nbsp;may&nbsp;be&nbsp;the&nbsp;empty&nbsp;string,&nbsp;in&nbsp;which&nbsp;case&nbsp;the<br>
+corresponding&nbsp;coordinate&nbsp;will&nbsp;be&nbsp;unchanged.&nbsp;All&nbsp;items&nbsp;matching<br>
+TAGORID&nbsp;remain&nbsp;in&nbsp;the&nbsp;same&nbsp;positions&nbsp;relative&nbsp;to&nbsp;each&nbsp;other.</tt></dd></dl>
 
 <dl><dt><a name="open-postscript"><strong>postscript</strong></a>(self, cnf={}, **kw)</dt><dd><tt>Print&nbsp;the&nbsp;contents&nbsp;of&nbsp;the&nbsp;canvas&nbsp;to&nbsp;a&nbsp;postscript<br>
 file.&nbsp;Valid&nbsp;options:&nbsp;colormap,&nbsp;colormode,&nbsp;file,&nbsp;fontmap,<br>
@@ -436,8 +456,7 @@ replace&nbsp;the&nbsp;previous&nbsp;function.&nbsp;See&nbsp;bind&nbsp;for&nbsp;t
 <dl><dt><a name="open-tag_unbind"><strong>tag_unbind</strong></a>(self, tagOrId, sequence, funcid=None)</dt><dd><tt>Unbind&nbsp;for&nbsp;all&nbsp;items&nbsp;with&nbsp;TAGORID&nbsp;for&nbsp;event&nbsp;SEQUENCE&nbsp;&nbsp;the<br>
 function&nbsp;identified&nbsp;with&nbsp;FUNCID.</tt></dd></dl>
 
-<dl><dt><a name="open-tkraise"><strong>tkraise</strong></a> = tag_raise(self, *args)</dt><dd><tt>Raise&nbsp;an&nbsp;item&nbsp;TAGORID&nbsp;given&nbsp;in&nbsp;ARGS<br>
-(optional&nbsp;above&nbsp;another&nbsp;item).</tt></dd></dl>
+<dl><dt><a name="open-tkraise"><strong>tkraise</strong></a> = <a href="#open-tag_raise">tag_raise</a>(self, *args)</dt></dl>
 
 <dl><dt><a name="open-type"><strong>type</strong></a>(self, tagOrId)</dt><dd><tt>Return&nbsp;the&nbsp;type&nbsp;of&nbsp;the&nbsp;item&nbsp;TAGORID.</tt></dd></dl>
 
@@ -447,7 +466,7 @@ Methods inherited from <a href="tkinter.html#BaseWidget">tkinter.BaseWidget</a>:
 
 <hr>
 Methods inherited from <a href="tkinter.html#Misc">tkinter.Misc</a>:<br>
-<dl><dt><a name="open-__getitem__"><strong>__getitem__</strong></a> = cget(self, key)</dt><dd><tt>Return&nbsp;the&nbsp;resource&nbsp;value&nbsp;for&nbsp;a&nbsp;KEY&nbsp;given&nbsp;as&nbsp;string.</tt></dd></dl>
+<dl><dt><a name="open-__getitem__"><strong>__getitem__</strong></a> = <a href="#open-cget">cget</a>(self, key)</dt></dl>
 
 <dl><dt><a name="open-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
 
@@ -473,10 +492,7 @@ process.<br>
 Return&nbsp;an&nbsp;identifier&nbsp;to&nbsp;cancel&nbsp;the&nbsp;scheduling&nbsp;with<br>
 after_cancel.</tt></dd></dl>
 
-<dl><dt><a name="open-anchor"><strong>anchor</strong></a> = grid_anchor(self, anchor=None)</dt><dd><tt>The&nbsp;anchor&nbsp;value&nbsp;controls&nbsp;how&nbsp;to&nbsp;place&nbsp;the&nbsp;grid&nbsp;within&nbsp;the<br>
-master&nbsp;when&nbsp;no&nbsp;row/column&nbsp;has&nbsp;any&nbsp;weight.<br>
-&nbsp;<br>
-The&nbsp;default&nbsp;anchor&nbsp;is&nbsp;nw.</tt></dd></dl>
+<dl><dt><a name="open-anchor"><strong>anchor</strong></a> = <a href="#open-grid_anchor">grid_anchor</a>(self, anchor=None)</dt></dl>
 
 <dl><dt><a name="open-bell"><strong>bell</strong></a>(self, displayof=0)</dt><dd><tt>Ring&nbsp;a&nbsp;display's&nbsp;bell.</tt></dd></dl>
 
@@ -564,17 +580,9 @@ This&nbsp;command&nbsp;is&nbsp;equivalent&nbsp;to:<br>
 &nbsp;<br>
 <a href="#open-selection_get">selection_get</a>(CLIPBOARD)</tt></dd></dl>
 
-<dl><dt><a name="open-columnconfigure"><strong>columnconfigure</strong></a> = grid_columnconfigure(self, index, cnf={}, **kw)</dt><dd><tt>Configure&nbsp;column&nbsp;INDEX&nbsp;of&nbsp;a&nbsp;grid.<br>
-&nbsp;<br>
-Valid&nbsp;resources&nbsp;are&nbsp;minsize&nbsp;(minimum&nbsp;size&nbsp;of&nbsp;the&nbsp;column),<br>
-weight&nbsp;(how&nbsp;much&nbsp;does&nbsp;additional&nbsp;space&nbsp;propagate&nbsp;to&nbsp;this&nbsp;column)<br>
-and&nbsp;pad&nbsp;(how&nbsp;much&nbsp;space&nbsp;to&nbsp;let&nbsp;additionally).</tt></dd></dl>
+<dl><dt><a name="open-columnconfigure"><strong>columnconfigure</strong></a> = <a href="#open-grid_columnconfigure">grid_columnconfigure</a>(self, index, cnf={}, **kw)</dt></dl>
 
-<dl><dt><a name="open-config"><strong>config</strong></a> = configure(self, cnf=None, **kw)</dt><dd><tt>Configure&nbsp;resources&nbsp;of&nbsp;a&nbsp;widget.<br>
-&nbsp;<br>
-The&nbsp;values&nbsp;for&nbsp;resources&nbsp;are&nbsp;specified&nbsp;as&nbsp;keyword<br>
-arguments.&nbsp;To&nbsp;get&nbsp;an&nbsp;overview&nbsp;about<br>
-the&nbsp;allowed&nbsp;keyword&nbsp;arguments&nbsp;call&nbsp;the&nbsp;method&nbsp;keys.</tt></dd></dl>
+<dl><dt><a name="open-config"><strong>config</strong></a> = <a href="#open-configure">configure</a>(self, cnf=None, **kw)</dt></dl>
 
 <dl><dt><a name="open-configure"><strong>configure</strong></a>(self, cnf=None, **kw)</dt><dd><tt>Configure&nbsp;resources&nbsp;of&nbsp;a&nbsp;widget.<br>
 &nbsp;<br>
@@ -737,24 +745,13 @@ in&nbsp;its&nbsp;packing&nbsp;order.</tt></dd></dl>
 <dl><dt><a name="open-place_slaves"><strong>place_slaves</strong></a>(self)</dt><dd><tt>Return&nbsp;a&nbsp;list&nbsp;of&nbsp;all&nbsp;slaves&nbsp;of&nbsp;this&nbsp;widget<br>
 in&nbsp;its&nbsp;packing&nbsp;order.</tt></dd></dl>
 
-<dl><dt><a name="open-propagate"><strong>propagate</strong></a> = pack_propagate(self, flag=['_noarg_'])</dt><dd><tt>Set&nbsp;or&nbsp;get&nbsp;the&nbsp;status&nbsp;for&nbsp;propagation&nbsp;of&nbsp;geometry&nbsp;information.<br>
-&nbsp;<br>
-A&nbsp;boolean&nbsp;argument&nbsp;specifies&nbsp;whether&nbsp;the&nbsp;geometry&nbsp;information<br>
-of&nbsp;the&nbsp;slaves&nbsp;will&nbsp;determine&nbsp;the&nbsp;size&nbsp;of&nbsp;this&nbsp;widget.&nbsp;If&nbsp;no&nbsp;argument<br>
-is&nbsp;given&nbsp;the&nbsp;current&nbsp;setting&nbsp;will&nbsp;be&nbsp;returned.</tt></dd></dl>
+<dl><dt><a name="open-propagate"><strong>propagate</strong></a> = <a href="#open-pack_propagate">pack_propagate</a>(self, flag=['_noarg_'])</dt></dl>
 
 <dl><dt><a name="open-quit"><strong>quit</strong></a>(self)</dt><dd><tt>Quit&nbsp;the&nbsp;Tcl&nbsp;interpreter.&nbsp;All&nbsp;widgets&nbsp;will&nbsp;be&nbsp;destroyed.</tt></dd></dl>
 
-<dl><dt><a name="open-register"><strong>register</strong></a> = _register(self, func, subst=None, needcleanup=1)</dt><dd><tt>Return&nbsp;a&nbsp;newly&nbsp;created&nbsp;Tcl&nbsp;function.&nbsp;If&nbsp;this<br>
-function&nbsp;is&nbsp;called,&nbsp;the&nbsp;Python&nbsp;function&nbsp;FUNC&nbsp;will<br>
-be&nbsp;executed.&nbsp;An&nbsp;optional&nbsp;function&nbsp;SUBST&nbsp;can<br>
-be&nbsp;given&nbsp;which&nbsp;will&nbsp;be&nbsp;executed&nbsp;before&nbsp;FUNC.</tt></dd></dl>
+<dl><dt><a name="open-register"><strong>register</strong></a> = <a href="#open-_register">_register</a>(self, func, subst=None, needcleanup=1)</dt></dl>
 
-<dl><dt><a name="open-rowconfigure"><strong>rowconfigure</strong></a> = grid_rowconfigure(self, index, cnf={}, **kw)</dt><dd><tt>Configure&nbsp;row&nbsp;INDEX&nbsp;of&nbsp;a&nbsp;grid.<br>
-&nbsp;<br>
-Valid&nbsp;resources&nbsp;are&nbsp;minsize&nbsp;(minimum&nbsp;size&nbsp;of&nbsp;the&nbsp;row),<br>
-weight&nbsp;(how&nbsp;much&nbsp;does&nbsp;additional&nbsp;space&nbsp;propagate&nbsp;to&nbsp;this&nbsp;row)<br>
-and&nbsp;pad&nbsp;(how&nbsp;much&nbsp;space&nbsp;to&nbsp;let&nbsp;additionally).</tt></dd></dl>
+<dl><dt><a name="open-rowconfigure"><strong>rowconfigure</strong></a> = <a href="#open-grid_rowconfigure">grid_rowconfigure</a>(self, index, cnf={}, **kw)</dt></dl>
 
 <dl><dt><a name="open-selection_clear"><strong>selection_clear</strong></a>(self, **kw)</dt><dd><tt>Clear&nbsp;the&nbsp;current&nbsp;X&nbsp;selection.</tt></dd></dl>
 
@@ -795,10 +792,9 @@ type&nbsp;-&nbsp;type&nbsp;of&nbsp;the&nbsp;selection&nbsp;(e.g.&nbsp;STRING,&nb
 
 <dl><dt><a name="open-setvar"><strong>setvar</strong></a>(self, name='PY_VAR', value='1')</dt><dd><tt>Set&nbsp;Tcl&nbsp;variable&nbsp;NAME&nbsp;to&nbsp;VALUE.</tt></dd></dl>
 
-<dl><dt><a name="open-size"><strong>size</strong></a> = grid_size(self)</dt><dd><tt>Return&nbsp;a&nbsp;tuple&nbsp;of&nbsp;the&nbsp;number&nbsp;of&nbsp;column&nbsp;and&nbsp;rows&nbsp;in&nbsp;the&nbsp;grid.</tt></dd></dl>
+<dl><dt><a name="open-size"><strong>size</strong></a> = <a href="#open-grid_size">grid_size</a>(self)</dt></dl>
 
-<dl><dt><a name="open-slaves"><strong>slaves</strong></a> = pack_slaves(self)</dt><dd><tt>Return&nbsp;a&nbsp;list&nbsp;of&nbsp;all&nbsp;slaves&nbsp;of&nbsp;this&nbsp;widget<br>
-in&nbsp;its&nbsp;packing&nbsp;order.</tt></dd></dl>
+<dl><dt><a name="open-slaves"><strong>slaves</strong></a> = <a href="#open-pack_slaves">pack_slaves</a>(self)</dt></dl>
 
 <dl><dt><a name="open-tk_bisque"><strong>tk_bisque</strong></a>(self)</dt><dd><tt>Change&nbsp;the&nbsp;color&nbsp;scheme&nbsp;to&nbsp;light&nbsp;brown&nbsp;as&nbsp;used&nbsp;in&nbsp;Tk&nbsp;3.6&nbsp;and&nbsp;before.</tt></dd></dl>
 
@@ -862,10 +858,7 @@ If&nbsp;no&nbsp;parameter&nbsp;is&nbsp;given&nbsp;self&nbsp;is&nbsp;used.</tt></
 &nbsp;<br>
 If&nbsp;no&nbsp;parameter&nbsp;is&nbsp;given&nbsp;self&nbsp;is&nbsp;used.</tt></dd></dl>
 
-<dl><dt><a name="open-waitvar"><strong>waitvar</strong></a> = wait_variable(self, name='PY_VAR')</dt><dd><tt>Wait&nbsp;until&nbsp;the&nbsp;variable&nbsp;is&nbsp;modified.<br>
-&nbsp;<br>
-A&nbsp;parameter&nbsp;of&nbsp;type&nbsp;IntVar,&nbsp;StringVar,&nbsp;DoubleVar&nbsp;or<br>
-BooleanVar&nbsp;must&nbsp;be&nbsp;given.</tt></dd></dl>
+<dl><dt><a name="open-waitvar"><strong>waitvar</strong></a> = <a href="#open-wait_variable">wait_variable</a>(self, name='PY_VAR')</dt></dl>
 
 <dl><dt><a name="open-winfo_atom"><strong>winfo_atom</strong></a>(self, name, displayof=0)</dt><dd><tt>Return&nbsp;integer&nbsp;which&nbsp;represents&nbsp;atom&nbsp;NAME.</tt></dd></dl>
 
@@ -877,7 +870,7 @@ BooleanVar&nbsp;must&nbsp;be&nbsp;given.</tt></dd></dl>
 
 <dl><dt><a name="open-winfo_class"><strong>winfo_class</strong></a>(self)</dt><dd><tt>Return&nbsp;window&nbsp;class&nbsp;name&nbsp;of&nbsp;this&nbsp;widget.</tt></dd></dl>
 
-<dl><dt><a name="open-winfo_colormapfull"><strong>winfo_colormapfull</strong></a>(self)</dt><dd><tt>Return&nbsp;true&nbsp;if&nbsp;at&nbsp;the&nbsp;last&nbsp;color&nbsp;request&nbsp;the&nbsp;colormap&nbsp;was&nbsp;full.</tt></dd></dl>
+<dl><dt><a name="open-winfo_colormapfull"><strong>winfo_colormapfull</strong></a>(self)</dt><dd><tt>Return&nbsp;True&nbsp;if&nbsp;at&nbsp;the&nbsp;last&nbsp;color&nbsp;request&nbsp;the&nbsp;colormap&nbsp;was&nbsp;full.</tt></dd></dl>
 
 <dl><dt><a name="open-winfo_containing"><strong>winfo_containing</strong></a>(self, rootX, rootY, displayof=0)</dt><dd><tt>Return&nbsp;the&nbsp;widget&nbsp;which&nbsp;is&nbsp;at&nbsp;the&nbsp;root&nbsp;coordinates&nbsp;ROOTX,&nbsp;ROOTY.</tt></dd></dl>
 
@@ -918,8 +911,7 @@ BooleanVar&nbsp;must&nbsp;be&nbsp;given.</tt></dd></dl>
 
 <dl><dt><a name="open-winfo_reqwidth"><strong>winfo_reqwidth</strong></a>(self)</dt><dd><tt>Return&nbsp;requested&nbsp;width&nbsp;of&nbsp;this&nbsp;widget.</tt></dd></dl>
 
-<dl><dt><a name="open-winfo_rgb"><strong>winfo_rgb</strong></a>(self, color)</dt><dd><tt>Return&nbsp;tuple&nbsp;of&nbsp;decimal&nbsp;values&nbsp;for&nbsp;red,&nbsp;green,&nbsp;blue&nbsp;for<br>
-COLOR&nbsp;in&nbsp;this&nbsp;widget.</tt></dd></dl>
+<dl><dt><a name="open-winfo_rgb"><strong>winfo_rgb</strong></a>(self, color)</dt><dd><tt>Return&nbsp;a&nbsp;tuple&nbsp;of&nbsp;integer&nbsp;RGB&nbsp;values&nbsp;in&nbsp;range(65536)&nbsp;for&nbsp;color&nbsp;in&nbsp;this&nbsp;widget.</tt></dd></dl>
 
 <dl><dt><a name="open-winfo_rootx"><strong>winfo_rootx</strong></a>(self)</dt><dd><tt>Return&nbsp;x&nbsp;coordinate&nbsp;of&nbsp;upper&nbsp;left&nbsp;corner&nbsp;of&nbsp;this&nbsp;widget&nbsp;on&nbsp;the<br>
 root&nbsp;window.</tt></dd></dl>
@@ -1002,25 +994,11 @@ Data descriptors inherited from <a href="tkinter.html#Misc">tkinter.Misc</a>:<br
 </dl>
 <hr>
 Methods inherited from <a href="tkinter.html#Pack">tkinter.Pack</a>:<br>
-<dl><dt><a name="open-forget"><strong>forget</strong></a> = pack_forget(self)</dt><dd><tt>Unmap&nbsp;this&nbsp;widget&nbsp;and&nbsp;do&nbsp;not&nbsp;use&nbsp;it&nbsp;for&nbsp;the&nbsp;packing&nbsp;order.</tt></dd></dl>
+<dl><dt><a name="open-forget"><strong>forget</strong></a> = <a href="#open-pack_forget">pack_forget</a>(self)</dt></dl>
 
-<dl><dt><a name="open-info"><strong>info</strong></a> = pack_info(self)</dt><dd><tt>Return&nbsp;information&nbsp;about&nbsp;the&nbsp;packing&nbsp;options<br>
-for&nbsp;this&nbsp;widget.</tt></dd></dl>
+<dl><dt><a name="open-info"><strong>info</strong></a> = <a href="#open-pack_info">pack_info</a>(self)</dt></dl>
 
-<dl><dt><a name="open-pack"><strong>pack</strong></a> = pack_configure(self, cnf={}, **kw)</dt><dd><tt>Pack&nbsp;a&nbsp;widget&nbsp;in&nbsp;the&nbsp;parent&nbsp;widget.&nbsp;Use&nbsp;as&nbsp;options:<br>
-after=widget&nbsp;-&nbsp;pack&nbsp;it&nbsp;after&nbsp;you&nbsp;have&nbsp;packed&nbsp;widget<br>
-anchor=NSEW&nbsp;(or&nbsp;subset)&nbsp;-&nbsp;position&nbsp;widget&nbsp;according&nbsp;to<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;given&nbsp;direction<br>
-before=widget&nbsp;-&nbsp;pack&nbsp;it&nbsp;before&nbsp;you&nbsp;will&nbsp;pack&nbsp;widget<br>
-expand=bool&nbsp;-&nbsp;expand&nbsp;widget&nbsp;if&nbsp;parent&nbsp;size&nbsp;grows<br>
-fill=NONE&nbsp;or&nbsp;X&nbsp;or&nbsp;Y&nbsp;or&nbsp;BOTH&nbsp;-&nbsp;fill&nbsp;widget&nbsp;if&nbsp;widget&nbsp;grows<br>
-in=master&nbsp;-&nbsp;use&nbsp;master&nbsp;to&nbsp;contain&nbsp;this&nbsp;widget<br>
-in_=master&nbsp;-&nbsp;see&nbsp;'in'&nbsp;option&nbsp;description<br>
-ipadx=amount&nbsp;-&nbsp;add&nbsp;internal&nbsp;padding&nbsp;in&nbsp;x&nbsp;direction<br>
-ipady=amount&nbsp;-&nbsp;add&nbsp;internal&nbsp;padding&nbsp;in&nbsp;y&nbsp;direction<br>
-padx=amount&nbsp;-&nbsp;add&nbsp;padding&nbsp;in&nbsp;x&nbsp;direction<br>
-pady=amount&nbsp;-&nbsp;add&nbsp;padding&nbsp;in&nbsp;y&nbsp;direction<br>
-side=TOP&nbsp;or&nbsp;BOTTOM&nbsp;or&nbsp;LEFT&nbsp;or&nbsp;RIGHT&nbsp;-&nbsp;&nbsp;where&nbsp;to&nbsp;add&nbsp;this&nbsp;widget.</tt></dd></dl>
+<dl><dt><a name="open-pack"><strong>pack</strong></a> = <a href="#open-pack_configure">pack_configure</a>(self, cnf={}, **kw)</dt></dl>
 
 <dl><dt><a name="open-pack_configure"><strong>pack_configure</strong></a>(self, cnf={}, **kw)</dt><dd><tt>Pack&nbsp;a&nbsp;widget&nbsp;in&nbsp;the&nbsp;parent&nbsp;widget.&nbsp;Use&nbsp;as&nbsp;options:<br>
 after=widget&nbsp;-&nbsp;pack&nbsp;it&nbsp;after&nbsp;you&nbsp;have&nbsp;packed&nbsp;widget<br>
@@ -1044,26 +1022,7 @@ for&nbsp;this&nbsp;widget.</tt></dd></dl>
 
 <hr>
 Methods inherited from <a href="tkinter.html#Place">tkinter.Place</a>:<br>
-<dl><dt><a name="open-place"><strong>place</strong></a> = place_configure(self, cnf={}, **kw)</dt><dd><tt>Place&nbsp;a&nbsp;widget&nbsp;in&nbsp;the&nbsp;parent&nbsp;widget.&nbsp;Use&nbsp;as&nbsp;options:<br>
-in=master&nbsp;-&nbsp;master&nbsp;relative&nbsp;to&nbsp;which&nbsp;the&nbsp;widget&nbsp;is&nbsp;placed<br>
-in_=master&nbsp;-&nbsp;see&nbsp;'in'&nbsp;option&nbsp;description<br>
-x=amount&nbsp;-&nbsp;locate&nbsp;anchor&nbsp;of&nbsp;this&nbsp;widget&nbsp;at&nbsp;position&nbsp;x&nbsp;of&nbsp;master<br>
-y=amount&nbsp;-&nbsp;locate&nbsp;anchor&nbsp;of&nbsp;this&nbsp;widget&nbsp;at&nbsp;position&nbsp;y&nbsp;of&nbsp;master<br>
-relx=amount&nbsp;-&nbsp;locate&nbsp;anchor&nbsp;of&nbsp;this&nbsp;widget&nbsp;between&nbsp;0.0&nbsp;and&nbsp;1.0<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;relative&nbsp;to&nbsp;width&nbsp;of&nbsp;master&nbsp;(1.0&nbsp;is&nbsp;right&nbsp;edge)<br>
-rely=amount&nbsp;-&nbsp;locate&nbsp;anchor&nbsp;of&nbsp;this&nbsp;widget&nbsp;between&nbsp;0.0&nbsp;and&nbsp;1.0<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;relative&nbsp;to&nbsp;height&nbsp;of&nbsp;master&nbsp;(1.0&nbsp;is&nbsp;bottom&nbsp;edge)<br>
-anchor=NSEW&nbsp;(or&nbsp;subset)&nbsp;-&nbsp;position&nbsp;anchor&nbsp;according&nbsp;to&nbsp;given&nbsp;direction<br>
-width=amount&nbsp;-&nbsp;width&nbsp;of&nbsp;this&nbsp;widget&nbsp;in&nbsp;pixel<br>
-height=amount&nbsp;-&nbsp;height&nbsp;of&nbsp;this&nbsp;widget&nbsp;in&nbsp;pixel<br>
-relwidth=amount&nbsp;-&nbsp;width&nbsp;of&nbsp;this&nbsp;widget&nbsp;between&nbsp;0.0&nbsp;and&nbsp;1.0<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;relative&nbsp;to&nbsp;width&nbsp;of&nbsp;master&nbsp;(1.0&nbsp;is&nbsp;the&nbsp;same&nbsp;width<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;as&nbsp;the&nbsp;master)<br>
-relheight=amount&nbsp;-&nbsp;height&nbsp;of&nbsp;this&nbsp;widget&nbsp;between&nbsp;0.0&nbsp;and&nbsp;1.0<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;relative&nbsp;to&nbsp;height&nbsp;of&nbsp;master&nbsp;(1.0&nbsp;is&nbsp;the&nbsp;same<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height&nbsp;as&nbsp;the&nbsp;master)<br>
-bordermode="inside"&nbsp;or&nbsp;"outside"&nbsp;-&nbsp;whether&nbsp;to&nbsp;take&nbsp;border&nbsp;width&nbsp;of<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;master&nbsp;widget&nbsp;into&nbsp;account</tt></dd></dl>
+<dl><dt><a name="open-place"><strong>place</strong></a> = <a href="#open-place_configure">place_configure</a>(self, cnf={}, **kw)</dt></dl>
 
 <dl><dt><a name="open-place_configure"><strong>place_configure</strong></a>(self, cnf={}, **kw)</dt><dd><tt>Place&nbsp;a&nbsp;widget&nbsp;in&nbsp;the&nbsp;parent&nbsp;widget.&nbsp;Use&nbsp;as&nbsp;options:<br>
 in=master&nbsp;-&nbsp;master&nbsp;relative&nbsp;to&nbsp;which&nbsp;the&nbsp;widget&nbsp;is&nbsp;placed<br>
@@ -1093,19 +1052,7 @@ for&nbsp;this&nbsp;widget.</tt></dd></dl>
 
 <hr>
 Methods inherited from <a href="tkinter.html#Grid">tkinter.Grid</a>:<br>
-<dl><dt><a name="open-grid"><strong>grid</strong></a> = grid_configure(self, cnf={}, **kw)</dt><dd><tt>Position&nbsp;a&nbsp;widget&nbsp;in&nbsp;the&nbsp;parent&nbsp;widget&nbsp;in&nbsp;a&nbsp;grid.&nbsp;Use&nbsp;as&nbsp;options:<br>
-column=number&nbsp;-&nbsp;use&nbsp;cell&nbsp;identified&nbsp;with&nbsp;given&nbsp;column&nbsp;(starting&nbsp;with&nbsp;0)<br>
-columnspan=number&nbsp;-&nbsp;this&nbsp;widget&nbsp;will&nbsp;span&nbsp;several&nbsp;columns<br>
-in=master&nbsp;-&nbsp;use&nbsp;master&nbsp;to&nbsp;contain&nbsp;this&nbsp;widget<br>
-in_=master&nbsp;-&nbsp;see&nbsp;'in'&nbsp;option&nbsp;description<br>
-ipadx=amount&nbsp;-&nbsp;add&nbsp;internal&nbsp;padding&nbsp;in&nbsp;x&nbsp;direction<br>
-ipady=amount&nbsp;-&nbsp;add&nbsp;internal&nbsp;padding&nbsp;in&nbsp;y&nbsp;direction<br>
-padx=amount&nbsp;-&nbsp;add&nbsp;padding&nbsp;in&nbsp;x&nbsp;direction<br>
-pady=amount&nbsp;-&nbsp;add&nbsp;padding&nbsp;in&nbsp;y&nbsp;direction<br>
-row=number&nbsp;-&nbsp;use&nbsp;cell&nbsp;identified&nbsp;with&nbsp;given&nbsp;row&nbsp;(starting&nbsp;with&nbsp;0)<br>
-rowspan=number&nbsp;-&nbsp;this&nbsp;widget&nbsp;will&nbsp;span&nbsp;several&nbsp;rows<br>
-sticky=NSEW&nbsp;-&nbsp;if&nbsp;cell&nbsp;is&nbsp;larger&nbsp;on&nbsp;which&nbsp;sides&nbsp;will&nbsp;this<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widget&nbsp;stick&nbsp;to&nbsp;the&nbsp;cell&nbsp;boundary</tt></dd></dl>
+<dl><dt><a name="open-grid"><strong>grid</strong></a> = <a href="#open-grid_configure">grid_configure</a>(self, cnf={}, **kw)</dt></dl>
 
 <dl><dt><a name="open-grid_configure"><strong>grid_configure</strong></a>(self, cnf={}, **kw)</dt><dd><tt>Position&nbsp;a&nbsp;widget&nbsp;in&nbsp;the&nbsp;parent&nbsp;widget&nbsp;in&nbsp;a&nbsp;grid.&nbsp;Use&nbsp;as&nbsp;options:<br>
 column=number&nbsp;-&nbsp;use&nbsp;cell&nbsp;identified&nbsp;with&nbsp;given&nbsp;column&nbsp;(starting&nbsp;with&nbsp;0)<br>
@@ -1128,9 +1075,7 @@ for&nbsp;positioning&nbsp;this&nbsp;widget&nbsp;in&nbsp;a&nbsp;grid.</tt></dd></
 
 <dl><dt><a name="open-grid_remove"><strong>grid_remove</strong></a>(self)</dt><dd><tt>Unmap&nbsp;this&nbsp;widget&nbsp;but&nbsp;remember&nbsp;the&nbsp;grid&nbsp;options.</tt></dd></dl>
 
-<dl><dt><a name="open-location"><strong>location</strong></a> = grid_location(self, x, y)</dt><dd><tt>Return&nbsp;a&nbsp;tuple&nbsp;of&nbsp;column&nbsp;and&nbsp;row&nbsp;which&nbsp;identify&nbsp;the&nbsp;cell<br>
-at&nbsp;which&nbsp;the&nbsp;pixel&nbsp;at&nbsp;position&nbsp;X&nbsp;and&nbsp;Y&nbsp;inside&nbsp;the&nbsp;master<br>
-widget&nbsp;is&nbsp;located.</tt></dd></dl>
+<dl><dt><a name="open-location"><strong>location</strong></a> = <a href="#open-grid_location">grid_location</a>(self, x, y)</dt></dl>
 
 <hr>
 Methods inherited from <a href="tkinter.html#XView">tkinter.XView</a>:<br>
