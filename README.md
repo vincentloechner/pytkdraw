@@ -6,14 +6,14 @@
 This python3 package contains two modules that were developed as easy to use
 graphical libraries for programming beginners or for people who just wish to
 easily draw simple graphical objects in a window. They are based on the tkinter
-canvas object, but unlike tkinter they are synchronous.
+canvas object, but unlike the tkinter module they are synchronous.
 
 The main module is tkdraw.screen. It is synchronous, which means that you don't
 have to handle asynchronous calls to predefined functions to react to the
-interface events. It provides a basic class, that opens a tkinter window
-containing a canvas where you can draw a rectangular board containing pieces
-or just pixels (top-left coordinate is (0, 0)). There is a single function
-waiting for an event to occur and there are various drawing functions.
+interface events. It provides the basic class `tkdraw.screen.open` that opens a
+tkinter window containing a canvas where you can draw a rectangular board
+containing pieces or just pixels. There is a single function waiting for an
+event to occur and there are various drawing functions.
 Check the demo:
 `python3 -m tkdraw.screen`.
 
@@ -29,13 +29,14 @@ Some examples are available here:
 [](---------------------------------------------------------------------------)
 ## DOCUMENTATION
 
-The documentation is available online in the python3 interpreter:
+The complete documentation is available directly in the python3 interpreter:
 ```sh
 $ python3
 >>> import tkdraw.basic
 >>> help(tkdraw.basic)
 ```
 ```
+$ python3
 >>> import tkdraw.screen
 >>> help(tkdraw.screen)
 ```
