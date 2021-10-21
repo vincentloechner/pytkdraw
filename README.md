@@ -23,8 +23,9 @@ used by complete python beginners to learn how to write loops, and get a visual
 immediate result. Check the demo:
 `python3 -m tkdraw.basic`
 
-The documentation is available online in python3:
-```
+The documentation is available online in the python3 interpreter:
+```sh
+$ python3
 >>> import tkdraw.basic
 >>> help(tkdraw.basic)
 ```
