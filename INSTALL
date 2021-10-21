@@ -36,21 +36,18 @@ HOWTO move to development mode:
 python3 -m build
 
 2. move to dev mode using the setup.py script:
-./setup.py develop
+python3 -m pip install -e . --user
+# ./setup.py develop
 
 3. to quit development mode:
-./setup.py develop --uninstall
+python3 -m pip uninstall tkdraw
+# ./setup.py develop --uninstall
 
 ------------------------------------------------------------------------------
 HOWTO generate the html documentation:
 
-cd docs
-python3 -m pydoc -w tkdraw
-python3 -m pydoc -w tkdraw.basic
-python3 -m pydoc -w tkdraw.screen
-python3 -m pydoc -w tkdraw.test
-python3 -m pydoc -w tkdraw.test.test_basic
-python3 -m pydoc -w tkdraw.test.test_screen
+1. install pdoc
+python3 -m pip install pdoc3
 
-[for some reason pydoc does not generate links to the tkinter online
-reference documentation on docs.python.org - can't figure out why]
+2. generate
+python3 -m pdoc --html -o docs/ tkdraw
