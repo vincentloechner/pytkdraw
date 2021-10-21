@@ -14,7 +14,7 @@ interface events. It provides a basic class, that opens a simple tkinter window
 containing a canvas where you can draw boards or pixels. There is a single
 function waiting for an event to occur and there are various drawing functions.
 It is also very convenient to draw rectangular boards and simple pieces (as
-colored circles). Check the examples or run the demo:
+colored circles). Check the demo:
 `python3 -m tkdraw.screen`.
 
 The tkdraw.basic module provides four elementary functions: to open a window,
@@ -23,11 +23,21 @@ used by complete python beginners to learn how to write loops, and get a visual
 immediate result. Check the demo:
 `python3 -m tkdraw.basic`
 
+The documentation is available online in python3:
+'''
+>>> import tkdraw.basic
+>>> help(tkdraw.basic)
+>>> import tkdraw.screen
+>>> help(tkdraw.screen)
+'''
+
 [](---------------------------------------------------------------------------)
 ## USAGE
 
 - If you don't have it yet, install tkinter for python3
-  (`sudo apt install python3-tk` on most linux distributions)
+  (`sudo apt install python3-tk` on most Linux distributions,
+    on MacOS it should be installed by default, on Windows you have to select
+    the option at install time, or reinstall python3 if you didn't).
 
 - Install tkdraw using pip:
 ```
