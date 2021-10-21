@@ -40,3 +40,14 @@ python3 -m build
 
 3. to quit development mode:
 ./setup.py develop --uninstall
+
+------------------------------------------------------------------------------
+HOWTO generate the html documentation:
+
+cd docs
+python3 -m pydoc -w tkdraw
+python3 -m pydoc -w tkdraw.basic
+python3 -m pydoc -w tkdraw.screen
+python3 -m pydoc -w tkdraw.test
+python3 -m pydoc -w tkdraw.test.test_basic
+python3 -m pydoc -w tkdraw.test.test_screen

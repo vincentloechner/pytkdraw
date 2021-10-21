@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module tkdraw.basic</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="tkdraw.html"><font color="#ffffff">tkdraw</font></a>.basic</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/loechner/Library/Python/3.7/lib/python/site-packages/tkdraw/basic.py">/Users/loechner/Library/Python/3.7/lib/python/site-packages/tkdraw/basic.py</a></font></td></tr></table>
+    <p><tt>Basic&nbsp;interface&nbsp;to&nbsp;the&nbsp;tkdraw.screen&nbsp;module.<br>
+&nbsp;<br>
+This&nbsp;module&nbsp;provides&nbsp;four&nbsp;elementary&nbsp;functions&nbsp;to:<br>
+-&nbsp;open&nbsp;a&nbsp;window<br>
+-&nbsp;plot&nbsp;a&nbsp;pixel&nbsp;at&nbsp;a&nbsp;given&nbsp;position&nbsp;in&nbsp;the&nbsp;window<br>
+-&nbsp;refresh&nbsp;the&nbsp;window&nbsp;(at&nbsp;any&nbsp;step&nbsp;of&nbsp;your&nbsp;program)<br>
+-&nbsp;wait&nbsp;for&nbsp;the&nbsp;user&nbsp;to&nbsp;close&nbsp;the&nbsp;window<br>
+&nbsp;<br>
+Python3&nbsp;will&nbsp;fail&nbsp;with&nbsp;an&nbsp;"AssertionError"&nbsp;if&nbsp;any&nbsp;precondition&nbsp;of&nbsp;those<br>
+functions&nbsp;is&nbsp;not&nbsp;met.<br>
+&nbsp;<br>
+Copyright&nbsp;2019-2021,&nbsp;Vincent&nbsp;Loechner&nbsp;&lt;loechner@unistra.fr&gt;<br>
+Distributed&nbsp;under&nbsp;the&nbsp;MIT&nbsp;license&nbsp;(see&nbsp;LICENSE)<br>
+&nbsp;<br>
+Source:&nbsp;https://github.com/vincentloechner/pytkdraw.git</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="tkdraw.screen.html">tkdraw.screen</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-open"><strong>open</strong></a>(height, width)</dt><dd><tt>Open&nbsp;a&nbsp;window&nbsp;of&nbsp;the&nbsp;given&nbsp;height,&nbsp;width.<br>
+&nbsp;<br>
+_Parameters_<br>
+-&nbsp;height,&nbsp;width&nbsp;(int)&nbsp;:&nbsp;size&nbsp;of&nbsp;the&nbsp;window&nbsp;(in&nbsp;pixels)<br>
+&nbsp;<br>
+_Preconditions_<br>
+-&nbsp;this&nbsp;function&nbsp;can&nbsp;be&nbsp;called&nbsp;only&nbsp;once,&nbsp;but&nbsp;if&nbsp;you&nbsp;<a href="#-wait">wait</a>()&nbsp;for&nbsp;the&nbsp;user&nbsp;to<br>
+&nbsp;&nbsp;close&nbsp;a&nbsp;previously&nbsp;opened&nbsp;window&nbsp;you&nbsp;can&nbsp;open&nbsp;a&nbsp;new&nbsp;one.</tt></dd></dl>
+ <dl><dt><a name="-plot"><strong>plot</strong></a>(line, column, color='black')</dt><dd><tt>Plot&nbsp;a&nbsp;pixel&nbsp;at&nbsp;position&nbsp;(line,&nbsp;column).<br>
+&nbsp;<br>
+Usage&nbsp;notice&nbsp;:&nbsp;the&nbsp;effective&nbsp;rendering&nbsp;of&nbsp;this&nbsp;pixel&nbsp;will&nbsp;only&nbsp;be&nbsp;done&nbsp;once<br>
+you&nbsp;call&nbsp;<a href="#-refresh">refresh</a>()&nbsp;or&nbsp;<a href="#-wait">wait</a>().<br>
+&nbsp;<br>
+_Parameters_<br>
+-&nbsp;line,&nbsp;column&nbsp;(int):&nbsp;position&nbsp;of&nbsp;the&nbsp;pixel&nbsp;to&nbsp;plot<br>
+&nbsp;&nbsp;(0,&nbsp;0)&nbsp;is&nbsp;the&nbsp;top-left&nbsp;position.<br>
+Optional:<br>
+-&nbsp;color&nbsp;(str):&nbsp;a&nbsp;color&nbsp;(default&nbsp;value:&nbsp;"black").<br>
+&nbsp;&nbsp;This&nbsp;string&nbsp;shall&nbsp;contain&nbsp;a&nbsp;tkinter-compatible&nbsp;color&nbsp;string&nbsp;-<br>
+&nbsp;&nbsp;for&nbsp;a&nbsp;list&nbsp;of&nbsp;predefined&nbsp;color&nbsp;names&nbsp;see&nbsp;for&nbsp;example:<br>
+&nbsp;&nbsp;https://www.wikipython.com/tkinter-ttk-tix/summary-information/colors/<br>
+&nbsp;&nbsp;You&nbsp;can&nbsp;also&nbsp;specify&nbsp;an&nbsp;RGB-style&nbsp;color&nbsp;such&nbsp;as&nbsp;"#FF0000"&nbsp;for&nbsp;red.<br>
+&nbsp;<br>
+_Preconditions_<br>
+-&nbsp;the&nbsp;window&nbsp;must&nbsp;have&nbsp;been&nbsp;opened&nbsp;with&nbsp;a&nbsp;call&nbsp;to&nbsp;<a href="#-open">open</a>(height,&nbsp;width)<br>
+-&nbsp;0&nbsp;&lt;=&nbsp;line&nbsp;&lt;&nbsp;height<br>
+-&nbsp;0&nbsp;&lt;=&nbsp;column&nbsp;&lt;&nbsp;width</tt></dd></dl>
+ <dl><dt><a name="-refresh"><strong>refresh</strong></a>()</dt><dd><tt>Refresh&nbsp;the&nbsp;window.<br>
+&nbsp;<br>
+All&nbsp;plots&nbsp;that&nbsp;you&nbsp;did&nbsp;before&nbsp;this&nbsp;call&nbsp;will&nbsp;be&nbsp;displayed&nbsp;for&nbsp;real&nbsp;in&nbsp;the<br>
+window.<br>
+&nbsp;<br>
+_Parameters_<br>
+None<br>
+&nbsp;<br>
+_Preconditions_<br>
+-&nbsp;the&nbsp;window&nbsp;must&nbsp;have&nbsp;been&nbsp;opened</tt></dd></dl>
+ <dl><dt><a name="-wait"><strong>wait</strong></a>()</dt><dd><tt>Wait&nbsp;for&nbsp;the&nbsp;user&nbsp;to&nbsp;close&nbsp;the&nbsp;window.<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;is&nbsp;blocking,&nbsp;it&nbsp;will&nbsp;return&nbsp;once&nbsp;the&nbsp;user&nbsp;has&nbsp;(1)&nbsp;closed&nbsp;the<br>
+window&nbsp;using&nbsp;the&nbsp;mouse,&nbsp;or&nbsp;(2)&nbsp;hit&nbsp;the&nbsp;'escape'&nbsp;or&nbsp;'q'&nbsp;key.<br>
+&nbsp;<br>
+Usage&nbsp;notice:&nbsp;you&nbsp;have&nbsp;to&nbsp;call&nbsp;this&nbsp;function&nbsp;before&nbsp;the&nbsp;end&nbsp;of&nbsp;your<br>
+program,&nbsp;or&nbsp;you&nbsp;won't&nbsp;be&nbsp;able&nbsp;to&nbsp;see&nbsp;the&nbsp;content&nbsp;of&nbsp;the&nbsp;window.&nbsp;If&nbsp;you<br>
+don't&nbsp;call&nbsp;this&nbsp;function,&nbsp;the&nbsp;window&nbsp;will&nbsp;just&nbsp;disapear&nbsp;when&nbsp;the&nbsp;program<br>
+exits.<br>
+&nbsp;<br>
+_Parameters_<br>
+None<br>
+&nbsp;<br>
+_Preconditions_<br>
+-&nbsp;the&nbsp;window&nbsp;must&nbsp;have&nbsp;been&nbsp;opened</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>window</strong> = None</td></tr></table>
+</body></html>
