@@ -1,0 +1,2153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>tkdraw.screen API documentation</title>
+<meta name="description" content="Basic draw graphical user interface (GUI) based on tkinter, synchroneous …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>tkdraw.screen</code></h1>
+</header>
+<section id="section-intro">
+<p>Basic draw graphical user interface (GUI) based on tkinter, synchroneous.</p>
+<p>Test this module using <code>python3 -m tkdraw.screen</code></p>
+<p>The online documentation is available under python3:</p>
+<pre><code>$ python3
+&gt;&gt;&gt; import tkdraw.screen as tkd
+&gt;&gt;&gt; help(tkd.open)
+or
+&gt;&gt;&gt; help(tkd.open.FUNC_NAME)
+</code></pre>
+<p>Copyright 2018-2021, Vincent Loechner.
+Distributed under the MIT license (see LICENSE)
+<a href="https://github.com/vincentloechner/pytkdraw.git">https://github.com/vincentloechner/pytkdraw.git</a></p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Basic draw graphical user interface (GUI) based on tkinter, synchroneous.
+
+Test this module using `python3 -m tkdraw.screen`
+
+The online documentation is available under python3:
+```
+$ python3
+&gt;&gt;&gt; import tkdraw.screen as tkd
+&gt;&gt;&gt; help(tkd.open)
+or
+&gt;&gt;&gt; help(tkd.open.FUNC_NAME)
+```
+
+Copyright 2018-2021, Vincent Loechner.
+Distributed under the MIT license (see LICENSE)
+https://github.com/vincentloechner/pytkdraw.git
+&#34;&#34;&#34;
+
+import tkinter as tk
+import queue
+
+
+class open(tk.Canvas):
+    &#34;&#34;&#34;Main class for a window containing a board (2D grid).
+
+    _Parameters_
+    Optional creation parameters:
+    - size ((int, int)): a couple (height, width) specifying the size of the
+                         grid (default: (8, 8))
+    - pixels (int): number of pixels of a square (default: 100)
+    - grid (bool): if True, prints a one-pixel large grid : horizontal and
+                   vertical lines separating the squares (default: True)
+
+    To open a window containing just an array of pixels, set the pixels
+    parameter to 1 and grid to False.
+
+    This class inherits from tkinter&#39;s canvas class, you can directly call the
+    canvas methods to perform advanced drawings in this canvas (expert mode).
+    You may refer to the documentation of tkinter describing the Canvas widget.
+    &#34;&#34;&#34;
+
+    def __init__(
+        self, size=(8, 8), pixels=100, grid=True
+    ):
+        &#34;&#34;&#34;Initialize the window instance.
+
+        Create a tkinter root object and a canvas (from which we inherit).
+        Redirects all events to the appropriate functions.
+        Arguments are described in the &#34;open&#34; main class.
+        &#34;&#34;&#34;
+        # some private methods below, to react to asynchronous events:
+
+        # private: the user clicked on a square
+        def click(evenement):
+            # min to handle user clicking on the last pixel:
+            i = min((evenement.y-1)//self.pixels, self.size[0]-1)
+            j = min((evenement.x-1)//self.pixels, self.size[1]-1)
+            # add the event (line, column) to the queue
+            self.eventq.put((&#34;click&#34;, (i, j)))
+            # and leave the mainloop
+            self.root.quit()
+
+        # private: the user hit a key
+        def key(evenement):
+            # put the event in the queue
+            self.eventq.put((&#34;key&#34;, evenement.keysym))
+            # and leave the mainloop
+            self.root.quit()
+
+        # private: the user closed the window
+        def async_end():
+            # put the END event in the queue
+            self.eventq.put((&#34;END&#34;, None))
+            # and close
+            self.close()
+
+        # private: regularily check if some events are pending in the queue
+        # and wake up
+        def checke():
+            self.after_id = self.root.after(1000, checke)
+            # stop mainloop
+            self.root.quit()
+
+        #################################
+        # INIT
+        self.size = size
+        self.pixels = pixels
+        self.root = None
+        self.after_id = None
+        self.gap = int(grid)  # 1 more pixel if grid is True
+
+        self.eventq = queue.Queue()
+
+        self.root = tk.Tk()
+        # you can create other widgets here if you want to
+        # self.frame = tk.Frame(root)
+
+        # creates THE canvas:
+        tk.Canvas.__init__(
+                self,
+                self.root,
+                height=self.size[0]*self.pixels+self.gap,
+                width=self.size[1]*self.pixels+self.gap,
+                background=&#34;#ddd&#34;,
+                takefocus=True,
+                borderwidth=0,
+                highlightthickness=1)
+        self.pack()
+        # self.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+        self.focus_set()
+
+        # binds the click function to the click event
+        self.bind(&#34;&lt;Button-1&gt;&#34;, click)
+        # binds the key function to the keypress event
+        self.bind(&#34;&lt;Any-KeyPress&gt;&#34;, key)
+
+        # checke will be called once per second
+        self.after_id = self.root.after(1000, checke)
+        # ensure that async_end is called if the window is killed
+        self.root.protocol(&#34;WM_DELETE_WINDOW&#34;, async_end)
+
+        # draw the original state
+        if grid:
+            self.draw_grid()
+
+    def __enter__(self):
+        &#34;&#34;&#34;Internal: With -as: statement compatibility.&#34;&#34;&#34;
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        &#34;&#34;&#34;Internal: With -as: statement compatibility.&#34;&#34;&#34;
+        self.close()
+
+    def __del__(self):
+        &#34;&#34;&#34;Internal: if the object is freeed by python for some reason.&#34;&#34;&#34;
+        self.close()
+
+    def close(self):
+        &#34;&#34;&#34;Close this window.
+
+        _Parameters_
+        None
+
+        _Return_value_
+        None
+        &#34;&#34;&#34;
+        if self.after_id is not None:
+            self.root.after_cancel(self.after_id)
+            self.after_id = None
+        if self.root is not None:
+            self.root.destroy()
+            self.root = None
+
+    def message(self, message):
+        &#34;&#34;&#34;Display a message in a box and wait for the user to click somewhere.
+
+        _Parameters_
+        - message (str): the string to print
+
+        _Return_value_
+        - (boolean) True if the user just clicked on the box,
+          False if the user killed the window.
+        &#34;&#34;&#34;
+        # private: the user clicked in the box
+        def c(event):
+            self.eventq.put(&#34;ok&#34;)
+            self.root.quit()
+
+        assert self.root, &#34;ERROR: window killed!&#34;
+        m = tk.Message(
+                self.root, text=message,
+                padx=20, pady=20,
+                relief=tk.RAISED, borderwidth=5,
+                )
+        # mouse click:
+        m.bind(&#34;&lt;Button-1&gt;&#34;, c)
+        # m.grid(row=0, column=0)
+        m.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+        while True:
+            s = self.wait_event()
+            if s[0] == &#34;END&#34;:
+                # the window has been closed
+                # put the end msg back in the queue and return False
+                self.eventq.put(s)
+                return False
+            # all the other events just close the message box and return True:
+            m.destroy()
+            return True
+
+    ###########################################################################
+    # HIGH LEVEL INTERFACE                                                    #
+    # This function can be used to print whole standard boards.               #
+    # Matrices should contain integers (-&gt; representing pieces colors/players)#
+    # or the None special value (-&gt; nothing there)                            #
+    ###########################################################################
+
+    # by default define those 10 colors:
+    DEFAULT_COLOR = [&#34;black&#34;, &#34;white&#34;, &#34;red&#34;, &#34;green&#34;, &#34;blue&#34;,
+                     &#34;yellow&#34;, &#34;cyan&#34;, &#34;magenta&#34;, &#34;orange&#34;, &#34;darkgrey&#34;]
+
+    def draw_grid(
+        self, matrix=None, grid=True
+    ):
+        &#34;&#34;&#34;Print a complete grid of pieces, using the 10 default colors.
+
+        _Parameters_
+        - matrix (list of list): the players pieces matrix, of the specified
+            size. If matrix is None (default), just ignores it.
+        - grid (boolean): if True (default) draws a horizontal+vertical grid
+            to separate the tiles.
+
+        _Return_value_
+        - a list of the graphical objects that were created (grid excluded).
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        # erase everything for a start
+        self.delete(tk.ALL)
+        # gap is used by draw_tile to fill the inside of a tile (including
+        # borders, or not
+        if grid:
+            for i in range(self.size[0]+self.gap):
+                self.create_line(1, i*self.pixels+1,
+                                 self.size[1]*self.pixels+1, i*self.pixels+1,
+                                 width=1)
+            for i in range(self.size[1]+self.gap):
+                self.create_line(i*self.pixels+1, 1,
+                                 i*self.pixels+1,
+                                 self.size[0]*self.pixels+1+self.gap,
+                                 width=1)
+        # draw the pieces
+        o = []
+        if matrix is not None:
+            for i in range(self.size[0]):
+                for j in range(self.size[1]):
+                    if matrix[i][j] is not None:
+                        o.append(self.draw_piece((i, j), matrix[i][j],
+                                 refresh=False))
+        # update just once at the end, for performance
+        self.update()
+        return o
+
+    def erase(
+        self
+    ):
+        &#34;&#34;&#34;Erase everything from the window.
+
+        All graphical objects that were created are deleted.
+
+        _Parameters_
+        None
+
+        _Return_value_
+        None
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        self.delete(tk.ALL)
+        # redraw the grid if it was there:
+        if self.gap == 1:
+            self.draw_grid()
+
+    ###########################################################################
+    # INTERMEDIATE LEVEL INTERFACE                                            #
+    # draw various objects on a board (2D grid)                               #
+    ###########################################################################
+    def draw_piece(
+        self, p, player=0,
+        color=None,
+        refresh=True
+    ):
+        &#34;&#34;&#34;Draw a piece in position p=(line, column), player-colored.
+
+        Usage notice: don&#39;t use this function if your tiles are too small, you
+        won&#39;t see the piece.
+
+        _Parameters_
+        - p ((int, int)): grid position (line, column)
+        Optional:
+        - player (int): player number (default: 0)
+          player is used only if color is NOT given.
+        OR
+        - color (str): fill color of the piece. If a color is given, player
+          is ignored.
+        - refresh (bool): refresh the window after drawing (default: True)
+
+        _Return_value_
+        - the ID of the graphical object that was created (int).
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        if color is None:
+            if isinstance(player, int):
+                color = self.DEFAULT_COLOR[player % len(self.DEFAULT_COLOR)]
+            else:
+                color = self.DEFAULT_COLOR[0]
+
+        bord = self.pixels//10+1
+        i, j = p
+        assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
+            &#34;ERROR: trying to draw outside the window!&#34;
+
+        o = self.create_oval(j*self.pixels+bord+1,
+                             i*self.pixels+bord+1,
+                             (j+1)*self.pixels-bord+1,
+                             (i+1)*self.pixels-bord+1,
+                             width=1, fill=color)
+        if refresh:
+            self.update()
+        return o
+
+    def move_piece(
+        self, obj, pos, refresh=True
+    ):
+        &#34;&#34;&#34;Move a piece (obj ID) in grid position pos (couple).
+
+        _Parameters_
+        - obj (int): a previously created piece ID
+        - pos ((int, int)): new grid position (line, column)
+        Optional:
+        - refresh (bool): refresh the window after drawing (default: True)
+
+        _Return_value_
+        None
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        i, j = pos
+        assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
+            &#34;ERROR: trying to move a piece outside the window!&#34;
+        bord = self.pixels//10+1
+        self.coords(
+            obj,
+            j*self.pixels+bord+1,
+            i*self.pixels+bord+1,
+            (j+1)*self.pixels-bord+1,
+            (i+1)*self.pixels-bord+1
+            )
+        if refresh:
+            self.update()
+
+    def draw_tile(
+        self, p,
+        color=&#34;black&#34;,
+        border=0,
+        refresh=True
+    ):
+        &#34;&#34;&#34;Fill the inside of a tile in position p=(line, column) with a color.
+
+        _Parameters_
+        - p ((int, int)): grid position (line, column)
+        Optional:
+        - color (str): color of the tile (default: &#34;black&#34;)
+        - border (int): border thickness (default: 0) - borders will overlap on
+          neighboring tiles
+        - refresh (bool): refresh the window after drawing (default: True)
+
+        _Return_value_
+        - the colored tile ID (int).
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        i, j = p
+        assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
+            &#34;ERROR: trying to fill a tile outside the window!&#34;
+        o = self.create_rectangle(j*self.pixels+1+self.gap,
+                                  i*self.pixels+1+self.gap,
+                                  (j+1)*self.pixels+1,
+                                  (i+1)*self.pixels+1,
+                                  width=border, fill=color)
+        if refresh:
+            self.update()
+        return o
+
+    def move_tile(
+        self, obj, pos, refresh=True
+    ):
+        &#34;&#34;&#34;Move a colored tile to another grid position.
+
+        _Parameters_
+        - obj (int): a previously created tile ID
+        - pos ((int, int)): new position in the grid (line, column)
+        Optional:
+        - refresh (bool): refresh the window after drawing (default: True)
+
+        _Return_value_
+        None
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        i, j = pos
+        assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
+            &#34;ERROR: trying to move a tile outside the window!&#34;
+        self.coords(
+            obj,
+            j*self.pixels+1++self.gap,
+            i*self.pixels+1++self.gap,
+            (j+1)*self.pixels+1,
+            (i+1)*self.pixels+1
+            )
+        if refresh:
+            self.update()
+
+    ###########################################################################
+    # low level interface:                                                    #
+    # draw pixels, lines, circles, etc.                                       #
+    ###########################################################################
+    def draw_line(
+        self, x1, x2, color=&#34;black&#34;, thickness=1, refresh=True
+    ):
+        &#34;&#34;&#34;Draw a line between x1=(l1,c1) and x2=(l2,c2) (excluded).
+
+        _Parameters_
+        - x1, x2 (two couples (int, int)): pixel-wise positions (line, column)
+          of the two points. (0,0) = top-left position.
+        Optional:
+        - color (str): line color (default: &#34;black&#34;)
+        - thickness (int): thickness of the line (default: 1)
+        - refresh (bool): refresh the window after drawing (default: True)
+
+        _Return_value_
+        - the ID of the graphical object that was created (int).
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        o = self.create_line(x1[1]+1, x1[0]+1, x2[1], x2[0],
+                             width=thickness, fill=color)
+        if refresh:
+            self.update()
+        return o
+
+    def draw_circle(
+        self, x1, x2,
+        color=&#34;black&#34;, border=1, refresh=True
+    ):
+        &#34;&#34;&#34;Draw a circle in the bounding box of x1=(l1,c1) and x2 (excluded).
+
+        _Parameters_
+        - x1, x2 (two couples (int, int)): pixel-wise positions (line, column)
+          of the two points. (0,0) = top-left position.
+        Optional:
+        - color (str): color of the inside (default: &#34;black&#34;)
+                       if color == None, don&#39;t fill the circle.
+        - border (int): border thickness (default: 1) - borders can overflow
+          over the given pixels coordinates
+        - refresh (bool): refresh the window after drawing (default: True)
+
+        _Return_value_
+        - the ID of the graphical object that was created (int).
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        o = self.create_oval(x1[1]+1, x1[0]+1, x2[1], x2[0],
+                             width=border, fill=color)
+        if refresh:
+            self.update()
+        return o
+
+    def draw_text(
+        self, position, text,
+        color=&#34;black&#34;, fontname=&#34;Purisa&#34;, fontsize=11, refresh=True
+    ):
+        &#34;&#34;&#34;Draw a text centered at a given position=(l1,c1).
+
+        _Parameters_
+        - position (couple (int,int)): pixel-wise position (line, column).
+          (0,0) = top-left position.
+        - text (str): text to print
+        Optional:
+        - color (str): text color (default: &#34;black&#34;)
+        - fontname (str): font name (default: &#34;Purisa&#34;)
+        - fontsize (int): font size (default: 11pt)
+        - refresh (bool): refresh the window after drawing (default: True)
+
+        _Return_value_
+        - the ID of the graphical object that was created (int).
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        o = self.create_text(position[1]+1, position[0]+1,
+                             text=text,
+                             font=(fontname, fontsize),
+                             fill=color)
+        if refresh:
+            self.update()
+        return o
+
+    def bg(
+        self, obj, before=1, refresh=True
+    ):
+        &#34;&#34;&#34;Send a graphical object (ID) to background.
+
+        _Parameters_
+        - obj (int): object ID returned by an object creation method
+        Optional:
+        - before (int): the object behind which to hide (default: 1 = all)
+        - refresh (bool): refresh the window after drawing (default: True)
+
+        _Return_value_
+        None
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        # se met en fond, derrière l&#39;objet &#39;before&#39;:
+        self.tag_lower(obj, before)
+        if refresh:
+            self.update()
+
+    def refresh(
+        self
+    ):
+        &#34;&#34;&#34;Refresh all objects previously drawn in the window.
+
+        Usage note: you can create several successive objects without
+        refreshing by passing the extra argument &#34;refresh=False&#34; to the drawing
+        functions, and then refresh only once using this function.
+        Good for speed, especially if you draw many things.
+
+        _Return_value_
+        None
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        self.update()
+
+    def rm(
+        self, obj, refresh=True
+    ):
+        &#34;&#34;&#34;Delete a graphical object (ID).
+
+        _Parameters_
+        - obj (int): object ID returned by an object creation method
+        Optional:
+        - refresh (bool): refresh the window after drawing (default: True)
+
+        _Return_value_
+        None
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        self.delete(obj)
+        if refresh:
+            self.update()
+
+    ###########################################################################
+    # Main I/O function                                                       #
+    ###########################################################################
+    def wait_event(self, delay=None):
+        &#34;&#34;&#34;Wait for the user to interact with the window.
+
+        The tracked events are only keypress and mouse click (left button).
+
+        _Parameters_
+        Optional:
+        - delay (int): waiting time in ms (default: wait forever)
+
+        _Return_value_
+        - if the user clicks on a tile of the board, return the couple
+          (&#34;click&#34;, (line, column))
+          where (line, column) are the coordinates of the clicked tile
+        - if the user hits a key, return the couple
+          (&#34;key&#34;, letter)
+          where letter is a string containing a description of the key.
+          If you&#39;re looking for a specific key, just give a try to the demo:
+          `python3 -m tkdraw` will print all occuring events in the console
+        - if the user closes the window, return the couple
+          (&#34;END&#34;, None)
+        - if the delay expires (when given), the special value
+          None
+        &#34;&#34;&#34;
+        # private: called when the timer expires
+        def delay_expire():
+            self.eventq.put(None)
+            self.idd = None
+            self.root.quit()
+
+        # trigger the timer
+        self.idd = None
+        if delay is not None:
+            assert self.root, &#34;ERROR: window closed!&#34;
+            self.idd = self.root.after(delay, delay_expire)
+        # This is Tk&#39;s main loop
+        # checks the events and get out if something happens
+        while True:
+            ####################
+            try:
+                # get something from the event queue
+                r = self.eventq.get(False)
+                # cancels the timer if I got something
+                if self.idd is not None and self.root is not None:
+                    self.root.after_cancel(self.idd)
+                return r
+            except queue.Empty:
+                # no event in the queue, continue waiting (go to mainloop)
+                pass
+            ####################
+            assert self.root, &#34;ERROR: window closed!&#34;
+            # back to the mainloop, it will stop if I get an event
+            self.root.mainloop()
+            ####################
+
+    def mouse_position(self):
+        &#34;&#34;&#34;Return the mouse position (pixel-wise).
+
+        Usage notice: if a coordinate is negative or greater than the window
+        size, the mouse is out of the window.
+
+        _Return_value_
+        - a couple (int,int): pixel-wise position (line, column) relative to
+          (0,0) = top-left position in the window.
+        &#34;&#34;&#34;
+        # private: the mouse moved
+        def motion(event):
+            self.souris = (event.y, event.x)
+
+        assert self.root, &#34;ERROR: window closed!&#34;
+        self.refresh()
+        try:
+            return self.souris
+        except AttributeError:
+            self.bind(&#34;&lt;Motion&gt;&#34;, motion)
+            self.souris = (0, 0)  # initial position if the mouse doesn&#39;t move
+            return self.souris
+
+
+###########################################################################
+# Test program: 8x8 board, click to place/remove black/white pieces       #
+###########################################################################
+if __name__ == &#34;__main__&#34;:
+    # open the window containing a board
+    SIZE = 8
+    PIXEL_SIZE = 100
+    # use tkdraw.screen.open() if you include this as a module with
+    # &#39;import tkdraw.screen&#39;
+    g = open((SIZE, SIZE), PIXEL_SIZE)
+
+    # checkered tiles:
+    for i in range(SIZE):
+        for j in range(i % 2, SIZE, 2):
+            g.draw_tile((i, j), color=&#34;yellow&#34;, refresh=False)
+    # refresh only once for performance
+    g.refresh()
+
+    # welcome message
+    msg = g.draw_text((PIXEL_SIZE//2, PIXEL_SIZE+PIXEL_SIZE//2),
+                      &#34;Hello!\nclick here -&gt;&#34;)
+
+    # main loop: wait for user clicks and draw pieces.
+    # tab = 2D grid containing the graphical object IDs
+    # if you click again on a piece it will be deleted, same player plays
+    tab = [[None]*SIZE for i in range(SIZE)]
+    player = 1  # white player starts, black = -1.
+    while True:
+        p = g.wait_event()
+        # demo: print the content of the event couple
+        print(p)
+
+        # stop when:
+        if p[0] == &#34;END&#34;:
+            break
+        # or when:
+        if p[0] == &#34;key&#34; and p[1] in [&#34;q&#34;, &#34;Q&#34;, &#34;Escape&#34;]:
+            break
+
+        # ignore all events other than mouse click
+        if p[0] != &#34;click&#34;:
+            continue
+
+        lig, col = p[1]
+        if tab[lig][col] is None:
+            tab[lig][col] = g.draw_piece(p[1], player)
+            # player : 1 -&gt; -1 -&gt; 1 -&gt; ...
+            player = -player
+        else:
+            # remove the piece at position (lig, col)
+            g.rm(tab[lig][col])
+            tab[lig][col] = None
+
+        # remove the previous message
+        g.rm(msg)
+        # and put a new one
+        msg = g.draw_text((PIXEL_SIZE//2, PIXEL_SIZE+PIXEL_SIZE//2),
+                          [0, &#34;white player&#34;, &#34;black player&#34;][player])
+
+    # at the end, close the window properly
+    g.close()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="tkdraw.screen.open"><code class="flex name class">
+<span>class <span class="ident">open</span></span>
+<span>(</span><span>size=(8, 8), pixels=100, grid=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Main class for a window containing a board (2D grid).</p>
+<p><em>Parameters</em>
+Optional creation parameters:
+- size ((int, int)): a couple (height, width) specifying the size of the
+grid (default: (8, 8))
+- pixels (int): number of pixels of a square (default: 100)
+- grid (bool): if True, prints a one-pixel large grid : horizontal and
+vertical lines separating the squares (default: True)</p>
+<p>To open a window containing just an array of pixels, set the pixels
+parameter to 1 and grid to False.</p>
+<p>This class inherits from tkinter's canvas class, you can directly call the
+canvas methods to perform advanced drawings in this canvas (expert mode).
+You may refer to the documentation of tkinter describing the Canvas widget.</p>
+<p>Initialize the window instance.</p>
+<p>Create a tkinter root object and a canvas (from which we inherit).
+Redirects all events to the appropriate functions.
+Arguments are described in the "open" main class.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class open(tk.Canvas):
+    &#34;&#34;&#34;Main class for a window containing a board (2D grid).
+
+    _Parameters_
+    Optional creation parameters:
+    - size ((int, int)): a couple (height, width) specifying the size of the
+                         grid (default: (8, 8))
+    - pixels (int): number of pixels of a square (default: 100)
+    - grid (bool): if True, prints a one-pixel large grid : horizontal and
+                   vertical lines separating the squares (default: True)
+
+    To open a window containing just an array of pixels, set the pixels
+    parameter to 1 and grid to False.
+
+    This class inherits from tkinter&#39;s canvas class, you can directly call the
+    canvas methods to perform advanced drawings in this canvas (expert mode).
+    You may refer to the documentation of tkinter describing the Canvas widget.
+    &#34;&#34;&#34;
+
+    def __init__(
+        self, size=(8, 8), pixels=100, grid=True
+    ):
+        &#34;&#34;&#34;Initialize the window instance.
+
+        Create a tkinter root object and a canvas (from which we inherit).
+        Redirects all events to the appropriate functions.
+        Arguments are described in the &#34;open&#34; main class.
+        &#34;&#34;&#34;
+        # some private methods below, to react to asynchronous events:
+
+        # private: the user clicked on a square
+        def click(evenement):
+            # min to handle user clicking on the last pixel:
+            i = min((evenement.y-1)//self.pixels, self.size[0]-1)
+            j = min((evenement.x-1)//self.pixels, self.size[1]-1)
+            # add the event (line, column) to the queue
+            self.eventq.put((&#34;click&#34;, (i, j)))
+            # and leave the mainloop
+            self.root.quit()
+
+        # private: the user hit a key
+        def key(evenement):
+            # put the event in the queue
+            self.eventq.put((&#34;key&#34;, evenement.keysym))
+            # and leave the mainloop
+            self.root.quit()
+
+        # private: the user closed the window
+        def async_end():
+            # put the END event in the queue
+            self.eventq.put((&#34;END&#34;, None))
+            # and close
+            self.close()
+
+        # private: regularily check if some events are pending in the queue
+        # and wake up
+        def checke():
+            self.after_id = self.root.after(1000, checke)
+            # stop mainloop
+            self.root.quit()
+
+        #################################
+        # INIT
+        self.size = size
+        self.pixels = pixels
+        self.root = None
+        self.after_id = None
+        self.gap = int(grid)  # 1 more pixel if grid is True
+
+        self.eventq = queue.Queue()
+
+        self.root = tk.Tk()
+        # you can create other widgets here if you want to
+        # self.frame = tk.Frame(root)
+
+        # creates THE canvas:
+        tk.Canvas.__init__(
+                self,
+                self.root,
+                height=self.size[0]*self.pixels+self.gap,
+                width=self.size[1]*self.pixels+self.gap,
+                background=&#34;#ddd&#34;,
+                takefocus=True,
+                borderwidth=0,
+                highlightthickness=1)
+        self.pack()
+        # self.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+        self.focus_set()
+
+        # binds the click function to the click event
+        self.bind(&#34;&lt;Button-1&gt;&#34;, click)
+        # binds the key function to the keypress event
+        self.bind(&#34;&lt;Any-KeyPress&gt;&#34;, key)
+
+        # checke will be called once per second
+        self.after_id = self.root.after(1000, checke)
+        # ensure that async_end is called if the window is killed
+        self.root.protocol(&#34;WM_DELETE_WINDOW&#34;, async_end)
+
+        # draw the original state
+        if grid:
+            self.draw_grid()
+
+    def __enter__(self):
+        &#34;&#34;&#34;Internal: With -as: statement compatibility.&#34;&#34;&#34;
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        &#34;&#34;&#34;Internal: With -as: statement compatibility.&#34;&#34;&#34;
+        self.close()
+
+    def __del__(self):
+        &#34;&#34;&#34;Internal: if the object is freeed by python for some reason.&#34;&#34;&#34;
+        self.close()
+
+    def close(self):
+        &#34;&#34;&#34;Close this window.
+
+        _Parameters_
+        None
+
+        _Return_value_
+        None
+        &#34;&#34;&#34;
+        if self.after_id is not None:
+            self.root.after_cancel(self.after_id)
+            self.after_id = None
+        if self.root is not None:
+            self.root.destroy()
+            self.root = None
+
+    def message(self, message):
+        &#34;&#34;&#34;Display a message in a box and wait for the user to click somewhere.
+
+        _Parameters_
+        - message (str): the string to print
+
+        _Return_value_
+        - (boolean) True if the user just clicked on the box,
+          False if the user killed the window.
+        &#34;&#34;&#34;
+        # private: the user clicked in the box
+        def c(event):
+            self.eventq.put(&#34;ok&#34;)
+            self.root.quit()
+
+        assert self.root, &#34;ERROR: window killed!&#34;
+        m = tk.Message(
+                self.root, text=message,
+                padx=20, pady=20,
+                relief=tk.RAISED, borderwidth=5,
+                )
+        # mouse click:
+        m.bind(&#34;&lt;Button-1&gt;&#34;, c)
+        # m.grid(row=0, column=0)
+        m.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+        while True:
+            s = self.wait_event()
+            if s[0] == &#34;END&#34;:
+                # the window has been closed
+                # put the end msg back in the queue and return False
+                self.eventq.put(s)
+                return False
+            # all the other events just close the message box and return True:
+            m.destroy()
+            return True
+
+    ###########################################################################
+    # HIGH LEVEL INTERFACE                                                    #
+    # This function can be used to print whole standard boards.               #
+    # Matrices should contain integers (-&gt; representing pieces colors/players)#
+    # or the None special value (-&gt; nothing there)                            #
+    ###########################################################################
+
+    # by default define those 10 colors:
+    DEFAULT_COLOR = [&#34;black&#34;, &#34;white&#34;, &#34;red&#34;, &#34;green&#34;, &#34;blue&#34;,
+                     &#34;yellow&#34;, &#34;cyan&#34;, &#34;magenta&#34;, &#34;orange&#34;, &#34;darkgrey&#34;]
+
+    def draw_grid(
+        self, matrix=None, grid=True
+    ):
+        &#34;&#34;&#34;Print a complete grid of pieces, using the 10 default colors.
+
+        _Parameters_
+        - matrix (list of list): the players pieces matrix, of the specified
+            size. If matrix is None (default), just ignores it.
+        - grid (boolean): if True (default) draws a horizontal+vertical grid
+            to separate the tiles.
+
+        _Return_value_
+        - a list of the graphical objects that were created (grid excluded).
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        # erase everything for a start
+        self.delete(tk.ALL)
+        # gap is used by draw_tile to fill the inside of a tile (including
+        # borders, or not
+        if grid:
+            for i in range(self.size[0]+self.gap):
+                self.create_line(1, i*self.pixels+1,
+                                 self.size[1]*self.pixels+1, i*self.pixels+1,
+                                 width=1)
+            for i in range(self.size[1]+self.gap):
+                self.create_line(i*self.pixels+1, 1,
+                                 i*self.pixels+1,
+                                 self.size[0]*self.pixels+1+self.gap,
+                                 width=1)
+        # draw the pieces
+        o = []
+        if matrix is not None:
+            for i in range(self.size[0]):
+                for j in range(self.size[1]):
+                    if matrix[i][j] is not None:
+                        o.append(self.draw_piece((i, j), matrix[i][j],
+                                 refresh=False))
+        # update just once at the end, for performance
+        self.update()
+        return o
+
+    def erase(
+        self
+    ):
+        &#34;&#34;&#34;Erase everything from the window.
+
+        All graphical objects that were created are deleted.
+
+        _Parameters_
+        None
+
+        _Return_value_
+        None
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        self.delete(tk.ALL)
+        # redraw the grid if it was there:
+        if self.gap == 1:
+            self.draw_grid()
+
+    ###########################################################################
+    # INTERMEDIATE LEVEL INTERFACE                                            #
+    # draw various objects on a board (2D grid)                               #
+    ###########################################################################
+    def draw_piece(
+        self, p, player=0,
+        color=None,
+        refresh=True
+    ):
+        &#34;&#34;&#34;Draw a piece in position p=(line, column), player-colored.
+
+        Usage notice: don&#39;t use this function if your tiles are too small, you
+        won&#39;t see the piece.
+
+        _Parameters_
+        - p ((int, int)): grid position (line, column)
+        Optional:
+        - player (int): player number (default: 0)
+          player is used only if color is NOT given.
+        OR
+        - color (str): fill color of the piece. If a color is given, player
+          is ignored.
+        - refresh (bool): refresh the window after drawing (default: True)
+
+        _Return_value_
+        - the ID of the graphical object that was created (int).
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        if color is None:
+            if isinstance(player, int):
+                color = self.DEFAULT_COLOR[player % len(self.DEFAULT_COLOR)]
+            else:
+                color = self.DEFAULT_COLOR[0]
+
+        bord = self.pixels//10+1
+        i, j = p
+        assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
+            &#34;ERROR: trying to draw outside the window!&#34;
+
+        o = self.create_oval(j*self.pixels+bord+1,
+                             i*self.pixels+bord+1,
+                             (j+1)*self.pixels-bord+1,
+                             (i+1)*self.pixels-bord+1,
+                             width=1, fill=color)
+        if refresh:
+            self.update()
+        return o
+
+    def move_piece(
+        self, obj, pos, refresh=True
+    ):
+        &#34;&#34;&#34;Move a piece (obj ID) in grid position pos (couple).
+
+        _Parameters_
+        - obj (int): a previously created piece ID
+        - pos ((int, int)): new grid position (line, column)
+        Optional:
+        - refresh (bool): refresh the window after drawing (default: True)
+
+        _Return_value_
+        None
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        i, j = pos
+        assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
+            &#34;ERROR: trying to move a piece outside the window!&#34;
+        bord = self.pixels//10+1
+        self.coords(
+            obj,
+            j*self.pixels+bord+1,
+            i*self.pixels+bord+1,
+            (j+1)*self.pixels-bord+1,
+            (i+1)*self.pixels-bord+1
+            )
+        if refresh:
+            self.update()
+
+    def draw_tile(
+        self, p,
+        color=&#34;black&#34;,
+        border=0,
+        refresh=True
+    ):
+        &#34;&#34;&#34;Fill the inside of a tile in position p=(line, column) with a color.
+
+        _Parameters_
+        - p ((int, int)): grid position (line, column)
+        Optional:
+        - color (str): color of the tile (default: &#34;black&#34;)
+        - border (int): border thickness (default: 0) - borders will overlap on
+          neighboring tiles
+        - refresh (bool): refresh the window after drawing (default: True)
+
+        _Return_value_
+        - the colored tile ID (int).
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        i, j = p
+        assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
+            &#34;ERROR: trying to fill a tile outside the window!&#34;
+        o = self.create_rectangle(j*self.pixels+1+self.gap,
+                                  i*self.pixels+1+self.gap,
+                                  (j+1)*self.pixels+1,
+                                  (i+1)*self.pixels+1,
+                                  width=border, fill=color)
+        if refresh:
+            self.update()
+        return o
+
+    def move_tile(
+        self, obj, pos, refresh=True
+    ):
+        &#34;&#34;&#34;Move a colored tile to another grid position.
+
+        _Parameters_
+        - obj (int): a previously created tile ID
+        - pos ((int, int)): new position in the grid (line, column)
+        Optional:
+        - refresh (bool): refresh the window after drawing (default: True)
+
+        _Return_value_
+        None
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        i, j = pos
+        assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
+            &#34;ERROR: trying to move a tile outside the window!&#34;
+        self.coords(
+            obj,
+            j*self.pixels+1++self.gap,
+            i*self.pixels+1++self.gap,
+            (j+1)*self.pixels+1,
+            (i+1)*self.pixels+1
+            )
+        if refresh:
+            self.update()
+
+    ###########################################################################
+    # low level interface:                                                    #
+    # draw pixels, lines, circles, etc.                                       #
+    ###########################################################################
+    def draw_line(
+        self, x1, x2, color=&#34;black&#34;, thickness=1, refresh=True
+    ):
+        &#34;&#34;&#34;Draw a line between x1=(l1,c1) and x2=(l2,c2) (excluded).
+
+        _Parameters_
+        - x1, x2 (two couples (int, int)): pixel-wise positions (line, column)
+          of the two points. (0,0) = top-left position.
+        Optional:
+        - color (str): line color (default: &#34;black&#34;)
+        - thickness (int): thickness of the line (default: 1)
+        - refresh (bool): refresh the window after drawing (default: True)
+
+        _Return_value_
+        - the ID of the graphical object that was created (int).
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        o = self.create_line(x1[1]+1, x1[0]+1, x2[1], x2[0],
+                             width=thickness, fill=color)
+        if refresh:
+            self.update()
+        return o
+
+    def draw_circle(
+        self, x1, x2,
+        color=&#34;black&#34;, border=1, refresh=True
+    ):
+        &#34;&#34;&#34;Draw a circle in the bounding box of x1=(l1,c1) and x2 (excluded).
+
+        _Parameters_
+        - x1, x2 (two couples (int, int)): pixel-wise positions (line, column)
+          of the two points. (0,0) = top-left position.
+        Optional:
+        - color (str): color of the inside (default: &#34;black&#34;)
+                       if color == None, don&#39;t fill the circle.
+        - border (int): border thickness (default: 1) - borders can overflow
+          over the given pixels coordinates
+        - refresh (bool): refresh the window after drawing (default: True)
+
+        _Return_value_
+        - the ID of the graphical object that was created (int).
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        o = self.create_oval(x1[1]+1, x1[0]+1, x2[1], x2[0],
+                             width=border, fill=color)
+        if refresh:
+            self.update()
+        return o
+
+    def draw_text(
+        self, position, text,
+        color=&#34;black&#34;, fontname=&#34;Purisa&#34;, fontsize=11, refresh=True
+    ):
+        &#34;&#34;&#34;Draw a text centered at a given position=(l1,c1).
+
+        _Parameters_
+        - position (couple (int,int)): pixel-wise position (line, column).
+          (0,0) = top-left position.
+        - text (str): text to print
+        Optional:
+        - color (str): text color (default: &#34;black&#34;)
+        - fontname (str): font name (default: &#34;Purisa&#34;)
+        - fontsize (int): font size (default: 11pt)
+        - refresh (bool): refresh the window after drawing (default: True)
+
+        _Return_value_
+        - the ID of the graphical object that was created (int).
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        o = self.create_text(position[1]+1, position[0]+1,
+                             text=text,
+                             font=(fontname, fontsize),
+                             fill=color)
+        if refresh:
+            self.update()
+        return o
+
+    def bg(
+        self, obj, before=1, refresh=True
+    ):
+        &#34;&#34;&#34;Send a graphical object (ID) to background.
+
+        _Parameters_
+        - obj (int): object ID returned by an object creation method
+        Optional:
+        - before (int): the object behind which to hide (default: 1 = all)
+        - refresh (bool): refresh the window after drawing (default: True)
+
+        _Return_value_
+        None
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        # se met en fond, derrière l&#39;objet &#39;before&#39;:
+        self.tag_lower(obj, before)
+        if refresh:
+            self.update()
+
+    def refresh(
+        self
+    ):
+        &#34;&#34;&#34;Refresh all objects previously drawn in the window.
+
+        Usage note: you can create several successive objects without
+        refreshing by passing the extra argument &#34;refresh=False&#34; to the drawing
+        functions, and then refresh only once using this function.
+        Good for speed, especially if you draw many things.
+
+        _Return_value_
+        None
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        self.update()
+
+    def rm(
+        self, obj, refresh=True
+    ):
+        &#34;&#34;&#34;Delete a graphical object (ID).
+
+        _Parameters_
+        - obj (int): object ID returned by an object creation method
+        Optional:
+        - refresh (bool): refresh the window after drawing (default: True)
+
+        _Return_value_
+        None
+        &#34;&#34;&#34;
+        assert self.root, &#34;ERROR: window closed!&#34;
+        self.delete(obj)
+        if refresh:
+            self.update()
+
+    ###########################################################################
+    # Main I/O function                                                       #
+    ###########################################################################
+    def wait_event(self, delay=None):
+        &#34;&#34;&#34;Wait for the user to interact with the window.
+
+        The tracked events are only keypress and mouse click (left button).
+
+        _Parameters_
+        Optional:
+        - delay (int): waiting time in ms (default: wait forever)
+
+        _Return_value_
+        - if the user clicks on a tile of the board, return the couple
+          (&#34;click&#34;, (line, column))
+          where (line, column) are the coordinates of the clicked tile
+        - if the user hits a key, return the couple
+          (&#34;key&#34;, letter)
+          where letter is a string containing a description of the key.
+          If you&#39;re looking for a specific key, just give a try to the demo:
+          `python3 -m tkdraw` will print all occuring events in the console
+        - if the user closes the window, return the couple
+          (&#34;END&#34;, None)
+        - if the delay expires (when given), the special value
+          None
+        &#34;&#34;&#34;
+        # private: called when the timer expires
+        def delay_expire():
+            self.eventq.put(None)
+            self.idd = None
+            self.root.quit()
+
+        # trigger the timer
+        self.idd = None
+        if delay is not None:
+            assert self.root, &#34;ERROR: window closed!&#34;
+            self.idd = self.root.after(delay, delay_expire)
+        # This is Tk&#39;s main loop
+        # checks the events and get out if something happens
+        while True:
+            ####################
+            try:
+                # get something from the event queue
+                r = self.eventq.get(False)
+                # cancels the timer if I got something
+                if self.idd is not None and self.root is not None:
+                    self.root.after_cancel(self.idd)
+                return r
+            except queue.Empty:
+                # no event in the queue, continue waiting (go to mainloop)
+                pass
+            ####################
+            assert self.root, &#34;ERROR: window closed!&#34;
+            # back to the mainloop, it will stop if I get an event
+            self.root.mainloop()
+            ####################
+
+    def mouse_position(self):
+        &#34;&#34;&#34;Return the mouse position (pixel-wise).
+
+        Usage notice: if a coordinate is negative or greater than the window
+        size, the mouse is out of the window.
+
+        _Return_value_
+        - a couple (int,int): pixel-wise position (line, column) relative to
+          (0,0) = top-left position in the window.
+        &#34;&#34;&#34;
+        # private: the mouse moved
+        def motion(event):
+            self.souris = (event.y, event.x)
+
+        assert self.root, &#34;ERROR: window closed!&#34;
+        self.refresh()
+        try:
+            return self.souris
+        except AttributeError:
+            self.bind(&#34;&lt;Motion&gt;&#34;, motion)
+            self.souris = (0, 0)  # initial position if the mouse doesn&#39;t move
+            return self.souris</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>tkinter.Canvas</li>
+<li>tkinter.Widget</li>
+<li>tkinter.BaseWidget</li>
+<li>tkinter.Misc</li>
+<li>tkinter.Pack</li>
+<li>tkinter.Place</li>
+<li>tkinter.Grid</li>
+<li>tkinter.XView</li>
+<li>tkinter.YView</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="tkdraw.screen.open.DEFAULT_COLOR"><code class="name">var <span class="ident">DEFAULT_COLOR</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="tkdraw.screen.open.bg"><code class="name flex">
+<span>def <span class="ident">bg</span></span>(<span>self, obj, before=1, refresh=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Send a graphical object (ID) to background.</p>
+<p><em>Parameters</em>
+- obj (int): object ID returned by an object creation method
+Optional:
+- before (int): the object behind which to hide (default: 1 = all)
+- refresh (bool): refresh the window after drawing (default: True)</p>
+<p><em>Return_value</em>
+None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def bg(
+    self, obj, before=1, refresh=True
+):
+    &#34;&#34;&#34;Send a graphical object (ID) to background.
+
+    _Parameters_
+    - obj (int): object ID returned by an object creation method
+    Optional:
+    - before (int): the object behind which to hide (default: 1 = all)
+    - refresh (bool): refresh the window after drawing (default: True)
+
+    _Return_value_
+    None
+    &#34;&#34;&#34;
+    assert self.root, &#34;ERROR: window closed!&#34;
+    # se met en fond, derrière l&#39;objet &#39;before&#39;:
+    self.tag_lower(obj, before)
+    if refresh:
+        self.update()</code></pre>
+</details>
+</dd>
+<dt id="tkdraw.screen.open.close"><code class="name flex">
+<span>def <span class="ident">close</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Close this window.</p>
+<p><em>Parameters</em>
+None</p>
+<p><em>Return_value</em>
+None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def close(self):
+    &#34;&#34;&#34;Close this window.
+
+    _Parameters_
+    None
+
+    _Return_value_
+    None
+    &#34;&#34;&#34;
+    if self.after_id is not None:
+        self.root.after_cancel(self.after_id)
+        self.after_id = None
+    if self.root is not None:
+        self.root.destroy()
+        self.root = None</code></pre>
+</details>
+</dd>
+<dt id="tkdraw.screen.open.draw_circle"><code class="name flex">
+<span>def <span class="ident">draw_circle</span></span>(<span>self, x1, x2, color='black', border=1, refresh=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Draw a circle in the bounding box of x1=(l1,c1) and x2 (excluded).</p>
+<p><em>Parameters</em>
+- x1, x2 (two couples (int, int)): pixel-wise positions (line, column)
+of the two points. (0,0) = top-left position.
+Optional:
+- color (str): color of the inside (default: "black")
+if color == None, don't fill the circle.
+- border (int): border thickness (default: 1) - borders can overflow
+over the given pixels coordinates
+- refresh (bool): refresh the window after drawing (default: True)</p>
+<p><em>Return_value</em>
+- the ID of the graphical object that was created (int).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def draw_circle(
+    self, x1, x2,
+    color=&#34;black&#34;, border=1, refresh=True
+):
+    &#34;&#34;&#34;Draw a circle in the bounding box of x1=(l1,c1) and x2 (excluded).
+
+    _Parameters_
+    - x1, x2 (two couples (int, int)): pixel-wise positions (line, column)
+      of the two points. (0,0) = top-left position.
+    Optional:
+    - color (str): color of the inside (default: &#34;black&#34;)
+                   if color == None, don&#39;t fill the circle.
+    - border (int): border thickness (default: 1) - borders can overflow
+      over the given pixels coordinates
+    - refresh (bool): refresh the window after drawing (default: True)
+
+    _Return_value_
+    - the ID of the graphical object that was created (int).
+    &#34;&#34;&#34;
+    assert self.root, &#34;ERROR: window closed!&#34;
+    o = self.create_oval(x1[1]+1, x1[0]+1, x2[1], x2[0],
+                         width=border, fill=color)
+    if refresh:
+        self.update()
+    return o</code></pre>
+</details>
+</dd>
+<dt id="tkdraw.screen.open.draw_grid"><code class="name flex">
+<span>def <span class="ident">draw_grid</span></span>(<span>self, matrix=None, grid=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Print a complete grid of pieces, using the 10 default colors.</p>
+<p><em>Parameters</em>
+- matrix (list of list): the players pieces matrix, of the specified
+size. If matrix is None (default), just ignores it.
+- grid (boolean): if True (default) draws a horizontal+vertical grid
+to separate the tiles.</p>
+<p><em>Return_value</em>
+- a list of the graphical objects that were created (grid excluded).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def draw_grid(
+    self, matrix=None, grid=True
+):
+    &#34;&#34;&#34;Print a complete grid of pieces, using the 10 default colors.
+
+    _Parameters_
+    - matrix (list of list): the players pieces matrix, of the specified
+        size. If matrix is None (default), just ignores it.
+    - grid (boolean): if True (default) draws a horizontal+vertical grid
+        to separate the tiles.
+
+    _Return_value_
+    - a list of the graphical objects that were created (grid excluded).
+    &#34;&#34;&#34;
+    assert self.root, &#34;ERROR: window closed!&#34;
+    # erase everything for a start
+    self.delete(tk.ALL)
+    # gap is used by draw_tile to fill the inside of a tile (including
+    # borders, or not
+    if grid:
+        for i in range(self.size[0]+self.gap):
+            self.create_line(1, i*self.pixels+1,
+                             self.size[1]*self.pixels+1, i*self.pixels+1,
+                             width=1)
+        for i in range(self.size[1]+self.gap):
+            self.create_line(i*self.pixels+1, 1,
+                             i*self.pixels+1,
+                             self.size[0]*self.pixels+1+self.gap,
+                             width=1)
+    # draw the pieces
+    o = []
+    if matrix is not None:
+        for i in range(self.size[0]):
+            for j in range(self.size[1]):
+                if matrix[i][j] is not None:
+                    o.append(self.draw_piece((i, j), matrix[i][j],
+                             refresh=False))
+    # update just once at the end, for performance
+    self.update()
+    return o</code></pre>
+</details>
+</dd>
+<dt id="tkdraw.screen.open.draw_line"><code class="name flex">
+<span>def <span class="ident">draw_line</span></span>(<span>self, x1, x2, color='black', thickness=1, refresh=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Draw a line between x1=(l1,c1) and x2=(l2,c2) (excluded).</p>
+<p><em>Parameters</em>
+- x1, x2 (two couples (int, int)): pixel-wise positions (line, column)
+of the two points. (0,0) = top-left position.
+Optional:
+- color (str): line color (default: "black")
+- thickness (int): thickness of the line (default: 1)
+- refresh (bool): refresh the window after drawing (default: True)</p>
+<p><em>Return_value</em>
+- the ID of the graphical object that was created (int).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def draw_line(
+    self, x1, x2, color=&#34;black&#34;, thickness=1, refresh=True
+):
+    &#34;&#34;&#34;Draw a line between x1=(l1,c1) and x2=(l2,c2) (excluded).
+
+    _Parameters_
+    - x1, x2 (two couples (int, int)): pixel-wise positions (line, column)
+      of the two points. (0,0) = top-left position.
+    Optional:
+    - color (str): line color (default: &#34;black&#34;)
+    - thickness (int): thickness of the line (default: 1)
+    - refresh (bool): refresh the window after drawing (default: True)
+
+    _Return_value_
+    - the ID of the graphical object that was created (int).
+    &#34;&#34;&#34;
+    assert self.root, &#34;ERROR: window closed!&#34;
+    o = self.create_line(x1[1]+1, x1[0]+1, x2[1], x2[0],
+                         width=thickness, fill=color)
+    if refresh:
+        self.update()
+    return o</code></pre>
+</details>
+</dd>
+<dt id="tkdraw.screen.open.draw_piece"><code class="name flex">
+<span>def <span class="ident">draw_piece</span></span>(<span>self, p, player=0, color=None, refresh=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Draw a piece in position p=(line, column), player-colored.</p>
+<p>Usage notice: don't use this function if your tiles are too small, you
+won't see the piece.</p>
+<p><em>Parameters</em>
+- p ((int, int)): grid position (line, column)
+Optional:
+- player (int): player number (default: 0)
+player is used only if color is NOT given.
+OR
+- color (str): fill color of the piece. If a color is given, player
+is ignored.
+- refresh (bool): refresh the window after drawing (default: True)</p>
+<p><em>Return_value</em>
+- the ID of the graphical object that was created (int).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def draw_piece(
+    self, p, player=0,
+    color=None,
+    refresh=True
+):
+    &#34;&#34;&#34;Draw a piece in position p=(line, column), player-colored.
+
+    Usage notice: don&#39;t use this function if your tiles are too small, you
+    won&#39;t see the piece.
+
+    _Parameters_
+    - p ((int, int)): grid position (line, column)
+    Optional:
+    - player (int): player number (default: 0)
+      player is used only if color is NOT given.
+    OR
+    - color (str): fill color of the piece. If a color is given, player
+      is ignored.
+    - refresh (bool): refresh the window after drawing (default: True)
+
+    _Return_value_
+    - the ID of the graphical object that was created (int).
+    &#34;&#34;&#34;
+    assert self.root, &#34;ERROR: window closed!&#34;
+    if color is None:
+        if isinstance(player, int):
+            color = self.DEFAULT_COLOR[player % len(self.DEFAULT_COLOR)]
+        else:
+            color = self.DEFAULT_COLOR[0]
+
+    bord = self.pixels//10+1
+    i, j = p
+    assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
+        &#34;ERROR: trying to draw outside the window!&#34;
+
+    o = self.create_oval(j*self.pixels+bord+1,
+                         i*self.pixels+bord+1,
+                         (j+1)*self.pixels-bord+1,
+                         (i+1)*self.pixels-bord+1,
+                         width=1, fill=color)
+    if refresh:
+        self.update()
+    return o</code></pre>
+</details>
+</dd>
+<dt id="tkdraw.screen.open.draw_text"><code class="name flex">
+<span>def <span class="ident">draw_text</span></span>(<span>self, position, text, color='black', fontname='Purisa', fontsize=11, refresh=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Draw a text centered at a given position=(l1,c1).</p>
+<p><em>Parameters</em>
+- position (couple (int,int)): pixel-wise position (line, column).
+(0,0) = top-left position.
+- text (str): text to print
+Optional:
+- color (str): text color (default: "black")
+- fontname (str): font name (default: "Purisa")
+- fontsize (int): font size (default: 11pt)
+- refresh (bool): refresh the window after drawing (default: True)</p>
+<p><em>Return_value</em>
+- the ID of the graphical object that was created (int).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def draw_text(
+    self, position, text,
+    color=&#34;black&#34;, fontname=&#34;Purisa&#34;, fontsize=11, refresh=True
+):
+    &#34;&#34;&#34;Draw a text centered at a given position=(l1,c1).
+
+    _Parameters_
+    - position (couple (int,int)): pixel-wise position (line, column).
+      (0,0) = top-left position.
+    - text (str): text to print
+    Optional:
+    - color (str): text color (default: &#34;black&#34;)
+    - fontname (str): font name (default: &#34;Purisa&#34;)
+    - fontsize (int): font size (default: 11pt)
+    - refresh (bool): refresh the window after drawing (default: True)
+
+    _Return_value_
+    - the ID of the graphical object that was created (int).
+    &#34;&#34;&#34;
+    assert self.root, &#34;ERROR: window closed!&#34;
+    o = self.create_text(position[1]+1, position[0]+1,
+                         text=text,
+                         font=(fontname, fontsize),
+                         fill=color)
+    if refresh:
+        self.update()
+    return o</code></pre>
+</details>
+</dd>
+<dt id="tkdraw.screen.open.draw_tile"><code class="name flex">
+<span>def <span class="ident">draw_tile</span></span>(<span>self, p, color='black', border=0, refresh=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Fill the inside of a tile in position p=(line, column) with a color.</p>
+<p><em>Parameters</em>
+- p ((int, int)): grid position (line, column)
+Optional:
+- color (str): color of the tile (default: "black")
+- border (int): border thickness (default: 0) - borders will overlap on
+neighboring tiles
+- refresh (bool): refresh the window after drawing (default: True)</p>
+<p><em>Return_value</em>
+- the colored tile ID (int).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def draw_tile(
+    self, p,
+    color=&#34;black&#34;,
+    border=0,
+    refresh=True
+):
+    &#34;&#34;&#34;Fill the inside of a tile in position p=(line, column) with a color.
+
+    _Parameters_
+    - p ((int, int)): grid position (line, column)
+    Optional:
+    - color (str): color of the tile (default: &#34;black&#34;)
+    - border (int): border thickness (default: 0) - borders will overlap on
+      neighboring tiles
+    - refresh (bool): refresh the window after drawing (default: True)
+
+    _Return_value_
+    - the colored tile ID (int).
+    &#34;&#34;&#34;
+    assert self.root, &#34;ERROR: window closed!&#34;
+    i, j = p
+    assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
+        &#34;ERROR: trying to fill a tile outside the window!&#34;
+    o = self.create_rectangle(j*self.pixels+1+self.gap,
+                              i*self.pixels+1+self.gap,
+                              (j+1)*self.pixels+1,
+                              (i+1)*self.pixels+1,
+                              width=border, fill=color)
+    if refresh:
+        self.update()
+    return o</code></pre>
+</details>
+</dd>
+<dt id="tkdraw.screen.open.erase"><code class="name flex">
+<span>def <span class="ident">erase</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Erase everything from the window.</p>
+<p>All graphical objects that were created are deleted.</p>
+<p><em>Parameters</em>
+None</p>
+<p><em>Return_value</em>
+None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def erase(
+    self
+):
+    &#34;&#34;&#34;Erase everything from the window.
+
+    All graphical objects that were created are deleted.
+
+    _Parameters_
+    None
+
+    _Return_value_
+    None
+    &#34;&#34;&#34;
+    assert self.root, &#34;ERROR: window closed!&#34;
+    self.delete(tk.ALL)
+    # redraw the grid if it was there:
+    if self.gap == 1:
+        self.draw_grid()</code></pre>
+</details>
+</dd>
+<dt id="tkdraw.screen.open.message"><code class="name flex">
+<span>def <span class="ident">message</span></span>(<span>self, message)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Display a message in a box and wait for the user to click somewhere.</p>
+<p><em>Parameters</em>
+- message (str): the string to print</p>
+<p><em>Return_value</em>
+- (boolean) True if the user just clicked on the box,
+False if the user killed the window.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def message(self, message):
+    &#34;&#34;&#34;Display a message in a box and wait for the user to click somewhere.
+
+    _Parameters_
+    - message (str): the string to print
+
+    _Return_value_
+    - (boolean) True if the user just clicked on the box,
+      False if the user killed the window.
+    &#34;&#34;&#34;
+    # private: the user clicked in the box
+    def c(event):
+        self.eventq.put(&#34;ok&#34;)
+        self.root.quit()
+
+    assert self.root, &#34;ERROR: window killed!&#34;
+    m = tk.Message(
+            self.root, text=message,
+            padx=20, pady=20,
+            relief=tk.RAISED, borderwidth=5,
+            )
+    # mouse click:
+    m.bind(&#34;&lt;Button-1&gt;&#34;, c)
+    # m.grid(row=0, column=0)
+    m.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+    while True:
+        s = self.wait_event()
+        if s[0] == &#34;END&#34;:
+            # the window has been closed
+            # put the end msg back in the queue and return False
+            self.eventq.put(s)
+            return False
+        # all the other events just close the message box and return True:
+        m.destroy()
+        return True</code></pre>
+</details>
+</dd>
+<dt id="tkdraw.screen.open.mouse_position"><code class="name flex">
+<span>def <span class="ident">mouse_position</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the mouse position (pixel-wise).</p>
+<p>Usage notice: if a coordinate is negative or greater than the window
+size, the mouse is out of the window.</p>
+<p><em>Return_value</em>
+- a couple (int,int): pixel-wise position (line, column) relative to
+(0,0) = top-left position in the window.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mouse_position(self):
+    &#34;&#34;&#34;Return the mouse position (pixel-wise).
+
+    Usage notice: if a coordinate is negative or greater than the window
+    size, the mouse is out of the window.
+
+    _Return_value_
+    - a couple (int,int): pixel-wise position (line, column) relative to
+      (0,0) = top-left position in the window.
+    &#34;&#34;&#34;
+    # private: the mouse moved
+    def motion(event):
+        self.souris = (event.y, event.x)
+
+    assert self.root, &#34;ERROR: window closed!&#34;
+    self.refresh()
+    try:
+        return self.souris
+    except AttributeError:
+        self.bind(&#34;&lt;Motion&gt;&#34;, motion)
+        self.souris = (0, 0)  # initial position if the mouse doesn&#39;t move
+        return self.souris</code></pre>
+</details>
+</dd>
+<dt id="tkdraw.screen.open.move_piece"><code class="name flex">
+<span>def <span class="ident">move_piece</span></span>(<span>self, obj, pos, refresh=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Move a piece (obj ID) in grid position pos (couple).</p>
+<p><em>Parameters</em>
+- obj (int): a previously created piece ID
+- pos ((int, int)): new grid position (line, column)
+Optional:
+- refresh (bool): refresh the window after drawing (default: True)</p>
+<p><em>Return_value</em>
+None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def move_piece(
+    self, obj, pos, refresh=True
+):
+    &#34;&#34;&#34;Move a piece (obj ID) in grid position pos (couple).
+
+    _Parameters_
+    - obj (int): a previously created piece ID
+    - pos ((int, int)): new grid position (line, column)
+    Optional:
+    - refresh (bool): refresh the window after drawing (default: True)
+
+    _Return_value_
+    None
+    &#34;&#34;&#34;
+    assert self.root, &#34;ERROR: window closed!&#34;
+    i, j = pos
+    assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
+        &#34;ERROR: trying to move a piece outside the window!&#34;
+    bord = self.pixels//10+1
+    self.coords(
+        obj,
+        j*self.pixels+bord+1,
+        i*self.pixels+bord+1,
+        (j+1)*self.pixels-bord+1,
+        (i+1)*self.pixels-bord+1
+        )
+    if refresh:
+        self.update()</code></pre>
+</details>
+</dd>
+<dt id="tkdraw.screen.open.move_tile"><code class="name flex">
+<span>def <span class="ident">move_tile</span></span>(<span>self, obj, pos, refresh=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Move a colored tile to another grid position.</p>
+<p><em>Parameters</em>
+- obj (int): a previously created tile ID
+- pos ((int, int)): new position in the grid (line, column)
+Optional:
+- refresh (bool): refresh the window after drawing (default: True)</p>
+<p><em>Return_value</em>
+None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def move_tile(
+    self, obj, pos, refresh=True
+):
+    &#34;&#34;&#34;Move a colored tile to another grid position.
+
+    _Parameters_
+    - obj (int): a previously created tile ID
+    - pos ((int, int)): new position in the grid (line, column)
+    Optional:
+    - refresh (bool): refresh the window after drawing (default: True)
+
+    _Return_value_
+    None
+    &#34;&#34;&#34;
+    assert self.root, &#34;ERROR: window closed!&#34;
+    i, j = pos
+    assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
+        &#34;ERROR: trying to move a tile outside the window!&#34;
+    self.coords(
+        obj,
+        j*self.pixels+1++self.gap,
+        i*self.pixels+1++self.gap,
+        (j+1)*self.pixels+1,
+        (i+1)*self.pixels+1
+        )
+    if refresh:
+        self.update()</code></pre>
+</details>
+</dd>
+<dt id="tkdraw.screen.open.refresh"><code class="name flex">
+<span>def <span class="ident">refresh</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Refresh all objects previously drawn in the window.</p>
+<p>Usage note: you can create several successive objects without
+refreshing by passing the extra argument "refresh=False" to the drawing
+functions, and then refresh only once using this function.
+Good for speed, especially if you draw many things.</p>
+<p><em>Return_value</em>
+None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def refresh(
+    self
+):
+    &#34;&#34;&#34;Refresh all objects previously drawn in the window.
+
+    Usage note: you can create several successive objects without
+    refreshing by passing the extra argument &#34;refresh=False&#34; to the drawing
+    functions, and then refresh only once using this function.
+    Good for speed, especially if you draw many things.
+
+    _Return_value_
+    None
+    &#34;&#34;&#34;
+    assert self.root, &#34;ERROR: window closed!&#34;
+    self.update()</code></pre>
+</details>
+</dd>
+<dt id="tkdraw.screen.open.rm"><code class="name flex">
+<span>def <span class="ident">rm</span></span>(<span>self, obj, refresh=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Delete a graphical object (ID).</p>
+<p><em>Parameters</em>
+- obj (int): object ID returned by an object creation method
+Optional:
+- refresh (bool): refresh the window after drawing (default: True)</p>
+<p><em>Return_value</em>
+None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rm(
+    self, obj, refresh=True
+):
+    &#34;&#34;&#34;Delete a graphical object (ID).
+
+    _Parameters_
+    - obj (int): object ID returned by an object creation method
+    Optional:
+    - refresh (bool): refresh the window after drawing (default: True)
+
+    _Return_value_
+    None
+    &#34;&#34;&#34;
+    assert self.root, &#34;ERROR: window closed!&#34;
+    self.delete(obj)
+    if refresh:
+        self.update()</code></pre>
+</details>
+</dd>
+<dt id="tkdraw.screen.open.wait_event"><code class="name flex">
+<span>def <span class="ident">wait_event</span></span>(<span>self, delay=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Wait for the user to interact with the window.</p>
+<p>The tracked events are only keypress and mouse click (left button).</p>
+<p><em>Parameters</em>
+Optional:
+- delay (int): waiting time in ms (default: wait forever)</p>
+<p><em>Return_value</em>
+- if the user clicks on a tile of the board, return the couple
+("click", (line, column))
+where (line, column) are the coordinates of the clicked tile
+- if the user hits a key, return the couple
+("key", letter)
+where letter is a string containing a description of the key.
+If you're looking for a specific key, just give a try to the demo:
+<code>python3 -m tkdraw</code> will print all occuring events in the console
+- if the user closes the window, return the couple
+("END", None)
+- if the delay expires (when given), the special value
+None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def wait_event(self, delay=None):
+    &#34;&#34;&#34;Wait for the user to interact with the window.
+
+    The tracked events are only keypress and mouse click (left button).
+
+    _Parameters_
+    Optional:
+    - delay (int): waiting time in ms (default: wait forever)
+
+    _Return_value_
+    - if the user clicks on a tile of the board, return the couple
+      (&#34;click&#34;, (line, column))
+      where (line, column) are the coordinates of the clicked tile
+    - if the user hits a key, return the couple
+      (&#34;key&#34;, letter)
+      where letter is a string containing a description of the key.
+      If you&#39;re looking for a specific key, just give a try to the demo:
+      `python3 -m tkdraw` will print all occuring events in the console
+    - if the user closes the window, return the couple
+      (&#34;END&#34;, None)
+    - if the delay expires (when given), the special value
+      None
+    &#34;&#34;&#34;
+    # private: called when the timer expires
+    def delay_expire():
+        self.eventq.put(None)
+        self.idd = None
+        self.root.quit()
+
+    # trigger the timer
+    self.idd = None
+    if delay is not None:
+        assert self.root, &#34;ERROR: window closed!&#34;
+        self.idd = self.root.after(delay, delay_expire)
+    # This is Tk&#39;s main loop
+    # checks the events and get out if something happens
+    while True:
+        ####################
+        try:
+            # get something from the event queue
+            r = self.eventq.get(False)
+            # cancels the timer if I got something
+            if self.idd is not None and self.root is not None:
+                self.root.after_cancel(self.idd)
+            return r
+        except queue.Empty:
+            # no event in the queue, continue waiting (go to mainloop)
+            pass
+        ####################
+        assert self.root, &#34;ERROR: window closed!&#34;
+        # back to the mainloop, it will stop if I get an event
+        self.root.mainloop()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="tkdraw" href="index.html">tkdraw</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="tkdraw.screen.open" href="#tkdraw.screen.open">open</a></code></h4>
+<ul class="two-column">
+<li><code><a title="tkdraw.screen.open.DEFAULT_COLOR" href="#tkdraw.screen.open.DEFAULT_COLOR">DEFAULT_COLOR</a></code></li>
+<li><code><a title="tkdraw.screen.open.bg" href="#tkdraw.screen.open.bg">bg</a></code></li>
+<li><code><a title="tkdraw.screen.open.close" href="#tkdraw.screen.open.close">close</a></code></li>
+<li><code><a title="tkdraw.screen.open.draw_circle" href="#tkdraw.screen.open.draw_circle">draw_circle</a></code></li>
+<li><code><a title="tkdraw.screen.open.draw_grid" href="#tkdraw.screen.open.draw_grid">draw_grid</a></code></li>
+<li><code><a title="tkdraw.screen.open.draw_line" href="#tkdraw.screen.open.draw_line">draw_line</a></code></li>
+<li><code><a title="tkdraw.screen.open.draw_piece" href="#tkdraw.screen.open.draw_piece">draw_piece</a></code></li>
+<li><code><a title="tkdraw.screen.open.draw_text" href="#tkdraw.screen.open.draw_text">draw_text</a></code></li>
+<li><code><a title="tkdraw.screen.open.draw_tile" href="#tkdraw.screen.open.draw_tile">draw_tile</a></code></li>
+<li><code><a title="tkdraw.screen.open.erase" href="#tkdraw.screen.open.erase">erase</a></code></li>
+<li><code><a title="tkdraw.screen.open.message" href="#tkdraw.screen.open.message">message</a></code></li>
+<li><code><a title="tkdraw.screen.open.mouse_position" href="#tkdraw.screen.open.mouse_position">mouse_position</a></code></li>
+<li><code><a title="tkdraw.screen.open.move_piece" href="#tkdraw.screen.open.move_piece">move_piece</a></code></li>
+<li><code><a title="tkdraw.screen.open.move_tile" href="#tkdraw.screen.open.move_tile">move_tile</a></code></li>
+<li><code><a title="tkdraw.screen.open.refresh" href="#tkdraw.screen.open.refresh">refresh</a></code></li>
+<li><code><a title="tkdraw.screen.open.rm" href="#tkdraw.screen.open.rm">rm</a></code></li>
+<li><code><a title="tkdraw.screen.open.wait_event" href="#tkdraw.screen.open.wait_event">wait_event</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
