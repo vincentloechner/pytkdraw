@@ -31,6 +31,9 @@ class open(tk.Canvas):
     - grid (bool): if True, prints a one-pixel large grid : horizontal and
                    vertical lines separating the squares (default: True)
 
+    To open a window containing just an array of pixels, set the pixels
+    parameter to 1 and grid to False.
+
     This class inherits from tkinter's canvas class, you can directly call the
     canvas methods to perform advanced drawings in this canvas (expert mode).
     You may refer to the documentation of tkinter describing the Canvas widget.
@@ -121,19 +124,26 @@ class open(tk.Canvas):
             self.draw_grid()
 
     def __enter__(self):
-        """internal: With -as: statement compatibility."""
+        """Internal: With -as: statement compatibility."""
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        """internal: With -as: statement compatibility."""
+        """Internal: With -as: statement compatibility."""
         self.close()
 
     def __del__(self):
-        """internal: if the object is freeed from Python."""
+        """Internal: if the object is freeed by python for some reason."""
         self.close()
 
     def close(self):
-        """Close this window."""
+        """Close this window.
+
+        _Parameters_
+        None
+
+        _Return_value_
+        None
+        """
         if self.after_id is not None:
             self.root.after_cancel(self.after_id)
             self.after_id = None
@@ -142,8 +152,9 @@ class open(tk.Canvas):
             self.root = None
 
     def message(self, message):
-        """Print a message in a box and wait for the user to click somewhere.
+        """Display a message in a box and wait for the user to click somewhere.
 
+        _Parameters_
         - message (str): the string to print
 
         _Return_value_
@@ -193,8 +204,10 @@ class open(tk.Canvas):
         """Print a complete grid of pieces, using the 10 default colors.
 
         _Parameters_
-        If matrix is None (default), just prints the grid
-        If grid is True (default) prints the horizontal+vertical grid
+        - matrix (list of list): the players pieces matrix, of the specified
+            size. If matrix is None (default), just ignores it.
+        - grid (boolean): if True (default) draws a horizontal+vertical grid
+            to separate the tiles.
 
         _Return_value_
         - a list of the graphical objects that were created (grid excluded).
@@ -232,6 +245,12 @@ class open(tk.Canvas):
         """Erase everything from the window.
 
         All graphical objects that were created are deleted.
+
+        _Parameters_
+        None
+
+        _Return_value_
+        None
         """
         assert self.root, "ERROR: window closed!"
         self.delete(tk.ALL)
@@ -299,7 +318,7 @@ class open(tk.Canvas):
         - refresh (bool): refresh the window after drawing (default: True)
 
         _Return_value_
-        - None
+        None
         """
         assert self.root, "ERROR: window closed!"
         i, j = pos
@@ -360,7 +379,7 @@ class open(tk.Canvas):
         - refresh (bool): refresh the window after drawing (default: True)
 
         _Return_value_
-        - None
+        None
         """
         assert self.root, "ERROR: window closed!"
         i, j = pos
@@ -469,7 +488,7 @@ class open(tk.Canvas):
         - refresh (bool): refresh the window after drawing (default: True)
 
         _Return_value_
-        - None
+        None
         """
         assert self.root, "ERROR: window closed!"
         # se met en fond, derrière l'objet 'before':
@@ -488,7 +507,7 @@ class open(tk.Canvas):
         Good for speed, especially if you draw many things.
 
         _Return_value_
-        - None
+        None
         """
         assert self.root, "ERROR: window closed!"
         self.update()
@@ -504,7 +523,7 @@ class open(tk.Canvas):
         - refresh (bool): refresh the window after drawing (default: True)
 
         _Return_value_
-        - None
+        None
         """
         assert self.root, "ERROR: window closed!"
         self.delete(obj)
@@ -518,6 +537,7 @@ class open(tk.Canvas):
         """Wait for the user to interact with the window.
 
         The tracked events are only keypress and mouse click (left button).
+
         _Parameters_
         Optional:
         - delay (int): waiting time in ms (default: wait forever)
@@ -563,7 +583,7 @@ class open(tk.Canvas):
                 pass
             ####################
             assert self.root, "ERROR: window closed!"
-            # mainloop stops if I get an event
+            # back to the mainloop, it will stop if I get an event
             self.root.mainloop()
             ####################
 
