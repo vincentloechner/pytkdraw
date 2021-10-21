@@ -51,3 +51,6 @@ python3 -m pydoc -w tkdraw.screen
 python3 -m pydoc -w tkdraw.test
 python3 -m pydoc -w tkdraw.test.test_basic
 python3 -m pydoc -w tkdraw.test.test_screen
+
+[for some reason pydoc does not generate links to the tkinter online
+reference documentation on docs.python.org - can't figure out why]
