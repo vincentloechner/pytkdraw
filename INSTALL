@@ -50,4 +50,4 @@ HOWTO generate the html documentation:
 python3 -m pip install pdoc3
 
 2. generate
-python3 -m pdoc --html -o docs/ tkdraw
+python3 -m pdoc --html -o docs/ --force tkdraw
