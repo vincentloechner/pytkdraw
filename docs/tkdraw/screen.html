@@ -63,39 +63,41 @@ import queue
 class open(tk.Canvas):
     &#34;&#34;&#34;Main class for a window containing a board (2D grid).
 
-    Typical usage example:
-    ```
-    g = open()
-    g.message(&#34;hello&#34;)
-    g.wait_event()
-    ```
+    This class inherits from tkinter&#39;s canvas class.
 
     To open a window containing just an array of pixels, set the pixels
     parameter to 1 and grid to False.
 
+    Example:
+        ```
+        g = open()
+        g.message(&#34;hello&#34;)
+        g.wait_event()
+        ```
     Args:
-        size: a couple of int (height, width) specifying the size of the grid
-            (default: (8, 8))
+        size ([int, int]): a couple (height, width) specifying the size of
+            the grid (default: (8, 8))
         pixels (int): number of pixels of a square (default: 100)
         grid (bool): if True, prints a one-pixel large grid : horizontal and
             vertical lines separating the squares (default: True)
 
     Returns:
-        The window object. This class inherits from tkinter&#39;s canvas class, you
-            can directly call the canvas methods to perform advanced drawings
-            in this canvas (expert mode). You may refer to the documentation of
-            tkinter describing the Canvas widget.
+        The window object.
+
+    Notes:
+        Since this class inherits from tkinter&#39;s canvas class, more inherited
+            documentation will be displayed below this paragraph. You can
+            directly call the canvas methods to perform advanced drawings in
+            this canvas (expert mode, be warned that a couple of coordinates
+            (y, x) in tkdraw has to be transformed into two integers x+1, y+1
+            in tkinter). You may refer to the documentation of tkinter
+            describing the Canvas widget here:
+            &lt;https://docs.python.org/3/library/tkinter.html&gt;
     &#34;&#34;&#34;
 
     def __init__(
         self, size=(8, 8), pixels=100, grid=True
     ):
-        &#34;&#34;&#34;Initialize the window instance.
-
-        Create a tkinter root object and a canvas (from which we inherit).
-        Redirects all events to the appropriate functions.
-        Arguments are described in the &#34;open&#34; main class.
-        &#34;&#34;&#34;
         # some private methods below, to react to asynchronous events:
 
         # private: the user clicked on a square
@@ -189,8 +191,8 @@ class open(tk.Canvas):
         Args:
             None
 
-        _Return_value_
-        None
+        Returns:
+            None
         &#34;&#34;&#34;
         if self.after_id is not None:
             self.root.after_cancel(self.after_id)
@@ -205,16 +207,17 @@ class open(tk.Canvas):
         Args:
             message (str): the string to print
 
-        _Return_value_
-        - (boolean) True if the user just clicked on the box,
-          False if the user killed the window.
+        Returns:
+            bool: True if the user triggered a normal event, False if the user
+                closed the window abruptly.
         &#34;&#34;&#34;
         # private: the user clicked in the box
         def _c(event):
             self.eventq.put(&#34;ok&#34;)
             self.root.quit()
 
-        assert self.root, &#34;ERROR: window killed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
         m = tk.Message(
                 self.root, text=message,
                 padx=20, pady=20,
@@ -245,6 +248,7 @@ class open(tk.Canvas):
     # by default define those 10 colors:
     DEFAULT_COLOR = [&#34;black&#34;, &#34;white&#34;, &#34;red&#34;, &#34;green&#34;, &#34;blue&#34;,
                      &#34;yellow&#34;, &#34;cyan&#34;, &#34;magenta&#34;, &#34;orange&#34;, &#34;darkgrey&#34;]
+    &#34;&#34;&#34;A list of ten colors (str) used for ten players identified by numbers.&#34;&#34;&#34;
 
     def draw_grid(
         self, matrix=None, grid=True
@@ -252,15 +256,17 @@ class open(tk.Canvas):
         &#34;&#34;&#34;Print a complete grid of pieces, using the 10 default colors.
 
         Args:
-            matrix (list of list): the players pieces matrix, of the specified
-                size. If matrix is None (default), just ignores it.
+            matrix (list of list of int): the players pieces matrix, of the
+                specified size. If matrix is None (default), just ignores it.
             grid (boolean): if True (default) draws a horizontal+vertical grid
                 to separate the tiles.
 
-        _Return_value_
-        - a list of the graphical objects that were created (grid excluded).
+        Returns:
+            list of int: the graphical objects that were created for the pieces
+                (grid excluded).
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
         # erase everything for a start
         self.delete(tk.ALL)
         # gap is used by draw_tile to fill the inside of a tile (including
@@ -297,10 +303,11 @@ class open(tk.Canvas):
         Args:
             None
 
-        _Return_value_
-        None
+        Returns:
+            None
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
         self.delete(tk.ALL)
         # redraw the grid if it was there:
         if self.gap == 1:
@@ -321,17 +328,19 @@ class open(tk.Canvas):
         won&#39;t see the piece.
 
         Args:
-            p: a couple of int specifying the grid position (line, column)
+            p ([int, int]): a couple (line, column) specifying the grid
+                position. (0, 0) = top-left position.
             player (int, optional): player number (default: 0)
                 player is used only if color is NOT given.
             color (str, optional): fill color of the piece. If a color is
                 given, player is ignored.
             refresh (bool): refresh the window after drawing (default: True)
 
-        _Return_value_
-        - the ID of the graphical object that was created (int).
+        Returns:
+            int: the ID of the graphical object (circle) that was created.
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
         if color is None:
             if isinstance(player, int):
                 color = self.DEFAULT_COLOR[player % len(self.DEFAULT_COLOR)]
@@ -340,8 +349,8 @@ class open(tk.Canvas):
 
         bord = self.pixels//10+1
         i, j = p
-        assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
-            &#34;ERROR: trying to draw outside the window!&#34;
+        if not (0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1]):
+            raise ValueError(&#34;trying to draw outside the window!&#34;)
 
         o = self.create_oval(j*self.pixels+bord+1,
                              i*self.pixels+bord+1,
@@ -359,17 +368,19 @@ class open(tk.Canvas):
 
         Args:
             obj (int): a previously created piece ID
-            pos: a couple of int, new grid position (line, column)
+            pos ([int, int]): new grid position, a couple (line, column)
             refresh (bool, optional): refresh the window after drawing
                 (default: True)
 
-        _Return_value_
-        None
+        Returns:
+            None
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
+
         i, j = pos
-        assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
-            &#34;ERROR: trying to move a piece outside the window!&#34;
+        if not (0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1]):
+            raise ValueError(&#34;trying to move a piece outside the window!&#34;)
         bord = self.pixels//10+1
         self.coords(
             obj,
@@ -390,21 +401,22 @@ class open(tk.Canvas):
         &#34;&#34;&#34;Fill the inside of a tile in position p=(line, column) with a color.
 
         Args:
+            p ([int, int]): grid position (line, column)
+            color (str, optional): color of the tile (default: &#34;black&#34;)
+            border (int, optional): border thickness (default: 0) - borders may
+                overlap over neighboring tiles
+            refresh (bool): refresh the window after drawing (default: True)
 
-        - p ((int, int)): grid position (line, column)
-        Optional:
-        - color (str): color of the tile (default: &#34;black&#34;)
-        - border (int): border thickness (default: 0) - borders will overlap on
-          neighboring tiles
-        - refresh (bool): refresh the window after drawing (default: True)
-
-        _Return_value_
-        - the colored tile ID (int).
+        Returns:
+            int: the ID of the colored tile
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
+
         i, j = p
-        assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
-            &#34;ERROR: trying to fill a tile outside the window!&#34;
+        if not (0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1]):
+            raise ValueError(&#34;trying to fill a tile outside the window!&#34;)
+
         o = self.create_rectangle(j*self.pixels+1+self.gap,
                                   i*self.pixels+1+self.gap,
                                   (j+1)*self.pixels+1,
@@ -420,19 +432,20 @@ class open(tk.Canvas):
         &#34;&#34;&#34;Move a colored tile to another grid position.
 
         Args:
+            obj (int): a previously created tile ID
+            pos ([int, int]): new position in the grid (line, column)
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
 
-        - obj (int): a previously created tile ID
-        - pos ((int, int)): new position in the grid (line, column)
-        Optional:
-        - refresh (bool): refresh the window after drawing (default: True)
-
-        _Return_value_
-        None
+        Returns:
+            None
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
+
         i, j = pos
-        assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
-            &#34;ERROR: trying to move a tile outside the window!&#34;
+        if not (0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1]):
+            raise ValueError(&#34;trying to move a tile outside the window!&#34;)
         self.coords(
             obj,
             j*self.pixels+1++self.gap,
@@ -450,21 +463,24 @@ class open(tk.Canvas):
     def draw_line(
         self, x1, x2, color=&#34;black&#34;, thickness=1, refresh=True
     ):
-        &#34;&#34;&#34;Draw a line between x1=(l1,c1) and x2=(l2,c2) (excluded).
+        &#34;&#34;&#34;Draw a line between x1=(l1, c1) and x2=(l2, c2) (excluded).
 
         Args:
+            x1 ([int, int]): pixel-wise positions (line, column) of the first
+                point. (0,0) = top-left position.
+            x2 ([int, int]): pixel-wise positions (line, column) of the second
+                point, excluded.
+            color (str, optional): line color (default: &#34;black&#34;)
+            thickness (int, optional): thickness of the line (default: 1)
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
 
-        - x1, x2 (two couples (int, int)): pixel-wise positions (line, column)
-          of the two points. (0,0) = top-left position.
-        Optional:
-        - color (str): line color (default: &#34;black&#34;)
-        - thickness (int): thickness of the line (default: 1)
-        - refresh (bool): refresh the window after drawing (default: True)
-
-        _Return_value_
-        - the ID of the graphical object that was created (int).
+        Returns:
+            int: the ID of the graphical object that was created.
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
+
         o = self.create_line(x1[1]+1, x1[0]+1, x2[1], x2[0],
                              width=thickness, fill=color)
         if refresh:
@@ -478,20 +494,23 @@ class open(tk.Canvas):
         &#34;&#34;&#34;Draw a circle in the bounding box of x1=(l1,c1) and x2 (excluded).
 
         Args:
-
-        - x1, x2 (two couples (int, int)): pixel-wise positions (line, column)
-          of the two points. (0,0) = top-left position.
-        Optional:
-        - color (str): color of the inside (default: &#34;black&#34;)
+            x1 ([int, int]): pixel-wise positions (line, column) of the first
+                point. (0,0) = top-left position.
+            x2 ([int, int]): pixel-wise positions (line, column) of the second
+                point, excluded.
+            color (str, optional): color of the inside (default: &#34;black&#34;)
                        if color == None, don&#39;t fill the circle.
-        - border (int): border thickness (default: 1) - borders can overflow
-          over the given pixels coordinates
-        - refresh (bool): refresh the window after drawing (default: True)
+            border (int, optional): border thickness (default: 1) - borders can
+                overflow over the given pixels coordinates
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
 
-        _Return_value_
-        - the ID of the graphical object that was created (int).
+        Returns:
+            int: the ID of the graphical object that was created.
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
+
         o = self.create_oval(x1[1]+1, x1[0]+1, x2[1], x2[0],
                              width=border, fill=color)
         if refresh:
@@ -502,23 +521,24 @@ class open(tk.Canvas):
         self, position, text,
         color=&#34;black&#34;, fontname=&#34;Purisa&#34;, fontsize=11, refresh=True
     ):
-        &#34;&#34;&#34;Draw a text centered at a given position=(l1,c1).
+        &#34;&#34;&#34;Draw a text centered at a given position=(line, column).
 
         Args:
+            position ([int, int]): pixel-wise position (line, column).
+                (0,0) = top-left position.
+            text (str): text to print
+            color (str, optional): text color (default: &#34;black&#34;)
+            fontname (str, optional): font name (default: &#34;Purisa&#34;)
+            fontsize (int, optional): font size (default: 11pt)
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
 
-        - position (couple (int,int)): pixel-wise position (line, column).
-          (0,0) = top-left position.
-        - text (str): text to print
-        Optional:
-        - color (str): text color (default: &#34;black&#34;)
-        - fontname (str): font name (default: &#34;Purisa&#34;)
-        - fontsize (int): font size (default: 11pt)
-        - refresh (bool): refresh the window after drawing (default: True)
-
-        _Return_value_
-        - the ID of the graphical object that was created (int).
+        Returns:
+            int: the ID of the graphical object that was created.
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
+
         o = self.create_text(position[1]+1, position[0]+1,
                              text=text,
                              font=(fontname, fontsize),
@@ -530,19 +550,20 @@ class open(tk.Canvas):
     def bg(
         self, obj, before=1, refresh=True
     ):
-        &#34;&#34;&#34;Send a graphical object (ID) to background.
+        &#34;&#34;&#34;Send a graphical object (ID) to the background.
 
         Args:
+            obj (int): object ID returned by an object creation method
+            before (int, optional): the object behind which to hide (default:
+                1 = all)
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
 
-        - obj (int): object ID returned by an object creation method
-        Optional:
-        - before (int): the object behind which to hide (default: 1 = all)
-        - refresh (bool): refresh the window after drawing (default: True)
-
-        _Return_value_
-        None
+        Returns:
+            None
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
         # se met en fond, derrière l&#39;objet &#39;before&#39;:
         self.tag_lower(obj, before)
         if refresh:
@@ -553,15 +574,21 @@ class open(tk.Canvas):
     ):
         &#34;&#34;&#34;Refresh all objects previously drawn in the window.
 
-        Usage note: you can create several successive objects without
-        refreshing by passing the extra argument &#34;refresh=False&#34; to the drawing
-        functions, and then refresh only once using this function.
-        Good for speed, especially if you draw many things.
+        Note:
+            You can create several successive objects without refreshing by
+                passing the extra argument &#34;refresh=False&#34; to the drawing
+                functions, and then refresh only once using this function.
+                Good for speed, especially if you draw many things.
 
-        _Return_value_
-        None
+        Args:
+            None
+
+        Returns:
+            None
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
+
         self.update()
 
     def rm(
@@ -570,15 +597,16 @@ class open(tk.Canvas):
         &#34;&#34;&#34;Delete a graphical object (ID).
 
         Args:
+            obj (int): an object ID (returned by an object creation method)
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
 
-        - obj (int): object ID returned by an object creation method
-        Optional:
-        - refresh (bool): refresh the window after drawing (default: True)
-
-        _Return_value_
-        None
+        Returns:
+            None
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
+
         self.delete(obj)
         if refresh:
             self.update()
@@ -592,23 +620,31 @@ class open(tk.Canvas):
         The tracked events are only keypress and mouse click (left button).
 
         Args:
+            delay (int, optional): waiting time in ms (default: wait forever)
 
-        Optional:
-        - delay (int): waiting time in ms (default: wait forever)
+        Returns:
+            If the delay expires (when given)
 
-        _Return_value_
-        - if the user clicks on a tile of the board, return the couple
-          (&#34;click&#34;, (line, column))
-          where (line, column) are the coordinates of the clicked tile
-        - if the user hits a key, return the couple
-          (&#34;key&#34;, letter)
-          where letter is a string containing a description of the key.
-          If you&#39;re looking for a specific key, just give a try to the demo:
-          `python3 -m tkdraw` will print all occuring events in the console
-        - if the user closes the window, return the couple
-          (&#34;END&#34;, None)
-        - if the delay expires (when given), the special value
-          None
+            - `None`
+
+            Else, returns a couple, the first element being always a string:
+
+            - `(&#34;click&#34;, (line, column))`
+
+                if the user clicks on a tile of the board, where (line, column)
+                    are the integer coordinates of the clicked tile
+
+            - `(&#34;key&#34;, letter)`
+
+                if the user hits a key, where letter is a string containing a
+                    description of the key. If you&#39;re looking for a specific
+                    key, you can give a try to the demo - running
+                    `&#39;python3 -m tkdraw&#39;` will print all occuring events in the
+                    console
+
+            - `(&#34;END&#34;, None)`
+
+                if the user closes the window
         &#34;&#34;&#34;
         # private: called when the timer expires
         def delay_expire():
@@ -619,7 +655,8 @@ class open(tk.Canvas):
         # trigger the timer
         self.idd = None
         if delay is not None:
-            assert self.root, &#34;ERROR: window closed!&#34;
+            if not self.root:
+                raise InterruptedError(&#34;window killed&#34;)
             self.idd = self.root.after(delay, delay_expire)
         # This is Tk&#39;s main loop
         # checks the events and get out if something happens
@@ -636,7 +673,8 @@ class open(tk.Canvas):
                 # no event in the queue, continue waiting (go to mainloop)
                 pass
             ####################
-            assert self.root, &#34;ERROR: window closed!&#34;
+            if not self.root:
+                raise InterruptedError(&#34;window killed&#34;)
             # back to the mainloop, it will stop if I get an event
             self.root.mainloop()
             ####################
@@ -644,23 +682,29 @@ class open(tk.Canvas):
     def mouse_position(self):
         &#34;&#34;&#34;Return the mouse position (pixel-wise).
 
-        Usage notice: if a coordinate is negative or greater than the window
-        size, the mouse is out of the window.
+        Note:
+            The returned coordinates can be negative or greater than the window
+                size, when the mouse is out of the window but the window still
+                selected.
 
-        _Return_value_
-        - a couple (int,int): pixel-wise position (line, column) relative to
+        Args:
+            None
+
+        Returns:
+        - a couple ([int, int]): pixel-wise position (line, column) relative to
           (0,0) = top-left position in the window.
         &#34;&#34;&#34;
         # private: the mouse moved
-        def motion(event):
+        def _motion(event):
             self.souris = (event.y, event.x)
 
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
         self.refresh()
         try:
             return self.souris
         except AttributeError:
-            self.bind(&#34;&lt;Motion&gt;&#34;, motion)
+            self.bind(&#34;&lt;Motion&gt;&#34;, _motion)
             self.souris = (0, 0)  # initial position if the mouse doesn&#39;t move
             return self.souris
 
@@ -743,18 +787,19 @@ if __name__ == &#34;__main__&#34;:
 </code></dt>
 <dd>
 <div class="desc"><p>Main class for a window containing a board (2D grid).</p>
-<p>Typical usage example:</p>
+<p>This class inherits from tkinter's canvas class.</p>
+<p>To open a window containing just an array of pixels, set the pixels
+parameter to 1 and grid to False.</p>
+<h2 id="example">Example</h2>
 <pre><code>g = open()
 g.message(&quot;hello&quot;)
 g.wait_event()
 </code></pre>
-<p>To open a window containing just an array of pixels, set the pixels
-parameter to 1 and grid to False.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>size</code></strong></dt>
-<dd>a couple of int (height, width) specifying the size of the grid
-(default: (8, 8))</dd>
+<dt><strong><code>size</code></strong> :&ensp;<code>[int, int]</code></dt>
+<dd>a couple (height, width) specifying the size of
+the grid (default: (8, 8))</dd>
 <dt><strong><code>pixels</code></strong> :&ensp;<code>int</code></dt>
 <dd>number of pixels of a square (default: 100)</dd>
 <dt><strong><code>grid</code></strong> :&ensp;<code>bool</code></dt>
@@ -762,14 +807,24 @@ parameter to 1 and grid to False.</p>
 vertical lines separating the squares (default: True)</dd>
 </dl>
 <h2 id="returns">Returns</h2>
-<p>The window object. This class inherits from tkinter's canvas class, you
-can directly call the canvas methods to perform advanced drawings
-in this canvas (expert mode). You may refer to the documentation of
-tkinter describing the Canvas widget.
-Initialize the window instance.</p>
-<p>Create a tkinter root object and a canvas (from which we inherit).
-Redirects all events to the appropriate functions.
-Arguments are described in the "open" main class.</p></div>
+<p>The window object.</p>
+<h2 id="notes">Notes</h2>
+<p>Since this class inherits from tkinter's canvas class, more inherited
+documentation will be displayed below this paragraph. You can
+directly call the canvas methods to perform advanced drawings in
+this canvas (expert mode, be warned that a couple of coordinates
+(y, x) in tkdraw has to be transformed into two integers x+1, y+1
+in tkinter). You may refer to the documentation of tkinter
+describing the Canvas widget here:
+<a href="https://docs.python.org/3/library/tkinter.html">https://docs.python.org/3/library/tkinter.html</a></p>
+<p>Construct a canvas widget with the parent MASTER.</p>
+<p>Valid resource names: background, bd, bg, borderwidth, closeenough,
+confine, cursor, height, highlightbackground, highlightcolor,
+highlightthickness, insertbackground, insertborderwidth,
+insertofftime, insertontime, insertwidth, offset, relief,
+scrollregion, selectbackground, selectborderwidth, selectforeground,
+state, takefocus, width, xscrollcommand, xscrollincrement,
+yscrollcommand, yscrollincrement.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -777,39 +832,41 @@ Arguments are described in the "open" main class.</p></div>
 <pre><code class="python">class open(tk.Canvas):
     &#34;&#34;&#34;Main class for a window containing a board (2D grid).
 
-    Typical usage example:
-    ```
-    g = open()
-    g.message(&#34;hello&#34;)
-    g.wait_event()
-    ```
+    This class inherits from tkinter&#39;s canvas class.
 
     To open a window containing just an array of pixels, set the pixels
     parameter to 1 and grid to False.
 
+    Example:
+        ```
+        g = open()
+        g.message(&#34;hello&#34;)
+        g.wait_event()
+        ```
     Args:
-        size: a couple of int (height, width) specifying the size of the grid
-            (default: (8, 8))
+        size ([int, int]): a couple (height, width) specifying the size of
+            the grid (default: (8, 8))
         pixels (int): number of pixels of a square (default: 100)
         grid (bool): if True, prints a one-pixel large grid : horizontal and
             vertical lines separating the squares (default: True)
 
     Returns:
-        The window object. This class inherits from tkinter&#39;s canvas class, you
-            can directly call the canvas methods to perform advanced drawings
-            in this canvas (expert mode). You may refer to the documentation of
-            tkinter describing the Canvas widget.
+        The window object.
+
+    Notes:
+        Since this class inherits from tkinter&#39;s canvas class, more inherited
+            documentation will be displayed below this paragraph. You can
+            directly call the canvas methods to perform advanced drawings in
+            this canvas (expert mode, be warned that a couple of coordinates
+            (y, x) in tkdraw has to be transformed into two integers x+1, y+1
+            in tkinter). You may refer to the documentation of tkinter
+            describing the Canvas widget here:
+            &lt;https://docs.python.org/3/library/tkinter.html&gt;
     &#34;&#34;&#34;
 
     def __init__(
         self, size=(8, 8), pixels=100, grid=True
     ):
-        &#34;&#34;&#34;Initialize the window instance.
-
-        Create a tkinter root object and a canvas (from which we inherit).
-        Redirects all events to the appropriate functions.
-        Arguments are described in the &#34;open&#34; main class.
-        &#34;&#34;&#34;
         # some private methods below, to react to asynchronous events:
 
         # private: the user clicked on a square
@@ -903,8 +960,8 @@ Arguments are described in the "open" main class.</p></div>
         Args:
             None
 
-        _Return_value_
-        None
+        Returns:
+            None
         &#34;&#34;&#34;
         if self.after_id is not None:
             self.root.after_cancel(self.after_id)
@@ -919,16 +976,17 @@ Arguments are described in the "open" main class.</p></div>
         Args:
             message (str): the string to print
 
-        _Return_value_
-        - (boolean) True if the user just clicked on the box,
-          False if the user killed the window.
+        Returns:
+            bool: True if the user triggered a normal event, False if the user
+                closed the window abruptly.
         &#34;&#34;&#34;
         # private: the user clicked in the box
         def _c(event):
             self.eventq.put(&#34;ok&#34;)
             self.root.quit()
 
-        assert self.root, &#34;ERROR: window killed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
         m = tk.Message(
                 self.root, text=message,
                 padx=20, pady=20,
@@ -959,6 +1017,7 @@ Arguments are described in the "open" main class.</p></div>
     # by default define those 10 colors:
     DEFAULT_COLOR = [&#34;black&#34;, &#34;white&#34;, &#34;red&#34;, &#34;green&#34;, &#34;blue&#34;,
                      &#34;yellow&#34;, &#34;cyan&#34;, &#34;magenta&#34;, &#34;orange&#34;, &#34;darkgrey&#34;]
+    &#34;&#34;&#34;A list of ten colors (str) used for ten players identified by numbers.&#34;&#34;&#34;
 
     def draw_grid(
         self, matrix=None, grid=True
@@ -966,15 +1025,17 @@ Arguments are described in the "open" main class.</p></div>
         &#34;&#34;&#34;Print a complete grid of pieces, using the 10 default colors.
 
         Args:
-            matrix (list of list): the players pieces matrix, of the specified
-                size. If matrix is None (default), just ignores it.
+            matrix (list of list of int): the players pieces matrix, of the
+                specified size. If matrix is None (default), just ignores it.
             grid (boolean): if True (default) draws a horizontal+vertical grid
                 to separate the tiles.
 
-        _Return_value_
-        - a list of the graphical objects that were created (grid excluded).
+        Returns:
+            list of int: the graphical objects that were created for the pieces
+                (grid excluded).
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
         # erase everything for a start
         self.delete(tk.ALL)
         # gap is used by draw_tile to fill the inside of a tile (including
@@ -1011,10 +1072,11 @@ Arguments are described in the "open" main class.</p></div>
         Args:
             None
 
-        _Return_value_
-        None
+        Returns:
+            None
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
         self.delete(tk.ALL)
         # redraw the grid if it was there:
         if self.gap == 1:
@@ -1035,17 +1097,19 @@ Arguments are described in the "open" main class.</p></div>
         won&#39;t see the piece.
 
         Args:
-            p: a couple of int specifying the grid position (line, column)
+            p ([int, int]): a couple (line, column) specifying the grid
+                position. (0, 0) = top-left position.
             player (int, optional): player number (default: 0)
                 player is used only if color is NOT given.
             color (str, optional): fill color of the piece. If a color is
                 given, player is ignored.
             refresh (bool): refresh the window after drawing (default: True)
 
-        _Return_value_
-        - the ID of the graphical object that was created (int).
+        Returns:
+            int: the ID of the graphical object (circle) that was created.
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
         if color is None:
             if isinstance(player, int):
                 color = self.DEFAULT_COLOR[player % len(self.DEFAULT_COLOR)]
@@ -1054,8 +1118,8 @@ Arguments are described in the "open" main class.</p></div>
 
         bord = self.pixels//10+1
         i, j = p
-        assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
-            &#34;ERROR: trying to draw outside the window!&#34;
+        if not (0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1]):
+            raise ValueError(&#34;trying to draw outside the window!&#34;)
 
         o = self.create_oval(j*self.pixels+bord+1,
                              i*self.pixels+bord+1,
@@ -1073,17 +1137,19 @@ Arguments are described in the "open" main class.</p></div>
 
         Args:
             obj (int): a previously created piece ID
-            pos: a couple of int, new grid position (line, column)
+            pos ([int, int]): new grid position, a couple (line, column)
             refresh (bool, optional): refresh the window after drawing
                 (default: True)
 
-        _Return_value_
-        None
+        Returns:
+            None
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
+
         i, j = pos
-        assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
-            &#34;ERROR: trying to move a piece outside the window!&#34;
+        if not (0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1]):
+            raise ValueError(&#34;trying to move a piece outside the window!&#34;)
         bord = self.pixels//10+1
         self.coords(
             obj,
@@ -1104,21 +1170,22 @@ Arguments are described in the "open" main class.</p></div>
         &#34;&#34;&#34;Fill the inside of a tile in position p=(line, column) with a color.
 
         Args:
+            p ([int, int]): grid position (line, column)
+            color (str, optional): color of the tile (default: &#34;black&#34;)
+            border (int, optional): border thickness (default: 0) - borders may
+                overlap over neighboring tiles
+            refresh (bool): refresh the window after drawing (default: True)
 
-        - p ((int, int)): grid position (line, column)
-        Optional:
-        - color (str): color of the tile (default: &#34;black&#34;)
-        - border (int): border thickness (default: 0) - borders will overlap on
-          neighboring tiles
-        - refresh (bool): refresh the window after drawing (default: True)
-
-        _Return_value_
-        - the colored tile ID (int).
+        Returns:
+            int: the ID of the colored tile
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
+
         i, j = p
-        assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
-            &#34;ERROR: trying to fill a tile outside the window!&#34;
+        if not (0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1]):
+            raise ValueError(&#34;trying to fill a tile outside the window!&#34;)
+
         o = self.create_rectangle(j*self.pixels+1+self.gap,
                                   i*self.pixels+1+self.gap,
                                   (j+1)*self.pixels+1,
@@ -1134,19 +1201,20 @@ Arguments are described in the "open" main class.</p></div>
         &#34;&#34;&#34;Move a colored tile to another grid position.
 
         Args:
+            obj (int): a previously created tile ID
+            pos ([int, int]): new position in the grid (line, column)
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
 
-        - obj (int): a previously created tile ID
-        - pos ((int, int)): new position in the grid (line, column)
-        Optional:
-        - refresh (bool): refresh the window after drawing (default: True)
-
-        _Return_value_
-        None
+        Returns:
+            None
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
+
         i, j = pos
-        assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
-            &#34;ERROR: trying to move a tile outside the window!&#34;
+        if not (0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1]):
+            raise ValueError(&#34;trying to move a tile outside the window!&#34;)
         self.coords(
             obj,
             j*self.pixels+1++self.gap,
@@ -1164,21 +1232,24 @@ Arguments are described in the "open" main class.</p></div>
     def draw_line(
         self, x1, x2, color=&#34;black&#34;, thickness=1, refresh=True
     ):
-        &#34;&#34;&#34;Draw a line between x1=(l1,c1) and x2=(l2,c2) (excluded).
+        &#34;&#34;&#34;Draw a line between x1=(l1, c1) and x2=(l2, c2) (excluded).
 
         Args:
+            x1 ([int, int]): pixel-wise positions (line, column) of the first
+                point. (0,0) = top-left position.
+            x2 ([int, int]): pixel-wise positions (line, column) of the second
+                point, excluded.
+            color (str, optional): line color (default: &#34;black&#34;)
+            thickness (int, optional): thickness of the line (default: 1)
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
 
-        - x1, x2 (two couples (int, int)): pixel-wise positions (line, column)
-          of the two points. (0,0) = top-left position.
-        Optional:
-        - color (str): line color (default: &#34;black&#34;)
-        - thickness (int): thickness of the line (default: 1)
-        - refresh (bool): refresh the window after drawing (default: True)
-
-        _Return_value_
-        - the ID of the graphical object that was created (int).
+        Returns:
+            int: the ID of the graphical object that was created.
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
+
         o = self.create_line(x1[1]+1, x1[0]+1, x2[1], x2[0],
                              width=thickness, fill=color)
         if refresh:
@@ -1192,20 +1263,23 @@ Arguments are described in the "open" main class.</p></div>
         &#34;&#34;&#34;Draw a circle in the bounding box of x1=(l1,c1) and x2 (excluded).
 
         Args:
-
-        - x1, x2 (two couples (int, int)): pixel-wise positions (line, column)
-          of the two points. (0,0) = top-left position.
-        Optional:
-        - color (str): color of the inside (default: &#34;black&#34;)
+            x1 ([int, int]): pixel-wise positions (line, column) of the first
+                point. (0,0) = top-left position.
+            x2 ([int, int]): pixel-wise positions (line, column) of the second
+                point, excluded.
+            color (str, optional): color of the inside (default: &#34;black&#34;)
                        if color == None, don&#39;t fill the circle.
-        - border (int): border thickness (default: 1) - borders can overflow
-          over the given pixels coordinates
-        - refresh (bool): refresh the window after drawing (default: True)
+            border (int, optional): border thickness (default: 1) - borders can
+                overflow over the given pixels coordinates
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
 
-        _Return_value_
-        - the ID of the graphical object that was created (int).
+        Returns:
+            int: the ID of the graphical object that was created.
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
+
         o = self.create_oval(x1[1]+1, x1[0]+1, x2[1], x2[0],
                              width=border, fill=color)
         if refresh:
@@ -1216,23 +1290,24 @@ Arguments are described in the "open" main class.</p></div>
         self, position, text,
         color=&#34;black&#34;, fontname=&#34;Purisa&#34;, fontsize=11, refresh=True
     ):
-        &#34;&#34;&#34;Draw a text centered at a given position=(l1,c1).
+        &#34;&#34;&#34;Draw a text centered at a given position=(line, column).
 
         Args:
+            position ([int, int]): pixel-wise position (line, column).
+                (0,0) = top-left position.
+            text (str): text to print
+            color (str, optional): text color (default: &#34;black&#34;)
+            fontname (str, optional): font name (default: &#34;Purisa&#34;)
+            fontsize (int, optional): font size (default: 11pt)
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
 
-        - position (couple (int,int)): pixel-wise position (line, column).
-          (0,0) = top-left position.
-        - text (str): text to print
-        Optional:
-        - color (str): text color (default: &#34;black&#34;)
-        - fontname (str): font name (default: &#34;Purisa&#34;)
-        - fontsize (int): font size (default: 11pt)
-        - refresh (bool): refresh the window after drawing (default: True)
-
-        _Return_value_
-        - the ID of the graphical object that was created (int).
+        Returns:
+            int: the ID of the graphical object that was created.
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
+
         o = self.create_text(position[1]+1, position[0]+1,
                              text=text,
                              font=(fontname, fontsize),
@@ -1244,19 +1319,20 @@ Arguments are described in the "open" main class.</p></div>
     def bg(
         self, obj, before=1, refresh=True
     ):
-        &#34;&#34;&#34;Send a graphical object (ID) to background.
+        &#34;&#34;&#34;Send a graphical object (ID) to the background.
 
         Args:
+            obj (int): object ID returned by an object creation method
+            before (int, optional): the object behind which to hide (default:
+                1 = all)
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
 
-        - obj (int): object ID returned by an object creation method
-        Optional:
-        - before (int): the object behind which to hide (default: 1 = all)
-        - refresh (bool): refresh the window after drawing (default: True)
-
-        _Return_value_
-        None
+        Returns:
+            None
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
         # se met en fond, derrière l&#39;objet &#39;before&#39;:
         self.tag_lower(obj, before)
         if refresh:
@@ -1267,15 +1343,21 @@ Arguments are described in the "open" main class.</p></div>
     ):
         &#34;&#34;&#34;Refresh all objects previously drawn in the window.
 
-        Usage note: you can create several successive objects without
-        refreshing by passing the extra argument &#34;refresh=False&#34; to the drawing
-        functions, and then refresh only once using this function.
-        Good for speed, especially if you draw many things.
+        Note:
+            You can create several successive objects without refreshing by
+                passing the extra argument &#34;refresh=False&#34; to the drawing
+                functions, and then refresh only once using this function.
+                Good for speed, especially if you draw many things.
 
-        _Return_value_
-        None
+        Args:
+            None
+
+        Returns:
+            None
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
+
         self.update()
 
     def rm(
@@ -1284,15 +1366,16 @@ Arguments are described in the "open" main class.</p></div>
         &#34;&#34;&#34;Delete a graphical object (ID).
 
         Args:
+            obj (int): an object ID (returned by an object creation method)
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
 
-        - obj (int): object ID returned by an object creation method
-        Optional:
-        - refresh (bool): refresh the window after drawing (default: True)
-
-        _Return_value_
-        None
+        Returns:
+            None
         &#34;&#34;&#34;
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
+
         self.delete(obj)
         if refresh:
             self.update()
@@ -1306,23 +1389,31 @@ Arguments are described in the "open" main class.</p></div>
         The tracked events are only keypress and mouse click (left button).
 
         Args:
+            delay (int, optional): waiting time in ms (default: wait forever)
 
-        Optional:
-        - delay (int): waiting time in ms (default: wait forever)
+        Returns:
+            If the delay expires (when given)
 
-        _Return_value_
-        - if the user clicks on a tile of the board, return the couple
-          (&#34;click&#34;, (line, column))
-          where (line, column) are the coordinates of the clicked tile
-        - if the user hits a key, return the couple
-          (&#34;key&#34;, letter)
-          where letter is a string containing a description of the key.
-          If you&#39;re looking for a specific key, just give a try to the demo:
-          `python3 -m tkdraw` will print all occuring events in the console
-        - if the user closes the window, return the couple
-          (&#34;END&#34;, None)
-        - if the delay expires (when given), the special value
-          None
+            - `None`
+
+            Else, returns a couple, the first element being always a string:
+
+            - `(&#34;click&#34;, (line, column))`
+
+                if the user clicks on a tile of the board, where (line, column)
+                    are the integer coordinates of the clicked tile
+
+            - `(&#34;key&#34;, letter)`
+
+                if the user hits a key, where letter is a string containing a
+                    description of the key. If you&#39;re looking for a specific
+                    key, you can give a try to the demo - running
+                    `&#39;python3 -m tkdraw&#39;` will print all occuring events in the
+                    console
+
+            - `(&#34;END&#34;, None)`
+
+                if the user closes the window
         &#34;&#34;&#34;
         # private: called when the timer expires
         def delay_expire():
@@ -1333,7 +1424,8 @@ Arguments are described in the "open" main class.</p></div>
         # trigger the timer
         self.idd = None
         if delay is not None:
-            assert self.root, &#34;ERROR: window closed!&#34;
+            if not self.root:
+                raise InterruptedError(&#34;window killed&#34;)
             self.idd = self.root.after(delay, delay_expire)
         # This is Tk&#39;s main loop
         # checks the events and get out if something happens
@@ -1350,7 +1442,8 @@ Arguments are described in the "open" main class.</p></div>
                 # no event in the queue, continue waiting (go to mainloop)
                 pass
             ####################
-            assert self.root, &#34;ERROR: window closed!&#34;
+            if not self.root:
+                raise InterruptedError(&#34;window killed&#34;)
             # back to the mainloop, it will stop if I get an event
             self.root.mainloop()
             ####################
@@ -1358,23 +1451,29 @@ Arguments are described in the "open" main class.</p></div>
     def mouse_position(self):
         &#34;&#34;&#34;Return the mouse position (pixel-wise).
 
-        Usage notice: if a coordinate is negative or greater than the window
-        size, the mouse is out of the window.
+        Note:
+            The returned coordinates can be negative or greater than the window
+                size, when the mouse is out of the window but the window still
+                selected.
 
-        _Return_value_
-        - a couple (int,int): pixel-wise position (line, column) relative to
+        Args:
+            None
+
+        Returns:
+        - a couple ([int, int]): pixel-wise position (line, column) relative to
           (0,0) = top-left position in the window.
         &#34;&#34;&#34;
         # private: the mouse moved
-        def motion(event):
+        def _motion(event):
             self.souris = (event.y, event.x)
 
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
         self.refresh()
         try:
             return self.souris
         except AttributeError:
-            self.bind(&#34;&lt;Motion&gt;&#34;, motion)
+            self.bind(&#34;&lt;Motion&gt;&#34;, _motion)
             self.souris = (0, 0)  # initial position if the mouse doesn&#39;t move
             return self.souris</code></pre>
 </details>
@@ -1394,7 +1493,7 @@ Arguments are described in the "open" main class.</p></div>
 <dl>
 <dt id="tkdraw.screen.open.DEFAULT_COLOR"><code class="name">var <span class="ident">DEFAULT_COLOR</span></code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>A list of ten colors (str) used for ten players identified by numbers.</p></div>
 </dd>
 </dl>
 <h3>Methods</h3>
@@ -1403,16 +1502,20 @@ Arguments are described in the "open" main class.</p></div>
 <span>def <span class="ident">bg</span></span>(<span>self, obj, before=1, refresh=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Send a graphical object (ID) to background.</p>
-<p>Args:</p>
-<ul>
-<li>obj (int): object ID returned by an object creation method
-Optional:</li>
-<li>before (int): the object behind which to hide (default: 1 = all)</li>
-<li>refresh (bool): refresh the window after drawing (default: True)</li>
-</ul>
-<p><em>Return_value</em>
-None</p></div>
+<div class="desc"><p>Send a graphical object (ID) to the background.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>obj</code></strong> :&ensp;<code>int</code></dt>
+<dd>object ID returned by an object creation method</dd>
+<dt><strong><code>before</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>the object behind which to hide (default:
+1 = all)</dd>
+<dt><strong><code>refresh</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>refresh the window after drawing
+(default: True)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1420,19 +1523,20 @@ None</p></div>
 <pre><code class="python">def bg(
     self, obj, before=1, refresh=True
 ):
-    &#34;&#34;&#34;Send a graphical object (ID) to background.
+    &#34;&#34;&#34;Send a graphical object (ID) to the background.
 
     Args:
+        obj (int): object ID returned by an object creation method
+        before (int, optional): the object behind which to hide (default:
+            1 = all)
+        refresh (bool, optional): refresh the window after drawing
+            (default: True)
 
-    - obj (int): object ID returned by an object creation method
-    Optional:
-    - before (int): the object behind which to hide (default: 1 = all)
-    - refresh (bool): refresh the window after drawing (default: True)
-
-    _Return_value_
-    None
+    Returns:
+        None
     &#34;&#34;&#34;
-    assert self.root, &#34;ERROR: window closed!&#34;
+    if not self.root:
+        raise InterruptedError(&#34;window killed&#34;)
     # se met en fond, derrière l&#39;objet &#39;before&#39;:
     self.tag_lower(obj, before)
     if refresh:
@@ -1445,9 +1549,9 @@ None</p></div>
 <dd>
 <div class="desc"><p>Close this window.</p>
 <h2 id="args">Args</h2>
-<p>None
-<em>Return_value</em>
-None</p></div>
+<p>None</p>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1458,8 +1562,8 @@ None</p></div>
     Args:
         None
 
-    _Return_value_
-    None
+    Returns:
+        None
     &#34;&#34;&#34;
     if self.after_id is not None:
         self.root.after_cancel(self.after_id)
@@ -1474,19 +1578,29 @@ None</p></div>
 </code></dt>
 <dd>
 <div class="desc"><p>Draw a circle in the bounding box of x1=(l1,c1) and x2 (excluded).</p>
-<p>Args:</p>
-<ul>
-<li>x1, x2 (two couples (int, int)): pixel-wise positions (line, column)
-of the two points. (0,0) = top-left position.
-Optional:</li>
-<li>color (str): color of the inside (default: "black")
-if color == None, don't fill the circle.</li>
-<li>border (int): border thickness (default: 1) - borders can overflow
-over the given pixels coordinates</li>
-<li>refresh (bool): refresh the window after drawing (default: True)</li>
-</ul>
-<p><em>Return_value</em>
-- the ID of the graphical object that was created (int).</p></div>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>x1</code></strong> :&ensp;<code>[int, int]</code></dt>
+<dd>pixel-wise positions (line, column) of the first
+point. (0,0) = top-left position.</dd>
+<dt><strong><code>x2</code></strong> :&ensp;<code>[int, int]</code></dt>
+<dd>pixel-wise positions (line, column) of the second
+point, excluded.</dd>
+<dt><strong><code>color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>color of the inside (default: "black")
+if color == None, don't fill the circle.</dd>
+<dt><strong><code>border</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>border thickness (default: 1) - borders can
+overflow over the given pixels coordinates</dd>
+<dt><strong><code>refresh</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>refresh the window after drawing
+(default: True)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>the ID of the graphical object that was created.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1498,20 +1612,23 @@ over the given pixels coordinates</li>
     &#34;&#34;&#34;Draw a circle in the bounding box of x1=(l1,c1) and x2 (excluded).
 
     Args:
-
-    - x1, x2 (two couples (int, int)): pixel-wise positions (line, column)
-      of the two points. (0,0) = top-left position.
-    Optional:
-    - color (str): color of the inside (default: &#34;black&#34;)
+        x1 ([int, int]): pixel-wise positions (line, column) of the first
+            point. (0,0) = top-left position.
+        x2 ([int, int]): pixel-wise positions (line, column) of the second
+            point, excluded.
+        color (str, optional): color of the inside (default: &#34;black&#34;)
                    if color == None, don&#39;t fill the circle.
-    - border (int): border thickness (default: 1) - borders can overflow
-      over the given pixels coordinates
-    - refresh (bool): refresh the window after drawing (default: True)
+        border (int, optional): border thickness (default: 1) - borders can
+            overflow over the given pixels coordinates
+        refresh (bool, optional): refresh the window after drawing
+            (default: True)
 
-    _Return_value_
-    - the ID of the graphical object that was created (int).
+    Returns:
+        int: the ID of the graphical object that was created.
     &#34;&#34;&#34;
-    assert self.root, &#34;ERROR: window closed!&#34;
+    if not self.root:
+        raise InterruptedError(&#34;window killed&#34;)
+
     o = self.create_oval(x1[1]+1, x1[0]+1, x2[1], x2[0],
                          width=border, fill=color)
     if refresh:
@@ -1526,15 +1643,19 @@ over the given pixels coordinates</li>
 <div class="desc"><p>Print a complete grid of pieces, using the 10 default colors.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>matrix</code></strong> :&ensp;<code>list</code> of <code>list</code></dt>
-<dd>the players pieces matrix, of the specified
-size. If matrix is None (default), just ignores it.</dd>
+<dt><strong><code>matrix</code></strong> :&ensp;<code>list</code> of <code>list</code> of <code>int</code></dt>
+<dd>the players pieces matrix, of the
+specified size. If matrix is None (default), just ignores it.</dd>
 <dt><strong><code>grid</code></strong> :&ensp;<code>boolean</code></dt>
 <dd>if True (default) draws a horizontal+vertical grid
 to separate the tiles.</dd>
 </dl>
-<p><em>Return_value</em>
-- a list of the graphical objects that were created (grid excluded).</p></div>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code> of <code>int</code></dt>
+<dd>the graphical objects that were created for the pieces
+(grid excluded).</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1545,15 +1666,17 @@ to separate the tiles.</dd>
     &#34;&#34;&#34;Print a complete grid of pieces, using the 10 default colors.
 
     Args:
-        matrix (list of list): the players pieces matrix, of the specified
-            size. If matrix is None (default), just ignores it.
+        matrix (list of list of int): the players pieces matrix, of the
+            specified size. If matrix is None (default), just ignores it.
         grid (boolean): if True (default) draws a horizontal+vertical grid
             to separate the tiles.
 
-    _Return_value_
-    - a list of the graphical objects that were created (grid excluded).
+    Returns:
+        list of int: the graphical objects that were created for the pieces
+            (grid excluded).
     &#34;&#34;&#34;
-    assert self.root, &#34;ERROR: window closed!&#34;
+    if not self.root:
+        raise InterruptedError(&#34;window killed&#34;)
     # erase everything for a start
     self.delete(tk.ALL)
     # gap is used by draw_tile to fill the inside of a tile (including
@@ -1585,18 +1708,28 @@ to separate the tiles.</dd>
 <span>def <span class="ident">draw_line</span></span>(<span>self, x1, x2, color='black', thickness=1, refresh=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Draw a line between x1=(l1,c1) and x2=(l2,c2) (excluded).</p>
-<p>Args:</p>
-<ul>
-<li>x1, x2 (two couples (int, int)): pixel-wise positions (line, column)
-of the two points. (0,0) = top-left position.
-Optional:</li>
-<li>color (str): line color (default: "black")</li>
-<li>thickness (int): thickness of the line (default: 1)</li>
-<li>refresh (bool): refresh the window after drawing (default: True)</li>
-</ul>
-<p><em>Return_value</em>
-- the ID of the graphical object that was created (int).</p></div>
+<div class="desc"><p>Draw a line between x1=(l1, c1) and x2=(l2, c2) (excluded).</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>x1</code></strong> :&ensp;<code>[int, int]</code></dt>
+<dd>pixel-wise positions (line, column) of the first
+point. (0,0) = top-left position.</dd>
+<dt><strong><code>x2</code></strong> :&ensp;<code>[int, int]</code></dt>
+<dd>pixel-wise positions (line, column) of the second
+point, excluded.</dd>
+<dt><strong><code>color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>line color (default: "black")</dd>
+<dt><strong><code>thickness</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>thickness of the line (default: 1)</dd>
+<dt><strong><code>refresh</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>refresh the window after drawing
+(default: True)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>the ID of the graphical object that was created.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1604,21 +1737,24 @@ Optional:</li>
 <pre><code class="python">def draw_line(
     self, x1, x2, color=&#34;black&#34;, thickness=1, refresh=True
 ):
-    &#34;&#34;&#34;Draw a line between x1=(l1,c1) and x2=(l2,c2) (excluded).
+    &#34;&#34;&#34;Draw a line between x1=(l1, c1) and x2=(l2, c2) (excluded).
 
     Args:
+        x1 ([int, int]): pixel-wise positions (line, column) of the first
+            point. (0,0) = top-left position.
+        x2 ([int, int]): pixel-wise positions (line, column) of the second
+            point, excluded.
+        color (str, optional): line color (default: &#34;black&#34;)
+        thickness (int, optional): thickness of the line (default: 1)
+        refresh (bool, optional): refresh the window after drawing
+            (default: True)
 
-    - x1, x2 (two couples (int, int)): pixel-wise positions (line, column)
-      of the two points. (0,0) = top-left position.
-    Optional:
-    - color (str): line color (default: &#34;black&#34;)
-    - thickness (int): thickness of the line (default: 1)
-    - refresh (bool): refresh the window after drawing (default: True)
-
-    _Return_value_
-    - the ID of the graphical object that was created (int).
+    Returns:
+        int: the ID of the graphical object that was created.
     &#34;&#34;&#34;
-    assert self.root, &#34;ERROR: window closed!&#34;
+    if not self.root:
+        raise InterruptedError(&#34;window killed&#34;)
+
     o = self.create_line(x1[1]+1, x1[0]+1, x2[1], x2[0],
                          width=thickness, fill=color)
     if refresh:
@@ -1635,8 +1771,9 @@ Optional:</li>
 won't see the piece.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>p</code></strong></dt>
-<dd>a couple of int specifying the grid position (line, column)</dd>
+<dt><strong><code>p</code></strong> :&ensp;<code>[int, int]</code></dt>
+<dd>a couple (line, column) specifying the grid
+position. (0, 0) = top-left position.</dd>
 <dt><strong><code>player</code></strong> :&ensp;<code>int</code>, optional</dt>
 <dd>player number (default: 0)
 player is used only if color is NOT given.</dd>
@@ -1646,8 +1783,11 @@ given, player is ignored.</dd>
 <dt><strong><code>refresh</code></strong> :&ensp;<code>bool</code></dt>
 <dd>refresh the window after drawing (default: True)</dd>
 </dl>
-<p><em>Return_value</em>
-- the ID of the graphical object that was created (int).</p></div>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>the ID of the graphical object (circle) that was created.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1663,17 +1803,19 @@ given, player is ignored.</dd>
     won&#39;t see the piece.
 
     Args:
-        p: a couple of int specifying the grid position (line, column)
+        p ([int, int]): a couple (line, column) specifying the grid
+            position. (0, 0) = top-left position.
         player (int, optional): player number (default: 0)
             player is used only if color is NOT given.
         color (str, optional): fill color of the piece. If a color is
             given, player is ignored.
         refresh (bool): refresh the window after drawing (default: True)
 
-    _Return_value_
-    - the ID of the graphical object that was created (int).
+    Returns:
+        int: the ID of the graphical object (circle) that was created.
     &#34;&#34;&#34;
-    assert self.root, &#34;ERROR: window closed!&#34;
+    if not self.root:
+        raise InterruptedError(&#34;window killed&#34;)
     if color is None:
         if isinstance(player, int):
             color = self.DEFAULT_COLOR[player % len(self.DEFAULT_COLOR)]
@@ -1682,8 +1824,8 @@ given, player is ignored.</dd>
 
     bord = self.pixels//10+1
     i, j = p
-    assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
-        &#34;ERROR: trying to draw outside the window!&#34;
+    if not (0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1]):
+        raise ValueError(&#34;trying to draw outside the window!&#34;)
 
     o = self.create_oval(j*self.pixels+bord+1,
                          i*self.pixels+bord+1,
@@ -1699,20 +1841,29 @@ given, player is ignored.</dd>
 <span>def <span class="ident">draw_text</span></span>(<span>self, position, text, color='black', fontname='Purisa', fontsize=11, refresh=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Draw a text centered at a given position=(l1,c1).</p>
-<p>Args:</p>
-<ul>
-<li>position (couple (int,int)): pixel-wise position (line, column).
-(0,0) = top-left position.</li>
-<li>text (str): text to print
-Optional:</li>
-<li>color (str): text color (default: "black")</li>
-<li>fontname (str): font name (default: "Purisa")</li>
-<li>fontsize (int): font size (default: 11pt)</li>
-<li>refresh (bool): refresh the window after drawing (default: True)</li>
-</ul>
-<p><em>Return_value</em>
-- the ID of the graphical object that was created (int).</p></div>
+<div class="desc"><p>Draw a text centered at a given position=(line, column).</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>position</code></strong> :&ensp;<code>[int, int]</code></dt>
+<dd>pixel-wise position (line, column).
+(0,0) = top-left position.</dd>
+<dt><strong><code>text</code></strong> :&ensp;<code>str</code></dt>
+<dd>text to print</dd>
+<dt><strong><code>color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>text color (default: "black")</dd>
+<dt><strong><code>fontname</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>font name (default: "Purisa")</dd>
+<dt><strong><code>fontsize</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>font size (default: 11pt)</dd>
+<dt><strong><code>refresh</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>refresh the window after drawing
+(default: True)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>the ID of the graphical object that was created.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1721,23 +1872,24 @@ Optional:</li>
     self, position, text,
     color=&#34;black&#34;, fontname=&#34;Purisa&#34;, fontsize=11, refresh=True
 ):
-    &#34;&#34;&#34;Draw a text centered at a given position=(l1,c1).
+    &#34;&#34;&#34;Draw a text centered at a given position=(line, column).
 
     Args:
+        position ([int, int]): pixel-wise position (line, column).
+            (0,0) = top-left position.
+        text (str): text to print
+        color (str, optional): text color (default: &#34;black&#34;)
+        fontname (str, optional): font name (default: &#34;Purisa&#34;)
+        fontsize (int, optional): font size (default: 11pt)
+        refresh (bool, optional): refresh the window after drawing
+            (default: True)
 
-    - position (couple (int,int)): pixel-wise position (line, column).
-      (0,0) = top-left position.
-    - text (str): text to print
-    Optional:
-    - color (str): text color (default: &#34;black&#34;)
-    - fontname (str): font name (default: &#34;Purisa&#34;)
-    - fontsize (int): font size (default: 11pt)
-    - refresh (bool): refresh the window after drawing (default: True)
-
-    _Return_value_
-    - the ID of the graphical object that was created (int).
+    Returns:
+        int: the ID of the graphical object that was created.
     &#34;&#34;&#34;
-    assert self.root, &#34;ERROR: window closed!&#34;
+    if not self.root:
+        raise InterruptedError(&#34;window killed&#34;)
+
     o = self.create_text(position[1]+1, position[0]+1,
                          text=text,
                          font=(fontname, fontsize),
@@ -1752,17 +1904,23 @@ Optional:</li>
 </code></dt>
 <dd>
 <div class="desc"><p>Fill the inside of a tile in position p=(line, column) with a color.</p>
-<p>Args:</p>
-<ul>
-<li>p ((int, int)): grid position (line, column)
-Optional:</li>
-<li>color (str): color of the tile (default: "black")</li>
-<li>border (int): border thickness (default: 0) - borders will overlap on
-neighboring tiles</li>
-<li>refresh (bool): refresh the window after drawing (default: True)</li>
-</ul>
-<p><em>Return_value</em>
-- the colored tile ID (int).</p></div>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>p</code></strong> :&ensp;<code>[int, int]</code></dt>
+<dd>grid position (line, column)</dd>
+<dt><strong><code>color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>color of the tile (default: "black")</dd>
+<dt><strong><code>border</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>border thickness (default: 0) - borders may
+overlap over neighboring tiles</dd>
+<dt><strong><code>refresh</code></strong> :&ensp;<code>bool</code></dt>
+<dd>refresh the window after drawing (default: True)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>the ID of the colored tile</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1776,21 +1934,22 @@ neighboring tiles</li>
     &#34;&#34;&#34;Fill the inside of a tile in position p=(line, column) with a color.
 
     Args:
+        p ([int, int]): grid position (line, column)
+        color (str, optional): color of the tile (default: &#34;black&#34;)
+        border (int, optional): border thickness (default: 0) - borders may
+            overlap over neighboring tiles
+        refresh (bool): refresh the window after drawing (default: True)
 
-    - p ((int, int)): grid position (line, column)
-    Optional:
-    - color (str): color of the tile (default: &#34;black&#34;)
-    - border (int): border thickness (default: 0) - borders will overlap on
-      neighboring tiles
-    - refresh (bool): refresh the window after drawing (default: True)
-
-    _Return_value_
-    - the colored tile ID (int).
+    Returns:
+        int: the ID of the colored tile
     &#34;&#34;&#34;
-    assert self.root, &#34;ERROR: window closed!&#34;
+    if not self.root:
+        raise InterruptedError(&#34;window killed&#34;)
+
     i, j = p
-    assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
-        &#34;ERROR: trying to fill a tile outside the window!&#34;
+    if not (0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1]):
+        raise ValueError(&#34;trying to fill a tile outside the window!&#34;)
+
     o = self.create_rectangle(j*self.pixels+1+self.gap,
                               i*self.pixels+1+self.gap,
                               (j+1)*self.pixels+1,
@@ -1808,9 +1967,9 @@ neighboring tiles</li>
 <div class="desc"><p>Erase everything from the window.</p>
 <p>All graphical objects that were created are deleted.</p>
 <h2 id="args">Args</h2>
-<p>None
-<em>Return_value</em>
-None</p></div>
+<p>None</p>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1825,10 +1984,11 @@ None</p></div>
     Args:
         None
 
-    _Return_value_
-    None
+    Returns:
+        None
     &#34;&#34;&#34;
-    assert self.root, &#34;ERROR: window closed!&#34;
+    if not self.root:
+        raise InterruptedError(&#34;window killed&#34;)
     self.delete(tk.ALL)
     # redraw the grid if it was there:
     if self.gap == 1:
@@ -1845,9 +2005,12 @@ None</p></div>
 <dt><strong><code>message</code></strong> :&ensp;<code>str</code></dt>
 <dd>the string to print</dd>
 </dl>
-<p><em>Return_value</em>
-- (boolean) True if the user just clicked on the box,
-False if the user killed the window.</p></div>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if the user triggered a normal event, False if the user
+closed the window abruptly.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1858,16 +2021,17 @@ False if the user killed the window.</p></div>
     Args:
         message (str): the string to print
 
-    _Return_value_
-    - (boolean) True if the user just clicked on the box,
-      False if the user killed the window.
+    Returns:
+        bool: True if the user triggered a normal event, False if the user
+            closed the window abruptly.
     &#34;&#34;&#34;
     # private: the user clicked in the box
     def _c(event):
         self.eventq.put(&#34;ok&#34;)
         self.root.quit()
 
-    assert self.root, &#34;ERROR: window killed!&#34;
+    if not self.root:
+        raise InterruptedError(&#34;window killed&#34;)
     m = tk.Message(
             self.root, text=message,
             padx=20, pady=20,
@@ -1894,10 +2058,14 @@ False if the user killed the window.</p></div>
 </code></dt>
 <dd>
 <div class="desc"><p>Return the mouse position (pixel-wise).</p>
-<p>Usage notice: if a coordinate is negative or greater than the window
-size, the mouse is out of the window.</p>
-<p><em>Return_value</em>
-- a couple (int,int): pixel-wise position (line, column) relative to
+<h2 id="note">Note</h2>
+<p>The returned coordinates can be negative or greater than the window
+size, when the mouse is out of the window but the window still
+selected.</p>
+<h2 id="args">Args</h2>
+<p>None
+Returns:
+- a couple ([int, int]): pixel-wise position (line, column) relative to
 (0,0) = top-left position in the window.</p></div>
 <details class="source">
 <summary>
@@ -1906,23 +2074,29 @@ size, the mouse is out of the window.</p>
 <pre><code class="python">def mouse_position(self):
     &#34;&#34;&#34;Return the mouse position (pixel-wise).
 
-    Usage notice: if a coordinate is negative or greater than the window
-    size, the mouse is out of the window.
+    Note:
+        The returned coordinates can be negative or greater than the window
+            size, when the mouse is out of the window but the window still
+            selected.
 
-    _Return_value_
-    - a couple (int,int): pixel-wise position (line, column) relative to
+    Args:
+        None
+
+    Returns:
+    - a couple ([int, int]): pixel-wise position (line, column) relative to
       (0,0) = top-left position in the window.
     &#34;&#34;&#34;
     # private: the mouse moved
-    def motion(event):
+    def _motion(event):
         self.souris = (event.y, event.x)
 
-    assert self.root, &#34;ERROR: window closed!&#34;
+    if not self.root:
+        raise InterruptedError(&#34;window killed&#34;)
     self.refresh()
     try:
         return self.souris
     except AttributeError:
-        self.bind(&#34;&lt;Motion&gt;&#34;, motion)
+        self.bind(&#34;&lt;Motion&gt;&#34;, _motion)
         self.souris = (0, 0)  # initial position if the mouse doesn&#39;t move
         return self.souris</code></pre>
 </details>
@@ -1936,14 +2110,14 @@ size, the mouse is out of the window.</p>
 <dl>
 <dt><strong><code>obj</code></strong> :&ensp;<code>int</code></dt>
 <dd>a previously created piece ID</dd>
-<dt><strong><code>pos</code></strong></dt>
-<dd>a couple of int, new grid position (line, column)</dd>
+<dt><strong><code>pos</code></strong> :&ensp;<code>[int, int]</code></dt>
+<dd>new grid position, a couple (line, column)</dd>
 <dt><strong><code>refresh</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>refresh the window after drawing
 (default: True)</dd>
 </dl>
-<p><em>Return_value</em>
-None</p></div>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1955,17 +2129,19 @@ None</p></div>
 
     Args:
         obj (int): a previously created piece ID
-        pos: a couple of int, new grid position (line, column)
+        pos ([int, int]): new grid position, a couple (line, column)
         refresh (bool, optional): refresh the window after drawing
             (default: True)
 
-    _Return_value_
-    None
+    Returns:
+        None
     &#34;&#34;&#34;
-    assert self.root, &#34;ERROR: window closed!&#34;
+    if not self.root:
+        raise InterruptedError(&#34;window killed&#34;)
+
     i, j = pos
-    assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
-        &#34;ERROR: trying to move a piece outside the window!&#34;
+    if not (0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1]):
+        raise ValueError(&#34;trying to move a piece outside the window!&#34;)
     bord = self.pixels//10+1
     self.coords(
         obj,
@@ -1983,15 +2159,18 @@ None</p></div>
 </code></dt>
 <dd>
 <div class="desc"><p>Move a colored tile to another grid position.</p>
-<p>Args:</p>
-<ul>
-<li>obj (int): a previously created tile ID</li>
-<li>pos ((int, int)): new position in the grid (line, column)
-Optional:</li>
-<li>refresh (bool): refresh the window after drawing (default: True)</li>
-</ul>
-<p><em>Return_value</em>
-None</p></div>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>obj</code></strong> :&ensp;<code>int</code></dt>
+<dd>a previously created tile ID</dd>
+<dt><strong><code>pos</code></strong> :&ensp;<code>[int, int]</code></dt>
+<dd>new position in the grid (line, column)</dd>
+<dt><strong><code>refresh</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>refresh the window after drawing
+(default: True)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2002,19 +2181,20 @@ None</p></div>
     &#34;&#34;&#34;Move a colored tile to another grid position.
 
     Args:
+        obj (int): a previously created tile ID
+        pos ([int, int]): new position in the grid (line, column)
+        refresh (bool, optional): refresh the window after drawing
+            (default: True)
 
-    - obj (int): a previously created tile ID
-    - pos ((int, int)): new position in the grid (line, column)
-    Optional:
-    - refresh (bool): refresh the window after drawing (default: True)
-
-    _Return_value_
-    None
+    Returns:
+        None
     &#34;&#34;&#34;
-    assert self.root, &#34;ERROR: window closed!&#34;
+    if not self.root:
+        raise InterruptedError(&#34;window killed&#34;)
+
     i, j = pos
-    assert 0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1], \
-        &#34;ERROR: trying to move a tile outside the window!&#34;
+    if not (0 &lt;= i &lt; self.size[0] and 0 &lt;= j &lt; self.size[1]):
+        raise ValueError(&#34;trying to move a tile outside the window!&#34;)
     self.coords(
         obj,
         j*self.pixels+1++self.gap,
@@ -2031,12 +2211,15 @@ None</p></div>
 </code></dt>
 <dd>
 <div class="desc"><p>Refresh all objects previously drawn in the window.</p>
-<p>Usage note: you can create several successive objects without
-refreshing by passing the extra argument "refresh=False" to the drawing
+<h2 id="note">Note</h2>
+<p>You can create several successive objects without refreshing by
+passing the extra argument "refresh=False" to the drawing
 functions, and then refresh only once using this function.
 Good for speed, especially if you draw many things.</p>
-<p><em>Return_value</em>
-None</p></div>
+<h2 id="args">Args</h2>
+<p>None</p>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2046,15 +2229,21 @@ None</p></div>
 ):
     &#34;&#34;&#34;Refresh all objects previously drawn in the window.
 
-    Usage note: you can create several successive objects without
-    refreshing by passing the extra argument &#34;refresh=False&#34; to the drawing
-    functions, and then refresh only once using this function.
-    Good for speed, especially if you draw many things.
+    Note:
+        You can create several successive objects without refreshing by
+            passing the extra argument &#34;refresh=False&#34; to the drawing
+            functions, and then refresh only once using this function.
+            Good for speed, especially if you draw many things.
 
-    _Return_value_
-    None
+    Args:
+        None
+
+    Returns:
+        None
     &#34;&#34;&#34;
-    assert self.root, &#34;ERROR: window closed!&#34;
+    if not self.root:
+        raise InterruptedError(&#34;window killed&#34;)
+
     self.update()</code></pre>
 </details>
 </dd>
@@ -2063,14 +2252,16 @@ None</p></div>
 </code></dt>
 <dd>
 <div class="desc"><p>Delete a graphical object (ID).</p>
-<p>Args:</p>
-<ul>
-<li>obj (int): object ID returned by an object creation method
-Optional:</li>
-<li>refresh (bool): refresh the window after drawing (default: True)</li>
-</ul>
-<p><em>Return_value</em>
-None</p></div>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>obj</code></strong> :&ensp;<code>int</code></dt>
+<dd>an object ID (returned by an object creation method)</dd>
+<dt><strong><code>refresh</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>refresh the window after drawing
+(default: True)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2081,15 +2272,16 @@ None</p></div>
     &#34;&#34;&#34;Delete a graphical object (ID).
 
     Args:
+        obj (int): an object ID (returned by an object creation method)
+        refresh (bool, optional): refresh the window after drawing
+            (default: True)
 
-    - obj (int): object ID returned by an object creation method
-    Optional:
-    - refresh (bool): refresh the window after drawing (default: True)
-
-    _Return_value_
-    None
+    Returns:
+        None
     &#34;&#34;&#34;
-    assert self.root, &#34;ERROR: window closed!&#34;
+    if not self.root:
+        raise InterruptedError(&#34;window killed&#34;)
+
     self.delete(obj)
     if refresh:
         self.update()</code></pre>
@@ -2101,22 +2293,36 @@ None</p></div>
 <dd>
 <div class="desc"><p>Wait for the user to interact with the window.</p>
 <p>The tracked events are only keypress and mouse click (left button).</p>
-<p>Args:</p>
-<p>Optional:
-- delay (int): waiting time in ms (default: wait forever)</p>
-<p><em>Return_value</em>
-- if the user clicks on a tile of the board, return the couple
-("click", (line, column))
-where (line, column) are the coordinates of the clicked tile
-- if the user hits a key, return the couple
-("key", letter)
-where letter is a string containing a description of the key.
-If you're looking for a specific key, just give a try to the demo:
-<code>python3 -m tkdraw</code> will print all occuring events in the console
-- if the user closes the window, return the couple
-("END", None)
-- if the delay expires (when given), the special value
-None</p></div>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>delay</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>waiting time in ms (default: wait forever)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>If the delay expires (when given)</p>
+<ul>
+<li><code>None</code></li>
+</ul>
+<p>Else, returns a couple, the first element being always a string:</p>
+<ul>
+<li>
+<p><code>("click", (line, column))</code></p>
+<p>if the user clicks on a tile of the board, where (line, column)
+are the integer coordinates of the clicked tile</p>
+</li>
+<li>
+<p><code>("key", letter)</code></p>
+<p>if the user hits a key, where letter is a string containing a
+description of the key. If you're looking for a specific
+key, you can give a try to the demo - running
+<code>'python3 -m tkdraw'</code> will print all occuring events in the
+console</p>
+</li>
+<li>
+<p><code>("END", None)</code></p>
+<p>if the user closes the window</p>
+</li>
+</ul></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2127,23 +2333,31 @@ None</p></div>
     The tracked events are only keypress and mouse click (left button).
 
     Args:
+        delay (int, optional): waiting time in ms (default: wait forever)
 
-    Optional:
-    - delay (int): waiting time in ms (default: wait forever)
+    Returns:
+        If the delay expires (when given)
 
-    _Return_value_
-    - if the user clicks on a tile of the board, return the couple
-      (&#34;click&#34;, (line, column))
-      where (line, column) are the coordinates of the clicked tile
-    - if the user hits a key, return the couple
-      (&#34;key&#34;, letter)
-      where letter is a string containing a description of the key.
-      If you&#39;re looking for a specific key, just give a try to the demo:
-      `python3 -m tkdraw` will print all occuring events in the console
-    - if the user closes the window, return the couple
-      (&#34;END&#34;, None)
-    - if the delay expires (when given), the special value
-      None
+        - `None`
+
+        Else, returns a couple, the first element being always a string:
+
+        - `(&#34;click&#34;, (line, column))`
+
+            if the user clicks on a tile of the board, where (line, column)
+                are the integer coordinates of the clicked tile
+
+        - `(&#34;key&#34;, letter)`
+
+            if the user hits a key, where letter is a string containing a
+                description of the key. If you&#39;re looking for a specific
+                key, you can give a try to the demo - running
+                `&#39;python3 -m tkdraw&#39;` will print all occuring events in the
+                console
+
+        - `(&#34;END&#34;, None)`
+
+            if the user closes the window
     &#34;&#34;&#34;
     # private: called when the timer expires
     def delay_expire():
@@ -2154,7 +2368,8 @@ None</p></div>
     # trigger the timer
     self.idd = None
     if delay is not None:
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
         self.idd = self.root.after(delay, delay_expire)
     # This is Tk&#39;s main loop
     # checks the events and get out if something happens
@@ -2171,9 +2386,11 @@ None</p></div>
             # no event in the queue, continue waiting (go to mainloop)
             pass
         ####################
-        assert self.root, &#34;ERROR: window closed!&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
         # back to the mainloop, it will stop if I get an event
-        self.root.mainloop()</code></pre>
+        self.root.mainloop()
+        ####################</code></pre>
 </details>
 </dd>
 </dl>

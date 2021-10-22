@@ -23,39 +23,41 @@ import queue
 class open(tk.Canvas):
     """Main class for a window containing a board (2D grid).
 
-    Typical usage example:
-    ```
-    g = open()
-    g.message("hello")
-    g.wait_event()
-    ```
+    This class inherits from tkinter's canvas class.
 
     To open a window containing just an array of pixels, set the pixels
     parameter to 1 and grid to False.
 
+    Example:
+        ```
+        g = open()
+        g.message("hello")
+        g.wait_event()
+        ```
     Args:
-        size: a couple of int (height, width) specifying the size of the grid
-            (default: (8, 8))
+        size ([int, int]): a couple (height, width) specifying the size of
+            the grid (default: (8, 8))
         pixels (int): number of pixels of a square (default: 100)
         grid (bool): if True, prints a one-pixel large grid : horizontal and
             vertical lines separating the squares (default: True)
 
     Returns:
-        The window object. This class inherits from tkinter's canvas class, you
-            can directly call the canvas methods to perform advanced drawings
-            in this canvas (expert mode). You may refer to the documentation of
-            tkinter describing the Canvas widget.
+        The window object.
+
+    Notes:
+        Since this class inherits from tkinter's canvas class, more inherited
+            documentation will be displayed below this paragraph. You can
+            directly call the canvas methods to perform advanced drawings in
+            this canvas (expert mode, be warned that a couple of coordinates
+            (y, x) in tkdraw has to be transformed into two integers x+1, y+1
+            in tkinter). You may refer to the documentation of tkinter
+            describing the Canvas widget here:
+            <https://docs.python.org/3/library/tkinter.html>
     """
 
     def __init__(
         self, size=(8, 8), pixels=100, grid=True
     ):
-        """Initialize the window instance.
-
-        Create a tkinter root object and a canvas (from which we inherit).
-        Redirects all events to the appropriate functions.
-        Arguments are described in the "open" main class.
-        """
         # some private methods below, to react to asynchronous events:
 
         # private: the user clicked on a square
@@ -149,8 +151,8 @@ class open(tk.Canvas):
         Args:
             None
 
-        _Return_value_
-        None
+        Returns:
+            None
         """
         if self.after_id is not None:
             self.root.after_cancel(self.after_id)
@@ -165,16 +167,17 @@ class open(tk.Canvas):
         Args:
             message (str): the string to print
 
-        _Return_value_
-        - (boolean) True if the user just clicked on the box,
-          False if the user killed the window.
+        Returns:
+            bool: True if the user triggered a normal event, False if the user
+                closed the window abruptly.
         """
         # private: the user clicked in the box
         def _c(event):
             self.eventq.put("ok")
             self.root.quit()
 
-        assert self.root, "ERROR: window killed!"
+        if not self.root:
+            raise InterruptedError("window killed")
         m = tk.Message(
                 self.root, text=message,
                 padx=20, pady=20,
@@ -205,6 +208,7 @@ class open(tk.Canvas):
     # by default define those 10 colors:
     DEFAULT_COLOR = ["black", "white", "red", "green", "blue",
                      "yellow", "cyan", "magenta", "orange", "darkgrey"]
+    """A list of ten colors (str) used for ten players identified by numbers."""
 
     def draw_grid(
         self, matrix=None, grid=True
@@ -212,15 +216,17 @@ class open(tk.Canvas):
         """Print a complete grid of pieces, using the 10 default colors.
 
         Args:
-            matrix (list of list): the players pieces matrix, of the specified
-                size. If matrix is None (default), just ignores it.
+            matrix (list of list of int): the players pieces matrix, of the
+                specified size. If matrix is None (default), just ignores it.
             grid (boolean): if True (default) draws a horizontal+vertical grid
                 to separate the tiles.
 
-        _Return_value_
-        - a list of the graphical objects that were created (grid excluded).
+        Returns:
+            list of int: the graphical objects that were created for the pieces
+                (grid excluded).
         """
-        assert self.root, "ERROR: window closed!"
+        if not self.root:
+            raise InterruptedError("window killed")
         # erase everything for a start
         self.delete(tk.ALL)
         # gap is used by draw_tile to fill the inside of a tile (including
@@ -257,10 +263,11 @@ class open(tk.Canvas):
         Args:
             None
 
-        _Return_value_
-        None
+        Returns:
+            None
         """
-        assert self.root, "ERROR: window closed!"
+        if not self.root:
+            raise InterruptedError("window killed")
         self.delete(tk.ALL)
         # redraw the grid if it was there:
         if self.gap == 1:
@@ -281,17 +288,19 @@ class open(tk.Canvas):
         won't see the piece.
 
         Args:
-            p: a couple of int specifying the grid position (line, column)
+            p ([int, int]): a couple (line, column) specifying the grid
+                position. (0, 0) = top-left position.
             player (int, optional): player number (default: 0)
                 player is used only if color is NOT given.
             color (str, optional): fill color of the piece. If a color is
                 given, player is ignored.
             refresh (bool): refresh the window after drawing (default: True)
 
-        _Return_value_
-        - the ID of the graphical object that was created (int).
+        Returns:
+            int: the ID of the graphical object (circle) that was created.
         """
-        assert self.root, "ERROR: window closed!"
+        if not self.root:
+            raise InterruptedError("window killed")
         if color is None:
             if isinstance(player, int):
                 color = self.DEFAULT_COLOR[player % len(self.DEFAULT_COLOR)]
@@ -300,8 +309,8 @@ class open(tk.Canvas):
 
         bord = self.pixels//10+1
         i, j = p
-        assert 0 <= i < self.size[0] and 0 <= j < self.size[1], \
-            "ERROR: trying to draw outside the window!"
+        if not (0 <= i < self.size[0] and 0 <= j < self.size[1]):
+            raise ValueError("trying to draw outside the window!")
 
         o = self.create_oval(j*self.pixels+bord+1,
                              i*self.pixels+bord+1,
@@ -319,17 +328,19 @@ class open(tk.Canvas):
 
         Args:
             obj (int): a previously created piece ID
-            pos: a couple of int, new grid position (line, column)
+            pos ([int, int]): new grid position, a couple (line, column)
             refresh (bool, optional): refresh the window after drawing
                 (default: True)
 
-        _Return_value_
-        None
+        Returns:
+            None
         """
-        assert self.root, "ERROR: window closed!"
+        if not self.root:
+            raise InterruptedError("window killed")
+
         i, j = pos
-        assert 0 <= i < self.size[0] and 0 <= j < self.size[1], \
-            "ERROR: trying to move a piece outside the window!"
+        if not (0 <= i < self.size[0] and 0 <= j < self.size[1]):
+            raise ValueError("trying to move a piece outside the window!")
         bord = self.pixels//10+1
         self.coords(
             obj,
@@ -350,21 +361,22 @@ class open(tk.Canvas):
         """Fill the inside of a tile in position p=(line, column) with a color.
 
         Args:
+            p ([int, int]): grid position (line, column)
+            color (str, optional): color of the tile (default: "black")
+            border (int, optional): border thickness (default: 0) - borders may
+                overlap over neighboring tiles
+            refresh (bool): refresh the window after drawing (default: True)
 
-        - p ((int, int)): grid position (line, column)
-        Optional:
-        - color (str): color of the tile (default: "black")
-        - border (int): border thickness (default: 0) - borders will overlap on
-          neighboring tiles
-        - refresh (bool): refresh the window after drawing (default: True)
-
-        _Return_value_
-        - the colored tile ID (int).
+        Returns:
+            int: the ID of the colored tile
         """
-        assert self.root, "ERROR: window closed!"
+        if not self.root:
+            raise InterruptedError("window killed")
+
         i, j = p
-        assert 0 <= i < self.size[0] and 0 <= j < self.size[1], \
-            "ERROR: trying to fill a tile outside the window!"
+        if not (0 <= i < self.size[0] and 0 <= j < self.size[1]):
+            raise ValueError("trying to fill a tile outside the window!")
+
         o = self.create_rectangle(j*self.pixels+1+self.gap,
                                   i*self.pixels+1+self.gap,
                                   (j+1)*self.pixels+1,
@@ -380,19 +392,20 @@ class open(tk.Canvas):
         """Move a colored tile to another grid position.
 
         Args:
+            obj (int): a previously created tile ID
+            pos ([int, int]): new position in the grid (line, column)
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
 
-        - obj (int): a previously created tile ID
-        - pos ((int, int)): new position in the grid (line, column)
-        Optional:
-        - refresh (bool): refresh the window after drawing (default: True)
-
-        _Return_value_
-        None
+        Returns:
+            None
         """
-        assert self.root, "ERROR: window closed!"
+        if not self.root:
+            raise InterruptedError("window killed")
+
         i, j = pos
-        assert 0 <= i < self.size[0] and 0 <= j < self.size[1], \
-            "ERROR: trying to move a tile outside the window!"
+        if not (0 <= i < self.size[0] and 0 <= j < self.size[1]):
+            raise ValueError("trying to move a tile outside the window!")
         self.coords(
             obj,
             j*self.pixels+1++self.gap,
@@ -410,21 +423,24 @@ class open(tk.Canvas):
     def draw_line(
         self, x1, x2, color="black", thickness=1, refresh=True
     ):
-        """Draw a line between x1=(l1,c1) and x2=(l2,c2) (excluded).
+        """Draw a line between x1=(l1, c1) and x2=(l2, c2) (excluded).
 
         Args:
+            x1 ([int, int]): pixel-wise positions (line, column) of the first
+                point. (0,0) = top-left position.
+            x2 ([int, int]): pixel-wise positions (line, column) of the second
+                point, excluded.
+            color (str, optional): line color (default: "black")
+            thickness (int, optional): thickness of the line (default: 1)
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
 
-        - x1, x2 (two couples (int, int)): pixel-wise positions (line, column)
-          of the two points. (0,0) = top-left position.
-        Optional:
-        - color (str): line color (default: "black")
-        - thickness (int): thickness of the line (default: 1)
-        - refresh (bool): refresh the window after drawing (default: True)
-
-        _Return_value_
-        - the ID of the graphical object that was created (int).
+        Returns:
+            int: the ID of the graphical object that was created.
         """
-        assert self.root, "ERROR: window closed!"
+        if not self.root:
+            raise InterruptedError("window killed")
+
         o = self.create_line(x1[1]+1, x1[0]+1, x2[1], x2[0],
                              width=thickness, fill=color)
         if refresh:
@@ -438,20 +454,23 @@ class open(tk.Canvas):
         """Draw a circle in the bounding box of x1=(l1,c1) and x2 (excluded).
 
         Args:
-
-        - x1, x2 (two couples (int, int)): pixel-wise positions (line, column)
-          of the two points. (0,0) = top-left position.
-        Optional:
-        - color (str): color of the inside (default: "black")
+            x1 ([int, int]): pixel-wise positions (line, column) of the first
+                point. (0,0) = top-left position.
+            x2 ([int, int]): pixel-wise positions (line, column) of the second
+                point, excluded.
+            color (str, optional): color of the inside (default: "black")
                        if color == None, don't fill the circle.
-        - border (int): border thickness (default: 1) - borders can overflow
-          over the given pixels coordinates
-        - refresh (bool): refresh the window after drawing (default: True)
+            border (int, optional): border thickness (default: 1) - borders can
+                overflow over the given pixels coordinates
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
 
-        _Return_value_
-        - the ID of the graphical object that was created (int).
+        Returns:
+            int: the ID of the graphical object that was created.
         """
-        assert self.root, "ERROR: window closed!"
+        if not self.root:
+            raise InterruptedError("window killed")
+
         o = self.create_oval(x1[1]+1, x1[0]+1, x2[1], x2[0],
                              width=border, fill=color)
         if refresh:
@@ -462,23 +481,24 @@ class open(tk.Canvas):
         self, position, text,
         color="black", fontname="Purisa", fontsize=11, refresh=True
     ):
-        """Draw a text centered at a given position=(l1,c1).
+        """Draw a text centered at a given position=(line, column).
 
         Args:
+            position ([int, int]): pixel-wise position (line, column).
+                (0,0) = top-left position.
+            text (str): text to print
+            color (str, optional): text color (default: "black")
+            fontname (str, optional): font name (default: "Purisa")
+            fontsize (int, optional): font size (default: 11pt)
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
 
-        - position (couple (int,int)): pixel-wise position (line, column).
-          (0,0) = top-left position.
-        - text (str): text to print
-        Optional:
-        - color (str): text color (default: "black")
-        - fontname (str): font name (default: "Purisa")
-        - fontsize (int): font size (default: 11pt)
-        - refresh (bool): refresh the window after drawing (default: True)
-
-        _Return_value_
-        - the ID of the graphical object that was created (int).
+        Returns:
+            int: the ID of the graphical object that was created.
         """
-        assert self.root, "ERROR: window closed!"
+        if not self.root:
+            raise InterruptedError("window killed")
+
         o = self.create_text(position[1]+1, position[0]+1,
                              text=text,
                              font=(fontname, fontsize),
@@ -490,19 +510,20 @@ class open(tk.Canvas):
     def bg(
         self, obj, before=1, refresh=True
     ):
-        """Send a graphical object (ID) to background.
+        """Send a graphical object (ID) to the background.
 
         Args:
+            obj (int): object ID returned by an object creation method
+            before (int, optional): the object behind which to hide (default:
+                1 = all)
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
 
-        - obj (int): object ID returned by an object creation method
-        Optional:
-        - before (int): the object behind which to hide (default: 1 = all)
-        - refresh (bool): refresh the window after drawing (default: True)
-
-        _Return_value_
-        None
+        Returns:
+            None
         """
-        assert self.root, "ERROR: window closed!"
+        if not self.root:
+            raise InterruptedError("window killed")
         # se met en fond, derrière l'objet 'before':
         self.tag_lower(obj, before)
         if refresh:
@@ -513,15 +534,21 @@ class open(tk.Canvas):
     ):
         """Refresh all objects previously drawn in the window.
 
-        Usage note: you can create several successive objects without
-        refreshing by passing the extra argument "refresh=False" to the drawing
-        functions, and then refresh only once using this function.
-        Good for speed, especially if you draw many things.
+        Note:
+            You can create several successive objects without refreshing by
+                passing the extra argument "refresh=False" to the drawing
+                functions, and then refresh only once using this function.
+                Good for speed, especially if you draw many things.
 
-        _Return_value_
-        None
+        Args:
+            None
+
+        Returns:
+            None
         """
-        assert self.root, "ERROR: window closed!"
+        if not self.root:
+            raise InterruptedError("window killed")
+
         self.update()
 
     def rm(
@@ -530,15 +557,16 @@ class open(tk.Canvas):
         """Delete a graphical object (ID).
 
         Args:
+            obj (int): an object ID (returned by an object creation method)
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
 
-        - obj (int): object ID returned by an object creation method
-        Optional:
-        - refresh (bool): refresh the window after drawing (default: True)
-
-        _Return_value_
-        None
+        Returns:
+            None
         """
-        assert self.root, "ERROR: window closed!"
+        if not self.root:
+            raise InterruptedError("window killed")
+
         self.delete(obj)
         if refresh:
             self.update()
@@ -552,23 +580,31 @@ class open(tk.Canvas):
         The tracked events are only keypress and mouse click (left button).
 
         Args:
+            delay (int, optional): waiting time in ms (default: wait forever)
 
-        Optional:
-        - delay (int): waiting time in ms (default: wait forever)
+        Returns:
+            If the delay expires (when given)
 
-        _Return_value_
-        - if the user clicks on a tile of the board, return the couple
-          ("click", (line, column))
-          where (line, column) are the coordinates of the clicked tile
-        - if the user hits a key, return the couple
-          ("key", letter)
-          where letter is a string containing a description of the key.
-          If you're looking for a specific key, just give a try to the demo:
-          `python3 -m tkdraw` will print all occuring events in the console
-        - if the user closes the window, return the couple
-          ("END", None)
-        - if the delay expires (when given), the special value
-          None
+            - `None`
+
+            Else, returns a couple, the first element being always a string:
+
+            - `("click", (line, column))`
+
+                if the user clicks on a tile of the board, where (line, column)
+                    are the integer coordinates of the clicked tile
+
+            - `("key", letter)`
+
+                if the user hits a key, where letter is a string containing a
+                    description of the key. If you're looking for a specific
+                    key, you can give a try to the demo - running
+                    `'python3 -m tkdraw'` will print all occuring events in the
+                    console
+
+            - `("END", None)`
+
+                if the user closes the window
         """
         # private: called when the timer expires
         def delay_expire():
@@ -579,7 +615,8 @@ class open(tk.Canvas):
         # trigger the timer
         self.idd = None
         if delay is not None:
-            assert self.root, "ERROR: window closed!"
+            if not self.root:
+                raise InterruptedError("window killed")
             self.idd = self.root.after(delay, delay_expire)
         # This is Tk's main loop
         # checks the events and get out if something happens
@@ -596,7 +633,8 @@ class open(tk.Canvas):
                 # no event in the queue, continue waiting (go to mainloop)
                 pass
             ####################
-            assert self.root, "ERROR: window closed!"
+            if not self.root:
+                raise InterruptedError("window killed")
             # back to the mainloop, it will stop if I get an event
             self.root.mainloop()
             ####################
@@ -604,23 +642,29 @@ class open(tk.Canvas):
     def mouse_position(self):
         """Return the mouse position (pixel-wise).
 
-        Usage notice: if a coordinate is negative or greater than the window
-        size, the mouse is out of the window.
+        Note:
+            The returned coordinates can be negative or greater than the window
+                size, when the mouse is out of the window but the window still
+                selected.
 
-        _Return_value_
-        - a couple (int,int): pixel-wise position (line, column) relative to
+        Args:
+            None
+
+        Returns:
+        - a couple ([int, int]): pixel-wise position (line, column) relative to
           (0,0) = top-left position in the window.
         """
         # private: the mouse moved
-        def motion(event):
+        def _motion(event):
             self.souris = (event.y, event.x)
 
-        assert self.root, "ERROR: window closed!"
+        if not self.root:
+            raise InterruptedError("window killed")
         self.refresh()
         try:
             return self.souris
         except AttributeError:
-            self.bind("<Motion>", motion)
+            self.bind("<Motion>", _motion)
             self.souris = (0, 0)  # initial position if the mouse doesn't move
             return self.souris
 
