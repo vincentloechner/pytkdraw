@@ -70,9 +70,11 @@ class open(tk.Canvas):
 
     Example:
         ```
-        g = open()
+        import tkdraw.screen
+        g = tkdraw.screen.open()
         g.message(&#34;hello&#34;)
         g.wait_event()
+        g.close()
         ```
     Args:
         size ([int, int]): a couple (height, width) specifying the size of
@@ -791,9 +793,11 @@ if __name__ == &#34;__main__&#34;:
 <p>To open a window containing just an array of pixels, set the pixels
 parameter to 1 and grid to False.</p>
 <h2 id="example">Example</h2>
-<pre><code>g = open()
+<pre><code>import tkdraw.screen
+g = tkdraw.screen.open()
 g.message(&quot;hello&quot;)
 g.wait_event()
+g.close()
 </code></pre>
 <h2 id="args">Args</h2>
 <dl>
@@ -839,9 +843,11 @@ yscrollcommand, yscrollincrement.</p></div>
 
     Example:
         ```
-        g = open()
+        import tkdraw.screen
+        g = tkdraw.screen.open()
         g.message(&#34;hello&#34;)
         g.wait_event()
+        g.close()
         ```
     Args:
         size ([int, int]): a couple (height, width) specifying the size of
