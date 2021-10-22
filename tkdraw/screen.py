@@ -30,9 +30,11 @@ class open(tk.Canvas):
 
     Example:
         ```
-        g = open()
+        import tkdraw.screen
+        g = tkdraw.screen.open()
         g.message("hello")
         g.wait_event()
+        g.close()
         ```
     Args:
         size ([int, int]): a couple (height, width) specifying the size of
