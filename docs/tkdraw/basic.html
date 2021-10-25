@@ -32,7 +32,8 @@
 </ul>
 <p>All these functions return nothing (None).
 A python exception (<code>AssertionError</code>, <code>InterruptedError</code> or <code>ValueError</code>) will
-be raised if any precondition of those functions is not met.</p>
+be raised if any precondition of those functions is not met, and an explicit
+error message will be given.</p>
 <p>Test this module using <code>python3 -m tkdraw.basic</code></p>
 <h2 id="example">Example</h2>
 <pre><code class="language-py">import tkdraw.basic as graph
@@ -69,7 +70,8 @@ This module provides four elementary functions to:
 
 All these functions return nothing (None).
 A python exception (`AssertionError`, `InterruptedError` or `ValueError`) will
-be raised if any precondition of those functions is not met.
+be raised if any precondition of those functions is not met, and an explicit
+error message will be given.
 
 Test this module using `python3 -m tkdraw.basic`
 
@@ -103,19 +105,21 @@ import tkdraw.screen as tkd
 window = None
 
 
-def open(height, width):
+def open(height, width, zoom=1):
     &#34;&#34;&#34;Open a window.
 
     Args:
         height (int): height of the window (in pixels)
         width (int): width of the window (in pixels)
+        zoom (int): zoom value (default: 1). A value of 2 will display 2x2
+            screen pixels wide points when plotting.
 
     Raises:
         AssertionError: if the window was already opened
     &#34;&#34;&#34;
     global window
     assert not window, &#34;ERROR: function open() was called twice!&#34;
-    window = tkd.open((height, width), 1, grid=False)
+    window = tkd.open((height, width), zoom, grid=False)
 
 
 def plot(line, column, color=&#34;black&#34;):
@@ -216,7 +220,7 @@ if __name__ == &#34;__main__&#34;:
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="tkdraw.basic.open"><code class="name flex">
-<span>def <span class="ident">open</span></span>(<span>height, width)</span>
+<span>def <span class="ident">open</span></span>(<span>height, width, zoom=1)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Open a window.</p>
@@ -226,6 +230,9 @@ if __name__ == &#34;__main__&#34;:
 <dd>height of the window (in pixels)</dd>
 <dt><strong><code>width</code></strong> :&ensp;<code>int</code></dt>
 <dd>width of the window (in pixels)</dd>
+<dt><strong><code>zoom</code></strong> :&ensp;<code>int</code></dt>
+<dd>zoom value (default: 1). A value of 2 will display 2x2
+screen pixels wide points when plotting.</dd>
 </dl>
 <h2 id="raises">Raises</h2>
 <dl>
@@ -236,19 +243,21 @@ if __name__ == &#34;__main__&#34;:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def open(height, width):
+<pre><code class="python">def open(height, width, zoom=1):
     &#34;&#34;&#34;Open a window.
 
     Args:
         height (int): height of the window (in pixels)
         width (int): width of the window (in pixels)
+        zoom (int): zoom value (default: 1). A value of 2 will display 2x2
+            screen pixels wide points when plotting.
 
     Raises:
         AssertionError: if the window was already opened
     &#34;&#34;&#34;
     global window
     assert not window, &#34;ERROR: function open() was called twice!&#34;
-    window = tkd.open((height, width), 1, grid=False)</code></pre>
+    window = tkd.open((height, width), zoom, grid=False)</code></pre>
 </details>
 </dd>
 <dt id="tkdraw.basic.plot"><code class="name flex">

@@ -9,7 +9,8 @@ This module provides four elementary functions to:
 
 All these functions return nothing (None).
 A python exception (`AssertionError`, `InterruptedError` or `ValueError`) will
-be raised if any precondition of those functions is not met.
+be raised if any precondition of those functions is not met, and an explicit
+error message will be given.
 
 Test this module using `python3 -m tkdraw.basic`
 
@@ -43,19 +44,21 @@ import tkdraw.screen as tkd
 window = None
 
 
-def open(height, width):
+def open(height, width, zoom=1):
     """Open a window.
 
     Args:
         height (int): height of the window (in pixels)
         width (int): width of the window (in pixels)
+        zoom (int): zoom value (default: 1). A value of 2 will display 2x2
+            screen pixels wide points when plotting.
 
     Raises:
         AssertionError: if the window was already opened
     """
     global window
     assert not window, "ERROR: function open() was called twice!"
-    window = tkd.open((height, width), 1, grid=False)
+    window = tkd.open((height, width), zoom, grid=False)
 
 
 def plot(line, column, color="black"):
