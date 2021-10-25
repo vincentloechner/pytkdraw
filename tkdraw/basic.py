@@ -72,10 +72,10 @@ def plot(line, column, color="black"):
         column (int): horizontal position of the pixel to plot
             (0, 0) is the top-left position.
         color (str, optional): a color (default value: "black").
-            This string shall contain a tkinter-compatible color string -
+            This string shall contain a tkinter-compatible color string,
             for a list of predefined color names see for example:
-            https://www.wikipython.com/tkinter-ttk-tix/summary-information/\
-colors/
+            <https://www.wikipython.com/tkinter-ttk-tix/summary-information/\
+colors/>.
             You can also specify an RGB-style color such as "#FF0000" for red.
 
     Raises:
