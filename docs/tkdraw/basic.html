@@ -23,15 +23,35 @@
 </header>
 <section id="section-intro">
 <p>Basic interface to the tkdraw.screen module.</p>
-<p>This module provides four elementary functions to:
-- open a window
-- plot a pixel at a given position in the window
-- refresh the window (at any step of your program)
-- wait for the user to close the window</p>
-<p>Python3 will fail with an "AssertionError" if any precondition of those
-functions is not met.</p>
+<p>This module provides four elementary functions to:</p>
+<ul>
+<li>open a window</li>
+<li>plot a pixel at a given position in the window</li>
+<li>refresh the window (at any step of your program)</li>
+<li>wait for the user to close the window</li>
+</ul>
+<p>All these functions return nothing (None).
+A python exception (<code>AssertionError</code>, <code>InterruptedError</code> or <code>ValueError</code>) will
+be raised if any precondition of those functions is not met.</p>
 <p>Test this module using <code>python3 -m tkdraw.basic</code></p>
-<p>Copyright 2019-2021, Vincent Loechner <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#108;&#111;&#101;&#99;&#104;&#110;&#101;&#114;&#64;&#117;&#110;&#105;&#115;&#116;&#114;&#97;&#46;&#102;&#114;">&#108;&#111;&#101;&#99;&#104;&#110;&#101;&#114;&#64;&#117;&#110;&#105;&#115;&#116;&#114;&#97;&#46;&#102;&#114;</a>
+<h2 id="example">Example</h2>
+<pre><code class="language-py">import tkdraw.basic as graph
+
+# size of the window (pixels)
+HEIGHT = 400
+WIDTH = 600
+
+# open the window
+graph.open(HEIGHT, WIDTH)
+
+# plot a horizontal line in the middle
+for j in range(WIDTH):
+    graph.plot(HEIGHT//2, j)
+
+# wait for the user to close the window
+graph.wait()
+</code></pre>
+<p>Copyright 2018-2021, Vincent Loechner.
 Distributed under the MIT license (see LICENSE)
 <a href="https://github.com/vincentloechner/pytkdraw.git">https://github.com/vincentloechner/pytkdraw.git</a></p>
 <details class="source">
@@ -41,17 +61,38 @@ Distributed under the MIT license (see LICENSE)
 <pre><code class="python">&#34;&#34;&#34;Basic interface to the tkdraw.screen module.
 
 This module provides four elementary functions to:
+
 - open a window
 - plot a pixel at a given position in the window
 - refresh the window (at any step of your program)
 - wait for the user to close the window
 
-Python3 will fail with an &#34;AssertionError&#34; if any precondition of those
-functions is not met.
+All these functions return nothing (None).
+A python exception (`AssertionError`, `InterruptedError` or `ValueError`) will
+be raised if any precondition of those functions is not met.
 
 Test this module using `python3 -m tkdraw.basic`
 
-Copyright 2019-2021, Vincent Loechner &lt;loechner@unistra.fr&gt;
+Example:
+    ```py
+    import tkdraw.basic as graph
+
+    # size of the window (pixels)
+    HEIGHT = 400
+    WIDTH = 600
+
+    # open the window
+    graph.open(HEIGHT, WIDTH)
+
+    # plot a horizontal line in the middle
+    for j in range(WIDTH):
+        graph.plot(HEIGHT//2, j)
+
+    # wait for the user to close the window
+    graph.wait()
+    ```
+
+Copyright 2018-2021, Vincent Loechner.
 Distributed under the MIT license (see LICENSE)
 https://github.com/vincentloechner/pytkdraw.git
 &#34;&#34;&#34;
@@ -63,18 +104,17 @@ window = None
 
 
 def open(height, width):
-    &#34;&#34;&#34;Open a window of the given height, width.
+    &#34;&#34;&#34;Open a window.
 
-    _Parameters_
-    - height, width (int) : size of the window (in pixels)
+    Args:
+        height (int): height of the window (in pixels)
+        width (int): width of the window (in pixels)
 
-    _Preconditions_
-    - this function can be called only once, but if you wait() for the user to
-      close a previously opened window you can open a new one.
+    Raises:
+        AssertionError: if the window was already opened
     &#34;&#34;&#34;
     global window
-    assert window is None, &#34;ERROR : function open() was called twice\
- in your program!&#34;
+    assert not window, &#34;ERROR: function open() was called twice!&#34;
     window = tkd.open((height, width), 1, grid=False)
 
 
@@ -82,22 +122,23 @@ def plot(line, column, color=&#34;black&#34;):
     &#34;&#34;&#34;Plot a pixel at position (line, column).
 
     Usage notice : the effective rendering of this pixel will only be done once
-    you call refresh() or wait().
+    you call the refresh() or wait() function.
 
-    _Parameters_
-    - line, column (int): position of the pixel to plot
-      (0, 0) is the top-left position.
-    Optional:
-    - color (str): a color (default value: &#34;black&#34;).
-      This string shall contain a tkinter-compatible color string -
-      for a list of predefined color names see for example:
-      https://www.wikipython.com/tkinter-ttk-tix/summary-information/colors/
-      You can also specify an RGB-style color such as &#34;#FF0000&#34; for red.
+    Args:
+        line (int): vertical position of the pixel to plot
+        column (int): horizontal position of the pixel to plot
+            (0, 0) is the top-left position.
+        color (str, optional): a color (default value: &#34;black&#34;).
+            This string shall contain a tkinter-compatible color string -
+            for a list of predefined color names see for example:
+            https://www.wikipython.com/tkinter-ttk-tix/summary-information/\
+colors/
+            You can also specify an RGB-style color such as &#34;#FF0000&#34; for red.
 
-    _Preconditions_
-    - the window must have been opened with a call to open(height, width)
-    - 0 &lt;= line &lt; height
-    - 0 &lt;= column &lt; width
+    Raises:
+        AssertionError: if the window was not opened
+        InterruptedError: if the window was closed by the user
+        ValueError: if not ((0 &lt;= line &lt; height) and (0 &lt;= column &lt; width))
     &#34;&#34;&#34;
     assert window, &#34;ERROR: trying to plot in a non-existing window!&#34;
     window.draw_tile((line, column), color=color, refresh=False)
@@ -109,11 +150,12 @@ def refresh():
     All plots that you did before this call will be displayed for real in the
     window.
 
-    _Parameters_
-    None
+    Args:
+        None
 
-    _Preconditions_
-    - the window must have been opened
+    Raises:
+        AssertionError: if the window was not opened
+        InterruptedError: if the window was closed by the user
     &#34;&#34;&#34;
     assert window, &#34;ERROR: trying to refresh a non existing window!&#34;
     window.refresh()
@@ -125,16 +167,16 @@ def wait():
     This function is blocking, it will return once the user has (1) closed the
     window using the mouse, or (2) hit the &#39;escape&#39; or &#39;q&#39; key.
 
-    Usage notice: you have to call this function before the end of your
-    program, or you won&#39;t be able to see the content of the window. If you
-    don&#39;t call this function, the window will just disapear when the program
-    exits.
+    Note:
+        You have to call this function before the end of your program, or you
+        won&#39;t be able to see the content of the window. If you don&#39;t call this
+        function, the window will just disapear when the program exits.
 
-    _Parameters_
-    None
+    Args:
+        None
 
-    _Preconditions_
-    - the window must have been opened
+    Raises:
+        AssertionError: if the window was not opened
     &#34;&#34;&#34;
     global window
 
@@ -177,29 +219,35 @@ if __name__ == &#34;__main__&#34;:
 <span>def <span class="ident">open</span></span>(<span>height, width)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Open a window of the given height, width.</p>
-<p><em>Parameters</em>
-- height, width (int) : size of the window (in pixels)</p>
-<p><em>Preconditions</em>
-- this function can be called only once, but if you wait() for the user to
-close a previously opened window you can open a new one.</p></div>
+<div class="desc"><p>Open a window.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>height</code></strong> :&ensp;<code>int</code></dt>
+<dd>height of the window (in pixels)</dd>
+<dt><strong><code>width</code></strong> :&ensp;<code>int</code></dt>
+<dd>width of the window (in pixels)</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>AssertionError</code></dt>
+<dd>if the window was already opened</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def open(height, width):
-    &#34;&#34;&#34;Open a window of the given height, width.
+    &#34;&#34;&#34;Open a window.
 
-    _Parameters_
-    - height, width (int) : size of the window (in pixels)
+    Args:
+        height (int): height of the window (in pixels)
+        width (int): width of the window (in pixels)
 
-    _Preconditions_
-    - this function can be called only once, but if you wait() for the user to
-      close a previously opened window you can open a new one.
+    Raises:
+        AssertionError: if the window was already opened
     &#34;&#34;&#34;
     global window
-    assert window is None, &#34;ERROR : function open() was called twice\
- in your program!&#34;
+    assert not window, &#34;ERROR: function open() was called twice!&#34;
     window = tkd.open((height, width), 1, grid=False)</code></pre>
 </details>
 </dd>
@@ -209,20 +257,30 @@ close a previously opened window you can open a new one.</p></div>
 <dd>
 <div class="desc"><p>Plot a pixel at position (line, column).</p>
 <p>Usage notice : the effective rendering of this pixel will only be done once
-you call refresh() or wait().</p>
-<p><em>Parameters</em>
-- line, column (int): position of the pixel to plot
-(0, 0) is the top-left position.
-Optional:
-- color (str): a color (default value: "black").
+you call the refresh() or wait() function.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>line</code></strong> :&ensp;<code>int</code></dt>
+<dd>vertical position of the pixel to plot</dd>
+<dt><strong><code>column</code></strong> :&ensp;<code>int</code></dt>
+<dd>horizontal position of the pixel to plot
+(0, 0) is the top-left position.</dd>
+<dt><strong><code>color</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>a color (default value: "black").
 This string shall contain a tkinter-compatible color string -
 for a list of predefined color names see for example:
 <a href="https://www.wikipython.com/tkinter-ttk-tix/summary-information/colors/">https://www.wikipython.com/tkinter-ttk-tix/summary-information/colors/</a>
-You can also specify an RGB-style color such as "#FF0000" for red.</p>
-<p><em>Preconditions</em>
-- the window must have been opened with a call to open(height, width)
-- 0 &lt;= line &lt; height
-- 0 &lt;= column &lt; width</p></div>
+You can also specify an RGB-style color such as "#FF0000" for red.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>AssertionError</code></dt>
+<dd>if the window was not opened</dd>
+<dt><code>InterruptedError</code></dt>
+<dd>if the window was closed by the user</dd>
+<dt><code>ValueError</code></dt>
+<dd>if not ((0 &lt;= line &lt; height) and (0 &lt;= column &lt; width))</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -231,22 +289,23 @@ You can also specify an RGB-style color such as "#FF0000" for red.</p>
     &#34;&#34;&#34;Plot a pixel at position (line, column).
 
     Usage notice : the effective rendering of this pixel will only be done once
-    you call refresh() or wait().
+    you call the refresh() or wait() function.
 
-    _Parameters_
-    - line, column (int): position of the pixel to plot
-      (0, 0) is the top-left position.
-    Optional:
-    - color (str): a color (default value: &#34;black&#34;).
-      This string shall contain a tkinter-compatible color string -
-      for a list of predefined color names see for example:
-      https://www.wikipython.com/tkinter-ttk-tix/summary-information/colors/
-      You can also specify an RGB-style color such as &#34;#FF0000&#34; for red.
+    Args:
+        line (int): vertical position of the pixel to plot
+        column (int): horizontal position of the pixel to plot
+            (0, 0) is the top-left position.
+        color (str, optional): a color (default value: &#34;black&#34;).
+            This string shall contain a tkinter-compatible color string -
+            for a list of predefined color names see for example:
+            https://www.wikipython.com/tkinter-ttk-tix/summary-information/\
+colors/
+            You can also specify an RGB-style color such as &#34;#FF0000&#34; for red.
 
-    _Preconditions_
-    - the window must have been opened with a call to open(height, width)
-    - 0 &lt;= line &lt; height
-    - 0 &lt;= column &lt; width
+    Raises:
+        AssertionError: if the window was not opened
+        InterruptedError: if the window was closed by the user
+        ValueError: if not ((0 &lt;= line &lt; height) and (0 &lt;= column &lt; width))
     &#34;&#34;&#34;
     assert window, &#34;ERROR: trying to plot in a non-existing window!&#34;
     window.draw_tile((line, column), color=color, refresh=False)</code></pre>
@@ -259,10 +318,15 @@ You can also specify an RGB-style color such as "#FF0000" for red.</p>
 <div class="desc"><p>Refresh the window.</p>
 <p>All plots that you did before this call will be displayed for real in the
 window.</p>
-<p><em>Parameters</em>
-None</p>
-<p><em>Preconditions</em>
-- the window must have been opened</p></div>
+<h2 id="args">Args</h2>
+<p>None</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>AssertionError</code></dt>
+<dd>if the window was not opened</dd>
+<dt><code>InterruptedError</code></dt>
+<dd>if the window was closed by the user</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -273,11 +337,12 @@ None</p>
     All plots that you did before this call will be displayed for real in the
     window.
 
-    _Parameters_
-    None
+    Args:
+        None
 
-    _Preconditions_
-    - the window must have been opened
+    Raises:
+        AssertionError: if the window was not opened
+        InterruptedError: if the window was closed by the user
     &#34;&#34;&#34;
     assert window, &#34;ERROR: trying to refresh a non existing window!&#34;
     window.refresh()</code></pre>
@@ -290,14 +355,17 @@ None</p>
 <div class="desc"><p>Wait for the user to close the window.</p>
 <p>This function is blocking, it will return once the user has (1) closed the
 window using the mouse, or (2) hit the 'escape' or 'q' key.</p>
-<p>Usage notice: you have to call this function before the end of your
-program, or you won't be able to see the content of the window. If you
-don't call this function, the window will just disapear when the program
-exits.</p>
-<p><em>Parameters</em>
-None</p>
-<p><em>Preconditions</em>
-- the window must have been opened</p></div>
+<h2 id="note">Note</h2>
+<p>You have to call this function before the end of your program, or you
+won't be able to see the content of the window. If you don't call this
+function, the window will just disapear when the program exits.</p>
+<h2 id="args">Args</h2>
+<p>None</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>AssertionError</code></dt>
+<dd>if the window was not opened</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -308,16 +376,16 @@ None</p>
     This function is blocking, it will return once the user has (1) closed the
     window using the mouse, or (2) hit the &#39;escape&#39; or &#39;q&#39; key.
 
-    Usage notice: you have to call this function before the end of your
-    program, or you won&#39;t be able to see the content of the window. If you
-    don&#39;t call this function, the window will just disapear when the program
-    exits.
+    Note:
+        You have to call this function before the end of your program, or you
+        won&#39;t be able to see the content of the window. If you don&#39;t call this
+        function, the window will just disapear when the program exits.
 
-    _Parameters_
-    None
+    Args:
+        None
 
-    _Preconditions_
-    - the window must have been opened
+    Raises:
+        AssertionError: if the window was not opened
     &#34;&#34;&#34;
     global window
 
