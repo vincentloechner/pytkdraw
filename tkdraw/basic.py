@@ -68,9 +68,9 @@ def plot(line, column, color="black"):
     you call the refresh() or wait() function.
 
     Args:
-        line (int): vertical position of the pixel to plot
-        column (int): horizontal position of the pixel to plot
+        line (int): vertical position of the pixel to plot.
             (0, 0) is the top-left position.
+        column (int): horizontal position of the pixel to plot
         color (str, optional): a color (default value: "black").
             This string shall contain a tkinter-compatible color string,
             for a list of predefined color names see for example:
