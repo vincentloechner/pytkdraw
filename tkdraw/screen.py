@@ -23,10 +23,14 @@ import queue
 class open(tk.Canvas):
     """Main class for a window containing a board (2D grid).
 
-    This class inherits from tkinter's canvas class.
+    The 2D grid is pythonesque: always starts at top-left position (0, 0), in
+    row-major order, ends at (height-1, width-1) included. All coordinates and
+    sizes are expressed as iterable objects (a tuple or a list for example) of
+    two integers.
 
-    To open a window containing just an array of pixels, set the pixels
-    parameter to 1 and grid to False.
+    To open a window containing just an array of pixels, set the `pixels`
+    parameter to 1 and `grid` to False.
+    This class inherits from tkinter's canvas class.
 
     Example:
         ```
@@ -40,8 +44,11 @@ class open(tk.Canvas):
         size ([int, int]): a couple (height, width) specifying the size of
             the grid (default: (8, 8))
         pixels (int): number of pixels of a square (default: 100)
-        grid (bool): if True, prints a one-pixel large grid : horizontal and
-            vertical lines separating the squares (default: True)
+        grid (bool): if True, prints a one-pixel grid to separate the tiles:
+            horizontal and vertical lines (default: True) - the real size of
+            the window is also increased by one pixel to draw the right/bottom
+            lines
+
 
     Returns:
         The window object.
