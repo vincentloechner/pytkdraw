@@ -50,8 +50,8 @@ def open(height, width, zoom=1):
     Args:
         height (int): height of the window (in pixels)
         width (int): width of the window (in pixels)
-        zoom (int): zoom value (default: 1). A value of 2 will display 2x2
-            screen pixels wide points when plotting.
+        zoom (int, optional): zoom value (default: 1). A value of 2 will
+            display 2x2 screen pixels wide points when plotting.
 
     Raises:
         AssertionError: if the window was already opened
