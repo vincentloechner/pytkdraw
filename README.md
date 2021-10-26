@@ -96,9 +96,17 @@ the *Algorithms & Programming* course based on python3, in the first year of
 Strasbourg University Bachelor degree in Mathematics and Computer Science.
 Its original name was `graph.py`. The simplified `basic` module was written
 in 2019, for complete python3 beginners to feel more comfortable with very
-basic function calls (no objects).
+basic function calls (no classes or methods calls).
 
-Since then it was used by some 400 students applying to this diploma each year.
+Since then it is used by some 400 students applying to this diploma and
+learning to program in python3 each year.
+
+In 2021 it was translated to English, fully documented, updated to fit the
+PEP and coding style standards,
+and finally made freely available under the MIT license on
+[github](https://github.com/vincentloechner/pytkdraw).
+The python easy to install package was published on
+[PyPI](https://pypi.org/project/tkdraw/).
 
 [](---------------------------------------------------------------------------)
 ## COPYRIGHT
