@@ -14,7 +14,7 @@ ENLARGE = 50
 HEIGHT = ENLARGE*len(image)
 WIDTH = ENLARGE*len(image[0])
 # open a window of HEIGHTxWIDTH pixels (1-pixel sized tiles, no grid)
-g = screen.open((HEIGHT, WIDTH), 1, grid=False)
+g = screen.Screen((HEIGHT, WIDTH), 1, grid=False)
 
 # draw the enlarged image
 for y in range(HEIGHT):

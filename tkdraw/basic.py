@@ -58,7 +58,7 @@ def open(height, width, zoom=1):
     """
     global window
     assert not window, "ERROR: function open() was called twice!"
-    window = tkd.open((height, width), zoom, grid=False)
+    window = tkd.Screen((height, width), zoom, grid=False)
 
 
 def plot(line, column, color="black"):

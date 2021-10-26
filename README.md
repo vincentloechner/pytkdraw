@@ -10,8 +10,8 @@ canvas object, but unlike the tkinter module they are synchronous.
 
 The main module is tkdraw.screen. It is synchronous, which means that you don't
 have to handle asynchronous calls to predefined functions to react to the
-interface events. It provides the basic class `tkdraw.screen.open` that opens a
-tkinter window containing a canvas where you can draw a rectangular board
+interface events. It provides the basic class `tkdraw.screen.Screen` that opens
+a tkinter window containing a canvas where you can draw a rectangular board
 containing pieces or just pixels. There is a single function waiting for an
 event to occur and there are various drawing functions.
 Check the demo:
@@ -64,7 +64,7 @@ python3 -m pip install tkdraw
 import tkdraw.screen
 
 # open a window containing a 8x8 board, each tile is 100 pixels wide
-g = tkdraw.screen.open((8, 8), 100)
+g = tkdraw.screen.Screen((8, 8), 100)
 
 # draw checkered tiles
 for i in range(8):

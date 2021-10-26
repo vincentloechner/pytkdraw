@@ -3,7 +3,7 @@ import tkdraw.screen
 
 # open a window containing a 8x8 board,
 # each tile is 100 pixels wide,
-g = tkdraw.screen.open((8, 8), 100)
+g = tkdraw.screen.Screen((8, 8), 100)
 
 # draw checkered tiles
 for i in range(8):

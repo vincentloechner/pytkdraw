@@ -21,7 +21,7 @@ def test_screen():
     ]
     # open a window containing a HEIGHTxWIDTH board,
     # each tile is TILE_SIZE pixels wide,
-    g = tkdraw.screen.open((HEIGHT, WIDTH), TILE_SIZE)
+    g = tkdraw.screen.Screen((HEIGHT, WIDTH), TILE_SIZE)
 
     # draw checkered tiles in it
     for i in range(HEIGHT):

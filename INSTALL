@@ -27,7 +27,7 @@ python3 -m pip install tkdraw
 python3
 >>> import tkdraw
 >>> from tkdraw import screen
->>> help(screen.open)
+>>> help(screen.Screen)
 
 ------------------------------------------------------------------------------
 HOWTO move to development mode:
