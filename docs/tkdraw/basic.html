@@ -119,7 +119,7 @@ def open(height, width, zoom=1):
     &#34;&#34;&#34;
     global window
     assert not window, &#34;ERROR: function open() was called twice!&#34;
-    window = tkd.open((height, width), zoom, grid=False)
+    window = tkd.Screen((height, width), zoom, grid=False)
 
 
 def plot(line, column, color=&#34;black&#34;):
@@ -257,7 +257,7 @@ display 2x2 screen pixels wide points when plotting.</dd>
     &#34;&#34;&#34;
     global window
     assert not window, &#34;ERROR: function open() was called twice!&#34;
-    window = tkd.open((height, width), zoom, grid=False)</code></pre>
+    window = tkd.Screen((height, width), zoom, grid=False)</code></pre>
 </details>
 </dd>
 <dt id="tkdraw.basic.plot"><code class="name flex">
