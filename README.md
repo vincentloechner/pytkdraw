@@ -1,4 +1,4 @@
-# A basic draw GUI for Python3.
+# A simple draw GUI for Python3.
 
 [](---------------------------------------------------------------------------)
 ## CONTENT
@@ -8,23 +8,23 @@ graphical libraries for programming beginners or for people who just wish to
 easily draw simple graphical objects in a window. They are based on the tkinter
 canvas object, but unlike the tkinter module they are synchronous.
 
-The main module is tkdraw.screen. It is synchronous, which means that you don't
-have to handle asynchronous calls to predefined functions to react to the
-interface events. It provides the basic class `tkdraw.screen.Screen` that opens
-a tkinter window containing a canvas where you can draw a rectangular board
-containing pieces or just pixels. There is a single function waiting for an
-event to occur and there are various drawing functions.
+The main module is `tkdraw.screen`. It is synchronous, which means that you
+don't have to handle asynchronous calls to predefined functions to react to the
+interface events. It provides the simple class `tkdraw.screen.Screen` that
+opens a tkinter window containing a canvas where you can draw a rectangular
+board containing pieces, or just draw pixels. There is a single function
+waiting for an event to occur and there are various drawing functions.
 Check the demo:
 `python3 -m tkdraw.screen`.
 
-The tkdraw.basic module provides four elementary functions: to open a window,
+The `tkdraw.basic` module provides four elementary functions: to open a window,
 plot a pixel, refresh the window, and wait for the user to close it. It can be
 used by complete python beginners to learn how to write loops, and get a visual
 immediate result. Check the demo:
 `python3 -m tkdraw.basic`
 
-Some examples are available here:
-<https://github.com/vincentloechner/pytkdraw/tree/master/examples>
+Some examples are available [here]
+(https://github.com/vincentloechner/pytkdraw/tree/master/examples)
 
 [](---------------------------------------------------------------------------)
 ## DOCUMENTATION
