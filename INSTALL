@@ -6,6 +6,7 @@ HOWTO build and update the package on pypi from the git tree:
 - for testing add your real name to the project name
 
 1. build the archives from the main repository:
+rm dist/*
 python3 -m build
 
 2. upload them to pypi test repo:
