@@ -229,7 +229,7 @@ class Screen(tk.Canvas):
     def draw_grid(
         self, matrix=None, grid=True
     ):
-        """Print a complete grid of pieces, using the 10 default colors.
+        """Draw a complete grid of pieces, using the 10 default colors.
 
         Args:
             matrix (list of list of int): the players pieces matrix, of the
@@ -298,7 +298,7 @@ class Screen(tk.Canvas):
         color=None,
         refresh=True
     ):
-        """Draw a piece in position p=(line, column), player-colored.
+        """Draw a piece in position pos=(line, column), player-colored.
 
         Usage notice: don't use this function if your tiles are too small, you
         won't see the piece.
@@ -340,7 +340,7 @@ class Screen(tk.Canvas):
     def move_piece(
         self, obj, pos, refresh=True
     ):
-        """Move a piece (obj ID) in grid position pos (couple).
+        """Move a piece (obj ID) in grid position pos=(line, column).
 
         Args:
             obj (int): a previously created piece ID
@@ -374,7 +374,7 @@ class Screen(tk.Canvas):
         border=0,
         refresh=True
     ):
-        """Fill the inside of a tile in position p=(line, column) with a color.
+        """Fill a tile in position pos=(line, column) with a color.
 
         Args:
             pos ([int, int]): grid position (line, column)
@@ -476,8 +476,8 @@ class Screen(tk.Canvas):
                 point. (0,0) = top-left position.
             x_2 ([int, int]): pixel-wise positions (line, column) of the second
                 point, excluded.
-            color (str, optional): color of the inside (default: "black")
-                       if color == None, don't fill the circle.
+            color (str, optional): color of the inside (default: "black").
+                If color == None, don't fill the circle.
             border (int, optional): border thickness (default: 1) - borders can
                 overflow over the given pixels coordinates
             refresh (bool, optional): refresh the window after drawing
@@ -576,7 +576,7 @@ class Screen(tk.Canvas):
     def rm(
         self, obj, refresh=True
     ):
-        """Delete a graphical object (ID).
+        """Delete a graphical object.
 
         Args:
             obj (int): an object ID (returned by an object creation method)
@@ -673,8 +673,8 @@ class Screen(tk.Canvas):
             None
 
         Returns:
-        - a couple ([int, int]): pixel-wise position (line, column) relative to
-          (0,0) = top-left position in the window.
+            a couple ([int, int]): pixel-wise position (line, column) relative
+        to (0,0) = top-left position in the window.
         """
         # private: the mouse moved
         def _motion(event):

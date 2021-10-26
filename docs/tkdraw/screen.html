@@ -269,7 +269,7 @@ class Screen(tk.Canvas):
     def draw_grid(
         self, matrix=None, grid=True
     ):
-        &#34;&#34;&#34;Print a complete grid of pieces, using the 10 default colors.
+        &#34;&#34;&#34;Draw a complete grid of pieces, using the 10 default colors.
 
         Args:
             matrix (list of list of int): the players pieces matrix, of the
@@ -338,7 +338,7 @@ class Screen(tk.Canvas):
         color=None,
         refresh=True
     ):
-        &#34;&#34;&#34;Draw a piece in position p=(line, column), player-colored.
+        &#34;&#34;&#34;Draw a piece in position pos=(line, column), player-colored.
 
         Usage notice: don&#39;t use this function if your tiles are too small, you
         won&#39;t see the piece.
@@ -380,7 +380,7 @@ class Screen(tk.Canvas):
     def move_piece(
         self, obj, pos, refresh=True
     ):
-        &#34;&#34;&#34;Move a piece (obj ID) in grid position pos (couple).
+        &#34;&#34;&#34;Move a piece (obj ID) in grid position pos=(line, column).
 
         Args:
             obj (int): a previously created piece ID
@@ -414,7 +414,7 @@ class Screen(tk.Canvas):
         border=0,
         refresh=True
     ):
-        &#34;&#34;&#34;Fill the inside of a tile in position p=(line, column) with a color.
+        &#34;&#34;&#34;Fill a tile in position pos=(line, column) with a color.
 
         Args:
             pos ([int, int]): grid position (line, column)
@@ -516,8 +516,8 @@ class Screen(tk.Canvas):
                 point. (0,0) = top-left position.
             x_2 ([int, int]): pixel-wise positions (line, column) of the second
                 point, excluded.
-            color (str, optional): color of the inside (default: &#34;black&#34;)
-                       if color == None, don&#39;t fill the circle.
+            color (str, optional): color of the inside (default: &#34;black&#34;).
+                If color == None, don&#39;t fill the circle.
             border (int, optional): border thickness (default: 1) - borders can
                 overflow over the given pixels coordinates
             refresh (bool, optional): refresh the window after drawing
@@ -616,7 +616,7 @@ class Screen(tk.Canvas):
     def rm(
         self, obj, refresh=True
     ):
-        &#34;&#34;&#34;Delete a graphical object (ID).
+        &#34;&#34;&#34;Delete a graphical object.
 
         Args:
             obj (int): an object ID (returned by an object creation method)
@@ -713,8 +713,8 @@ class Screen(tk.Canvas):
             None
 
         Returns:
-        - a couple ([int, int]): pixel-wise position (line, column) relative to
-          (0,0) = top-left position in the window.
+            a couple ([int, int]): pixel-wise position (line, column) relative
+        to (0,0) = top-left position in the window.
         &#34;&#34;&#34;
         # private: the mouse moved
         def _motion(event):
@@ -1070,7 +1070,7 @@ yscrollcommand, yscrollincrement.</p></div>
     def draw_grid(
         self, matrix=None, grid=True
     ):
-        &#34;&#34;&#34;Print a complete grid of pieces, using the 10 default colors.
+        &#34;&#34;&#34;Draw a complete grid of pieces, using the 10 default colors.
 
         Args:
             matrix (list of list of int): the players pieces matrix, of the
@@ -1139,7 +1139,7 @@ yscrollcommand, yscrollincrement.</p></div>
         color=None,
         refresh=True
     ):
-        &#34;&#34;&#34;Draw a piece in position p=(line, column), player-colored.
+        &#34;&#34;&#34;Draw a piece in position pos=(line, column), player-colored.
 
         Usage notice: don&#39;t use this function if your tiles are too small, you
         won&#39;t see the piece.
@@ -1181,7 +1181,7 @@ yscrollcommand, yscrollincrement.</p></div>
     def move_piece(
         self, obj, pos, refresh=True
     ):
-        &#34;&#34;&#34;Move a piece (obj ID) in grid position pos (couple).
+        &#34;&#34;&#34;Move a piece (obj ID) in grid position pos=(line, column).
 
         Args:
             obj (int): a previously created piece ID
@@ -1215,7 +1215,7 @@ yscrollcommand, yscrollincrement.</p></div>
         border=0,
         refresh=True
     ):
-        &#34;&#34;&#34;Fill the inside of a tile in position p=(line, column) with a color.
+        &#34;&#34;&#34;Fill a tile in position pos=(line, column) with a color.
 
         Args:
             pos ([int, int]): grid position (line, column)
@@ -1317,8 +1317,8 @@ yscrollcommand, yscrollincrement.</p></div>
                 point. (0,0) = top-left position.
             x_2 ([int, int]): pixel-wise positions (line, column) of the second
                 point, excluded.
-            color (str, optional): color of the inside (default: &#34;black&#34;)
-                       if color == None, don&#39;t fill the circle.
+            color (str, optional): color of the inside (default: &#34;black&#34;).
+                If color == None, don&#39;t fill the circle.
             border (int, optional): border thickness (default: 1) - borders can
                 overflow over the given pixels coordinates
             refresh (bool, optional): refresh the window after drawing
@@ -1417,7 +1417,7 @@ yscrollcommand, yscrollincrement.</p></div>
     def rm(
         self, obj, refresh=True
     ):
-        &#34;&#34;&#34;Delete a graphical object (ID).
+        &#34;&#34;&#34;Delete a graphical object.
 
         Args:
             obj (int): an object ID (returned by an object creation method)
@@ -1514,8 +1514,8 @@ yscrollcommand, yscrollincrement.</p></div>
             None
 
         Returns:
-        - a couple ([int, int]): pixel-wise position (line, column) relative to
-          (0,0) = top-left position in the window.
+            a couple ([int, int]): pixel-wise position (line, column) relative
+        to (0,0) = top-left position in the window.
         &#34;&#34;&#34;
         # private: the mouse moved
         def _motion(event):
@@ -1640,8 +1640,8 @@ point. (0,0) = top-left position.</dd>
 <dd>pixel-wise positions (line, column) of the second
 point, excluded.</dd>
 <dt><strong><code>color</code></strong> :&ensp;<code>str</code>, optional</dt>
-<dd>color of the inside (default: "black")
-if color == None, don't fill the circle.</dd>
+<dd>color of the inside (default: "black").
+If color == None, don't fill the circle.</dd>
 <dt><strong><code>border</code></strong> :&ensp;<code>int</code>, optional</dt>
 <dd>border thickness (default: 1) - borders can
 overflow over the given pixels coordinates</dd>
@@ -1669,8 +1669,8 @@ overflow over the given pixels coordinates</dd>
             point. (0,0) = top-left position.
         x_2 ([int, int]): pixel-wise positions (line, column) of the second
             point, excluded.
-        color (str, optional): color of the inside (default: &#34;black&#34;)
-                   if color == None, don&#39;t fill the circle.
+        color (str, optional): color of the inside (default: &#34;black&#34;).
+            If color == None, don&#39;t fill the circle.
         border (int, optional): border thickness (default: 1) - borders can
             overflow over the given pixels coordinates
         refresh (bool, optional): refresh the window after drawing
@@ -1693,7 +1693,7 @@ overflow over the given pixels coordinates</dd>
 <span>def <span class="ident">draw_grid</span></span>(<span>self, matrix=None, grid=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Print a complete grid of pieces, using the 10 default colors.</p>
+<div class="desc"><p>Draw a complete grid of pieces, using the 10 default colors.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>matrix</code></strong> :&ensp;<code>list</code> of <code>list</code> of <code>int</code></dt>
@@ -1716,7 +1716,7 @@ to separate the tiles.</dd>
 <pre><code class="python">def draw_grid(
     self, matrix=None, grid=True
 ):
-    &#34;&#34;&#34;Print a complete grid of pieces, using the 10 default colors.
+    &#34;&#34;&#34;Draw a complete grid of pieces, using the 10 default colors.
 
     Args:
         matrix (list of list of int): the players pieces matrix, of the
@@ -1819,7 +1819,7 @@ point, excluded.</dd>
 <span>def <span class="ident">draw_piece</span></span>(<span>self, pos, player=0, color=None, refresh=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Draw a piece in position p=(line, column), player-colored.</p>
+<div class="desc"><p>Draw a piece in position pos=(line, column), player-colored.</p>
 <p>Usage notice: don't use this function if your tiles are too small, you
 won't see the piece.</p>
 <h2 id="args">Args</h2>
@@ -1850,7 +1850,7 @@ given, player is ignored.</dd>
     color=None,
     refresh=True
 ):
-    &#34;&#34;&#34;Draw a piece in position p=(line, column), player-colored.
+    &#34;&#34;&#34;Draw a piece in position pos=(line, column), player-colored.
 
     Usage notice: don&#39;t use this function if your tiles are too small, you
     won&#39;t see the piece.
@@ -1956,7 +1956,7 @@ given, player is ignored.</dd>
 <span>def <span class="ident">draw_tile</span></span>(<span>self, pos, color='black', border=0, refresh=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Fill the inside of a tile in position p=(line, column) with a color.</p>
+<div class="desc"><p>Fill a tile in position pos=(line, column) with a color.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>pos</code></strong> :&ensp;<code>[int, int]</code></dt>
@@ -1984,7 +1984,7 @@ overlap over neighboring tiles</dd>
     border=0,
     refresh=True
 ):
-    &#34;&#34;&#34;Fill the inside of a tile in position p=(line, column) with a color.
+    &#34;&#34;&#34;Fill a tile in position pos=(line, column) with a color.
 
     Args:
         pos ([int, int]): grid position (line, column)
@@ -2118,10 +2118,10 @@ closed the window abruptly.</dd>
 size, when the mouse is out of the window but the window still
 selected.</p>
 <h2 id="args">Args</h2>
-<p>None
-Returns:
-- a couple ([int, int]): pixel-wise position (line, column) relative to
-(0,0) = top-left position in the window.</p></div>
+<p>None</p>
+<h2 id="returns">Returns</h2>
+<p>a couple ([int, int]): pixel-wise position (line, column) relative
+to (0,0) = top-left position in the window.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -2138,8 +2138,8 @@ Returns:
         None
 
     Returns:
-    - a couple ([int, int]): pixel-wise position (line, column) relative to
-      (0,0) = top-left position in the window.
+        a couple ([int, int]): pixel-wise position (line, column) relative
+    to (0,0) = top-left position in the window.
     &#34;&#34;&#34;
     # private: the mouse moved
     def _motion(event):
@@ -2159,7 +2159,7 @@ Returns:
 <span>def <span class="ident">move_piece</span></span>(<span>self, obj, pos, refresh=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Move a piece (obj ID) in grid position pos (couple).</p>
+<div class="desc"><p>Move a piece (obj ID) in grid position pos=(line, column).</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>obj</code></strong> :&ensp;<code>int</code></dt>
@@ -2179,7 +2179,7 @@ Returns:
 <pre><code class="python">def move_piece(
     self, obj, pos, refresh=True
 ):
-    &#34;&#34;&#34;Move a piece (obj ID) in grid position pos (couple).
+    &#34;&#34;&#34;Move a piece (obj ID) in grid position pos=(line, column).
 
     Args:
         obj (int): a previously created piece ID
@@ -2305,7 +2305,7 @@ Good for speed, especially if you draw many things.</p>
 <span>def <span class="ident">rm</span></span>(<span>self, obj, refresh=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Delete a graphical object (ID).</p>
+<div class="desc"><p>Delete a graphical object.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>obj</code></strong> :&ensp;<code>int</code></dt>
@@ -2323,7 +2323,7 @@ Good for speed, especially if you draw many things.</p>
 <pre><code class="python">def rm(
     self, obj, refresh=True
 ):
-    &#34;&#34;&#34;Delete a graphical object (ID).
+    &#34;&#34;&#34;Delete a graphical object.
 
     Args:
         obj (int): an object ID (returned by an object creation method)
