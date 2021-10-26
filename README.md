@@ -24,8 +24,8 @@ immediate result.
 Check the demo:
 `python3 -m tkdraw.basic`
 
-Some examples are available [here]\
-(https://github.com/vincentloechner/pytkdraw/tree/master/examples)
+Some examples are available
+[here](https://github.com/vincentloechner/pytkdraw/tree/master/examples).
 
 [](---------------------------------------------------------------------------)
 ## DOCUMENTATION
