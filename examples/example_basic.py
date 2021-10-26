@@ -6,7 +6,7 @@ HEIGHT = 400
 WIDTH = 600
 
 # open the window
-graph.open(HEIGHT, WIDTH)
+graph.open_win(HEIGHT, WIDTH)
 
 # plot some red diagonals in it
 for i in range(HEIGHT):

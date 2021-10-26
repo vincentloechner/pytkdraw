@@ -1,4 +1,4 @@
-"""Basic draw graphical user interface (GUI) based on tkinter, synchroneous.
+"""Simple draw graphical user interface (GUI) based on tkinter, synchroneous.
 
 Test this module using `python3 -m tkdraw.screen`
 

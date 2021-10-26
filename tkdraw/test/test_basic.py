@@ -1,11 +1,13 @@
-"""Testing the tkdraw basic module."""
+"""Test the tkdraw.basic module."""
 import tkdraw.basic as graph
 
-def test_basic():
-    HEIGHT = 200
-    WIDTH = 400
+HEIGHT = 200
+WIDTH = 400
 
-    graph.open(HEIGHT, WIDTH)
+
+def test_basic():
+    """Test the tkdraw.basic module."""
+    graph.open_win(HEIGHT, WIDTH)
 
     for i in range(HEIGHT):
         for j in range(WIDTH):

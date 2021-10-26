@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>tkdraw.test.test_basic API documentation</title>
-<meta name="description" content="Testing the tkdraw basic module." />
+<meta name="description" content="Test the tkdraw.basic module." />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -22,19 +22,21 @@
 <h1 class="title">Module <code>tkdraw.test.test_basic</code></h1>
 </header>
 <section id="section-intro">
-<p>Testing the tkdraw basic module.</p>
+<p>Test the tkdraw.basic module.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;Testing the tkdraw basic module.&#34;&#34;&#34;
+<pre><code class="python">&#34;&#34;&#34;Test the tkdraw.basic module.&#34;&#34;&#34;
 import tkdraw.basic as graph
 
-def test_basic():
-    HEIGHT = 200
-    WIDTH = 400
+HEIGHT = 200
+WIDTH = 400
 
-    graph.open(HEIGHT, WIDTH)
+
+def test_basic():
+    &#34;&#34;&#34;Test the tkdraw.basic module.&#34;&#34;&#34;
+    graph.open_win(HEIGHT, WIDTH)
 
     for i in range(HEIGHT):
         for j in range(WIDTH):
@@ -56,16 +58,14 @@ def test_basic():
 <span>def <span class="ident">test_basic</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Test the tkdraw.basic module.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def test_basic():
-    HEIGHT = 200
-    WIDTH = 400
-
-    graph.open(HEIGHT, WIDTH)
+    &#34;&#34;&#34;Test the tkdraw.basic module.&#34;&#34;&#34;
+    graph.open_win(HEIGHT, WIDTH)
 
     for i in range(HEIGHT):
         for j in range(WIDTH):

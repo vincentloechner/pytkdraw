@@ -23,7 +23,7 @@ Example:
     WIDTH = 600
 
     # open the window
-    graph.open(HEIGHT, WIDTH)
+    graph.open_win(HEIGHT, WIDTH)
 
     # plot a horizontal line in the middle
     for j in range(WIDTH):
@@ -40,11 +40,11 @@ https://github.com/vincentloechner/pytkdraw.git
 import tkdraw.screen as tkd
 
 
-"""window (global): main window of this simplified version."""
-window = None
+# window (global): main window of this simplified version
+_WINDOW = None
 
 
-def open(height, width, zoom=1):
+def open_win(height, width, zoom=1):
     """Open a window.
 
     Args:
@@ -56,9 +56,12 @@ def open(height, width, zoom=1):
     Raises:
         AssertionError: if the window was already opened
     """
-    global window
-    assert not window, "ERROR: function open() was called twice!"
-    window = tkd.Screen((height, width), zoom, grid=False)
+    # pylint: disable=global-statement
+    # I really want to use a global in this module, to make those functions
+    # easier to use.
+    global _WINDOW
+    assert not _WINDOW, "ERROR: function open() was called twice!"
+    _WINDOW = tkd.Screen((height, width), zoom, grid=False)
 
 
 def plot(line, column, color="black"):
@@ -83,8 +86,8 @@ colors/>.
         InterruptedError: if the window was closed by the user
         ValueError: if not ((0 <= line < height) and (0 <= column < width))
     """
-    assert window, "ERROR: trying to plot in a non-existing window!"
-    window.draw_tile((line, column), color=color, refresh=False)
+    assert _WINDOW, "ERROR: trying to plot in a non-existing window!"
+    _WINDOW.draw_tile((line, column), color=color, refresh=False)
 
 
 def refresh():
@@ -100,8 +103,8 @@ def refresh():
         AssertionError: if the window was not opened
         InterruptedError: if the window was closed by the user
     """
-    assert window, "ERROR: trying to refresh a non existing window!"
-    window.refresh()
+    assert _WINDOW, "ERROR: trying to refresh a non existing window!"
+    _WINDOW.refresh()
 
 
 def wait():
@@ -121,19 +124,22 @@ def wait():
     Raises:
         AssertionError: if the window was not opened
     """
-    global window
+    # pylint: disable=global-statement
+    # I want to use a global in this module, to make those functions easier to
+    # use
+    global _WINDOW
 
-    assert window, "ERROR: trying to close a non existing window!"
-    window.refresh()
+    assert _WINDOW, "ERROR: trying to close a non existing window!"
+    _WINDOW.refresh()
     while True:
-        p = window.wait_event()
-        if p[0] == "END":
+        evt = _WINDOW.wait_event()
+        if evt[0] == "END":
             break
-        if p[0] == "key" and (p[1] == "Escape" or p[1] == "q"):
+        if evt[0] == "key" and (evt[1] == "Escape" or evt[1] == "q"):
             break
         # ignore all other events
-    window.close()
-    window = None
+    _WINDOW.close()
+    _WINDOW = None
 
 
 ##############################################################################
@@ -142,7 +148,7 @@ def wait():
 if __name__ == "__main__":
     HEIGHT = 300
     WIDTH = 400
-    open(HEIGHT, WIDTH)
+    open_win(HEIGHT, WIDTH)
     for i in range(HEIGHT):
         for j in range(WIDTH):
             plot(i, j,
