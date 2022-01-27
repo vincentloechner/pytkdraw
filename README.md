@@ -105,12 +105,12 @@ In 2021 it was translated to English, fully documented, updated to fit the
 PEP and coding style standards,
 and finally made freely available under the MIT license on
 [github](https://github.com/vincentloechner/pytkdraw).
-The python easy to install package was published on
+The python easy to install package is released on
 [PyPI](https://pypi.org/project/tkdraw/).
 
 [](---------------------------------------------------------------------------)
 ## COPYRIGHT
 
-Copyright © 2018-2021, Vincent Loechner.
+Copyright © 2018-2022, Vincent Loechner.
 
 Distributed under the MIT license.
