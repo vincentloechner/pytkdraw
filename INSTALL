@@ -7,7 +7,7 @@ sudo apt-get install python3-tk python3-pip
 
 [all]
 python3 -m pip install --upgrade pip
-python3 -m pip install tkdraw
+python3 -m pip install --upgrade tkdraw
 
 
 =====================================================================
@@ -21,7 +21,7 @@ python3 -m pip install tkdraw
 0a. Update and prerequisites
 [pip]
 python3 -m pip install --upgrade pip
-python3 -m pip install build twine
+python3 -m pip install --upgrade build twine
 
 1. build the archives from the main repository:
 rm dist/*
@@ -66,7 +66,7 @@ python3 -m pip uninstall tkdraw
 HOWTO generate the html documentation:
 
 1. install pdoc
-python3 -m pip install pdoc3
+python3 -m pip install --upgrade pdoc3
 
 2. generate
 python3 -m pdoc --html -o docs/ --force tkdraw
