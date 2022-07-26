@@ -31,7 +31,7 @@
 or
 &gt;&gt;&gt; help(tkd.Screen.FUNC_NAME)
 </code></pre>
-<p>Copyright 2018-2021, Vincent Loechner.
+<p>Copyright 2018-2022, Vincent Loechner.
 Distributed under the MIT license (see LICENSE)
 <a href="https://github.com/vincentloechner/pytkdraw.git">https://github.com/vincentloechner/pytkdraw.git</a></p>
 <details class="source">
@@ -51,7 +51,7 @@ or
 &gt;&gt;&gt; help(tkd.Screen.FUNC_NAME)
 ```
 
-Copyright 2018-2021, Vincent Loechner.
+Copyright 2018-2022, Vincent Loechner.
 Distributed under the MIT license (see LICENSE)
 https://github.com/vincentloechner/pytkdraw.git
 &#34;&#34;&#34;
@@ -477,7 +477,7 @@ class Screen(tk.Canvas):
     # draw pixels, lines, circles, etc.                                       #
     ###########################################################################
     # pylint: disable=too-many-arguments
-    # self doesn&#39;t count, and 3 are options
+    # self doesn&#39;t count, and 3 are optionial
     def draw_line(
         self, x_1, x_2, color=&#34;black&#34;, thickness=1, refresh=True
     ):
@@ -566,7 +566,7 @@ class Screen(tk.Canvas):
         return obj
 
     # pylint: disable=invalid-name
-    # I&#39;m too lazy to write &#39;background&#39;.
+    # I&#39;m too lazy to write &#39;background/foreground&#39;.
     def bg(
         self, obj, before=1, refresh=True
     ):
@@ -575,7 +575,7 @@ class Screen(tk.Canvas):
         Args:
             obj (int): object ID returned by an object creation method
             before (int, optional): the object behind which to hide (default:
-                1 = all)
+                all)
             refresh (bool, optional): refresh the window after drawing
                 (default: True)
 
@@ -584,8 +584,34 @@ class Screen(tk.Canvas):
         &#34;&#34;&#34;
         if not self.root:
             raise InterruptedError(&#34;window killed&#34;)
-        # se met en fond, derrière l&#39;objet &#39;before&#39;:
+
         self.tag_lower(obj, before)
+        if refresh:
+            self.update()
+
+    def fg(
+        self, obj, after=None, refresh=True
+    ):
+        &#34;&#34;&#34;Send a graphical object (ID) to the foreground.
+
+        Args:
+            obj (int): object ID returned by an object creation method
+            after (int, optional): the object after which to show up (default:
+                all)
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
+
+        Returns:
+            None
+        &#34;&#34;&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
+
+        if after:
+            self.tag_raise(obj, after)
+        else:
+            self.tag_raise(obj)
+
         if refresh:
             self.update()
 
@@ -669,7 +695,7 @@ class Screen(tk.Canvas):
                 if the user closes the window
         &#34;&#34;&#34;
         # private: called when the timer expires
-        def delay_expire():
+        def _delay_expire():
             self._eventq.put(None)
             self._idd = None
             self.root.quit()
@@ -679,7 +705,7 @@ class Screen(tk.Canvas):
         if delay is not None:
             if not self.root:
                 raise InterruptedError(&#34;window killed&#34;)
-            self._idd = self.root.after(delay, delay_expire)
+            self._idd = self.root.after(delay, _delay_expire)
         # This is Tk&#39;s main loop
         # checks the events and get out if something happens
         while True:
@@ -731,7 +757,7 @@ class Screen(tk.Canvas):
 
 
 ###########################################################################
-# Test program: 8x8 board, click to place/remove black/white pieces       #
+# Test program: 8x8 board, click to place/remove black and white pieces   #
 ###########################################################################
 if __name__ == &#34;__main__&#34;:
     SIZE = 8
@@ -772,7 +798,7 @@ if __name__ == &#34;__main__&#34;:
             if evt[0] == &#34;key&#34; and evt[1] in [&#34;q&#34;, &#34;Q&#34;, &#34;Escape&#34;]:
                 break
 
-            # ignore all events other than mouse click
+            # ignore all other events but mouse click
             if evt[0] != &#34;click&#34;:
                 continue
 
@@ -785,9 +811,10 @@ if __name__ == &#34;__main__&#34;:
                 # remove the piece at position (lig, col)
                 win.rm(tab[lig][col])
                 tab[lig][col] = None
+                # and same player plays again
 
             # remove the previous message
-            win.rm(msg)
+            win.rm(msg, refresh=False)
             # and put a new one
             msg = win.draw_text((PIXEL_SIZE//2, PIXEL_SIZE+PIXEL_SIZE//2),
                               [0, &#34;white player&#34;, &#34;black player&#34;][player])
@@ -1278,7 +1305,7 @@ yscrollcommand, yscrollincrement.</p></div>
     # draw pixels, lines, circles, etc.                                       #
     ###########################################################################
     # pylint: disable=too-many-arguments
-    # self doesn&#39;t count, and 3 are options
+    # self doesn&#39;t count, and 3 are optionial
     def draw_line(
         self, x_1, x_2, color=&#34;black&#34;, thickness=1, refresh=True
     ):
@@ -1367,7 +1394,7 @@ yscrollcommand, yscrollincrement.</p></div>
         return obj
 
     # pylint: disable=invalid-name
-    # I&#39;m too lazy to write &#39;background&#39;.
+    # I&#39;m too lazy to write &#39;background/foreground&#39;.
     def bg(
         self, obj, before=1, refresh=True
     ):
@@ -1376,7 +1403,7 @@ yscrollcommand, yscrollincrement.</p></div>
         Args:
             obj (int): object ID returned by an object creation method
             before (int, optional): the object behind which to hide (default:
-                1 = all)
+                all)
             refresh (bool, optional): refresh the window after drawing
                 (default: True)
 
@@ -1385,8 +1412,34 @@ yscrollcommand, yscrollincrement.</p></div>
         &#34;&#34;&#34;
         if not self.root:
             raise InterruptedError(&#34;window killed&#34;)
-        # se met en fond, derrière l&#39;objet &#39;before&#39;:
+
         self.tag_lower(obj, before)
+        if refresh:
+            self.update()
+
+    def fg(
+        self, obj, after=None, refresh=True
+    ):
+        &#34;&#34;&#34;Send a graphical object (ID) to the foreground.
+
+        Args:
+            obj (int): object ID returned by an object creation method
+            after (int, optional): the object after which to show up (default:
+                all)
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
+
+        Returns:
+            None
+        &#34;&#34;&#34;
+        if not self.root:
+            raise InterruptedError(&#34;window killed&#34;)
+
+        if after:
+            self.tag_raise(obj, after)
+        else:
+            self.tag_raise(obj)
+
         if refresh:
             self.update()
 
@@ -1470,7 +1523,7 @@ yscrollcommand, yscrollincrement.</p></div>
                 if the user closes the window
         &#34;&#34;&#34;
         # private: called when the timer expires
-        def delay_expire():
+        def _delay_expire():
             self._eventq.put(None)
             self._idd = None
             self.root.quit()
@@ -1480,7 +1533,7 @@ yscrollcommand, yscrollincrement.</p></div>
         if delay is not None:
             if not self.root:
                 raise InterruptedError(&#34;window killed&#34;)
-            self._idd = self.root.after(delay, delay_expire)
+            self._idd = self.root.after(delay, _delay_expire)
         # This is Tk&#39;s main loop
         # checks the events and get out if something happens
         while True:
@@ -1562,7 +1615,7 @@ yscrollcommand, yscrollincrement.</p></div>
 <dd>object ID returned by an object creation method</dd>
 <dt><strong><code>before</code></strong> :&ensp;<code>int</code>, optional</dt>
 <dd>the object behind which to hide (default:
-1 = all)</dd>
+all)</dd>
 <dt><strong><code>refresh</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>refresh the window after drawing
 (default: True)</dd>
@@ -1581,7 +1634,7 @@ yscrollcommand, yscrollincrement.</p></div>
     Args:
         obj (int): object ID returned by an object creation method
         before (int, optional): the object behind which to hide (default:
-            1 = all)
+            all)
         refresh (bool, optional): refresh the window after drawing
             (default: True)
 
@@ -1590,7 +1643,7 @@ yscrollcommand, yscrollincrement.</p></div>
     &#34;&#34;&#34;
     if not self.root:
         raise InterruptedError(&#34;window killed&#34;)
-    # se met en fond, derrière l&#39;objet &#39;before&#39;:
+
     self.tag_lower(obj, before)
     if refresh:
         self.update()</code></pre>
@@ -2048,6 +2101,55 @@ overlap over neighboring tiles</dd>
         self.draw_grid()</code></pre>
 </details>
 </dd>
+<dt id="tkdraw.screen.Screen.fg"><code class="name flex">
+<span>def <span class="ident">fg</span></span>(<span>self, obj, after=None, refresh=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Send a graphical object (ID) to the foreground.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>obj</code></strong> :&ensp;<code>int</code></dt>
+<dd>object ID returned by an object creation method</dd>
+<dt><strong><code>after</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>the object after which to show up (default:
+all)</dd>
+<dt><strong><code>refresh</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>refresh the window after drawing
+(default: True)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fg(
+    self, obj, after=None, refresh=True
+):
+    &#34;&#34;&#34;Send a graphical object (ID) to the foreground.
+
+    Args:
+        obj (int): object ID returned by an object creation method
+        after (int, optional): the object after which to show up (default:
+            all)
+        refresh (bool, optional): refresh the window after drawing
+            (default: True)
+
+    Returns:
+        None
+    &#34;&#34;&#34;
+    if not self.root:
+        raise InterruptedError(&#34;window killed&#34;)
+
+    if after:
+        self.tag_raise(obj, after)
+    else:
+        self.tag_raise(obj)
+
+    if refresh:
+        self.update()</code></pre>
+</details>
+</dd>
 <dt id="tkdraw.screen.Screen.message"><code class="name flex">
 <span>def <span class="ident">message</span></span>(<span>self, message)</span>
 </code></dt>
@@ -2414,7 +2516,7 @@ console</p>
             if the user closes the window
     &#34;&#34;&#34;
     # private: called when the timer expires
-    def delay_expire():
+    def _delay_expire():
         self._eventq.put(None)
         self._idd = None
         self.root.quit()
@@ -2424,7 +2526,7 @@ console</p>
     if delay is not None:
         if not self.root:
             raise InterruptedError(&#34;window killed&#34;)
-        self._idd = self.root.after(delay, delay_expire)
+        self._idd = self.root.after(delay, _delay_expire)
     # This is Tk&#39;s main loop
     # checks the events and get out if something happens
     while True:
@@ -2478,6 +2580,7 @@ console</p>
 <li><code><a title="tkdraw.screen.Screen.draw_text" href="#tkdraw.screen.Screen.draw_text">draw_text</a></code></li>
 <li><code><a title="tkdraw.screen.Screen.draw_tile" href="#tkdraw.screen.Screen.draw_tile">draw_tile</a></code></li>
 <li><code><a title="tkdraw.screen.Screen.erase" href="#tkdraw.screen.Screen.erase">erase</a></code></li>
+<li><code><a title="tkdraw.screen.Screen.fg" href="#tkdraw.screen.Screen.fg">fg</a></code></li>
 <li><code><a title="tkdraw.screen.Screen.message" href="#tkdraw.screen.Screen.message">message</a></code></li>
 <li><code><a title="tkdraw.screen.Screen.mouse_position" href="#tkdraw.screen.Screen.mouse_position">mouse_position</a></code></li>
 <li><code><a title="tkdraw.screen.Screen.move_piece" href="#tkdraw.screen.Screen.move_piece">move_piece</a></code></li>
