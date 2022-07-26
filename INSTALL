@@ -15,7 +15,7 @@ python3 -m pip install tkdraw
 =====================================================================
 
 0. Check version number and package name
-- each upload must have a different version number
+- each upload must have a different version number (setup.cfg)
 - for testing add your real name to the project name
 
 0a. Update and prerequisites

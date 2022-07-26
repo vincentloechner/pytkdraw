@@ -11,7 +11,7 @@ or
 >>> help(tkd.Screen.FUNC_NAME)
 ```
 
-Copyright 2018-2021, Vincent Loechner.
+Copyright 2018-2022, Vincent Loechner.
 Distributed under the MIT license (see LICENSE)
 https://github.com/vincentloechner/pytkdraw.git
 """
@@ -437,7 +437,7 @@ class Screen(tk.Canvas):
     # draw pixels, lines, circles, etc.                                       #
     ###########################################################################
     # pylint: disable=too-many-arguments
-    # self doesn't count, and 3 are options
+    # self doesn't count, and 3 are optionial
     def draw_line(
         self, x_1, x_2, color="black", thickness=1, refresh=True
     ):
@@ -526,7 +526,7 @@ class Screen(tk.Canvas):
         return obj
 
     # pylint: disable=invalid-name
-    # I'm too lazy to write 'background'.
+    # I'm too lazy to write 'background/foreground'.
     def bg(
         self, obj, before=1, refresh=True
     ):
@@ -535,7 +535,7 @@ class Screen(tk.Canvas):
         Args:
             obj (int): object ID returned by an object creation method
             before (int, optional): the object behind which to hide (default:
-                1 = all)
+                all)
             refresh (bool, optional): refresh the window after drawing
                 (default: True)
 
@@ -544,8 +544,34 @@ class Screen(tk.Canvas):
         """
         if not self.root:
             raise InterruptedError("window killed")
-        # se met en fond, derrière l'objet 'before':
+
         self.tag_lower(obj, before)
+        if refresh:
+            self.update()
+
+    def fg(
+        self, obj, after=None, refresh=True
+    ):
+        """Send a graphical object (ID) to the foreground.
+
+        Args:
+            obj (int): object ID returned by an object creation method
+            after (int, optional): the object after which to show up (default:
+                all)
+            refresh (bool, optional): refresh the window after drawing
+                (default: True)
+
+        Returns:
+            None
+        """
+        if not self.root:
+            raise InterruptedError("window killed")
+
+        if after:
+            self.tag_raise(obj, after)
+        else:
+            self.tag_raise(obj)
+
         if refresh:
             self.update()
 
@@ -629,7 +655,7 @@ class Screen(tk.Canvas):
                 if the user closes the window
         """
         # private: called when the timer expires
-        def delay_expire():
+        def _delay_expire():
             self._eventq.put(None)
             self._idd = None
             self.root.quit()
@@ -639,7 +665,7 @@ class Screen(tk.Canvas):
         if delay is not None:
             if not self.root:
                 raise InterruptedError("window killed")
-            self._idd = self.root.after(delay, delay_expire)
+            self._idd = self.root.after(delay, _delay_expire)
         # This is Tk's main loop
         # checks the events and get out if something happens
         while True:
@@ -691,7 +717,7 @@ class Screen(tk.Canvas):
 
 
 ###########################################################################
-# Test program: 8x8 board, click to place/remove black/white pieces       #
+# Test program: 8x8 board, click to place/remove black and white pieces   #
 ###########################################################################
 if __name__ == "__main__":
     SIZE = 8
@@ -732,7 +758,7 @@ if __name__ == "__main__":
             if evt[0] == "key" and evt[1] in ["q", "Q", "Escape"]:
                 break
 
-            # ignore all events other than mouse click
+            # ignore all other events but mouse click
             if evt[0] != "click":
                 continue
 
@@ -745,9 +771,10 @@ if __name__ == "__main__":
                 # remove the piece at position (lig, col)
                 win.rm(tab[lig][col])
                 tab[lig][col] = None
+                # and same player plays again
 
             # remove the previous message
-            win.rm(msg)
+            win.rm(msg, refresh=False)
             # and put a new one
             msg = win.draw_text((PIXEL_SIZE//2, PIXEL_SIZE+PIXEL_SIZE//2),
                               [0, "white player", "black player"][player])
